@@ -1,7 +1,7 @@
 import { Link} from "@remix-run/react";
 
 
-export default function Article1() {
+export default function Article2() {
 
 
   return (
