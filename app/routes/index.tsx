@@ -1,11 +1,11 @@
 
 import { Link } from "@remix-run/react";
-import banner from "../../public/old-comp1.jpeg";
 import analytics from "../../public/analytics1.jpeg"
+import banner from "../../public/old-comp1.jpeg"
 
-export default function Index() {
+export default function Art2() {
   return (
-    <main className="relative min-h-screen bg-white sm:flex sm:items-center sm:justify-center">
+    <main className=" min-h-screen bg-white  items-center justify-center">
 
             <h1 className="text-center text-6xl font-extrabold tracking-tight sm:text-8xl lg:text-9xl">
                 <span className="block uppercase text-blue-500 drop-shadow-md">
@@ -13,15 +13,9 @@ export default function Index() {
                 </span>
               </h1>
 
-              <p className="text-center text-6xl font-extrabold tracking-tight sm:text-xl lg:text-4xl"> Always Tasty:</p>
-              <Link
-                to="/article1"
-              >
-              </Link>
-              <Link
-                to="/article2"
-              >
-              </Link>
+              <p className="text-center text-6xl font-extrabold tracking-tight sm:text-xl lg:text-4xl"> Keeping it Tasty in 2023</p>
+
+
 
               <div className="mx-auto mt-10 max-w-sm sm:flex sm:max-w-none sm:justify-center shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30">
                 <Link
@@ -35,9 +29,9 @@ export default function Index() {
 
 
       <img
-        className="h-auto max-w-full rounded-full"
+        className="h-auto max-w-full rounded-full items-center justify-center"
         src={banner}
-        alt="dudes messing with an old computer"
+        alt="computer and graphs"
       />
             <h1 className="text-center text-4xl font-extrabold tracking-tight sm:text-8xl lg:text-9xl">
               <Link
@@ -47,7 +41,7 @@ export default function Index() {
               </Link></h1>
 
       <Link
-        to="/article1"
+        to="/article2"
       >
       <img
         className="h-auto max-w-full rounded-full shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30"
