@@ -6,13 +6,13 @@ export default function Article1() {
     <div>
 
       <img
-        className="h-full w-full object-cover"
+        className="h-full w-full object-cover mx-10"
         src={banner}
         alt="dudes messing with an old computer"
       />
 
-      <div className="pl-10">
-      <h1 className="text-center text-2xl font-extrabold tracking-light sm:text-4xl lg:text-7xl text-blue-500">Weird Things about the Internet and lies about JavaScript</h1>
+      <div className="pl-10 mx-36 lg:mx-72">
+      <h1 className="text-center text-2xl font-extrabold tracking-light sm:text-4xl lg:text-7xl text-blue-500 mx-10">Weird Things about the Internet and lies about JavaScript</h1>
         <p className="text-center text-xl font-extrabold tracking-tight sm:text-2xl lg:text-4xl">
         Sometimes it's important to take a break from JavaScript and just find out weird things about the internet. Sooo...lettuce dive in a bit. So sure, JavaScript is cool but what does it do? Well, that's a challenging thing to say with the rise of NodeJS and the developments of HTML5. For example, many will say you need JS for validating input values of a form before the data is sent to a web server, but HTML5 is also doing great work with form validation. So it would be a big rotten lie to say JS is the only way to do form validation on the world wide web and people are really leaning into shipping less JS these days so maybe it's time to dive even deeper into html form validation.
       </p>

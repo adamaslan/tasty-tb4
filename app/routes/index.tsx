@@ -5,9 +5,9 @@ import banner from "../../public/old-comp1.jpeg"
 
 export default function Art2() {
   return (
-    <main className=" min-h-screen bg-white  items-center justify-center">
+    <main className=" min-h-screen bg-white  items-center justify-center mx-36 lg:mx-72">
 
-            <h1 className="text-center text-6xl font-extrabold tracking-tight sm:text-8xl lg:text-9xl">
+            <h1 className="text-center text-6xl font-extrabold tracking-tight sm:text-8xl lg:text-9xl ">
                 <span className="block uppercase text-blue-500 drop-shadow-md">
             Tasty Tech Bytes
                 </span>
@@ -29,7 +29,7 @@ export default function Art2() {
 
 
       <img
-        className="h-auto max-w-full rounded-full items-center justify-center"
+        className="h-auto max-w-full rounded-full flex-col items-center justify-center"
         src={banner}
         alt="computer and graphs"
       />
@@ -44,7 +44,7 @@ export default function Art2() {
         to="/article2"
       >
       <img
-        className="h-auto max-w-full rounded-full shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30"
+        className="h-auto max-w-full flex-col rounded-full shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30"
         src={analytics}
         alt="computer and graphs"
       />

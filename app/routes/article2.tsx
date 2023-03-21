@@ -17,7 +17,7 @@ export default function Article2() {
         alt="dudes messing with an old computer"
       />
 
-      <div className="pl-10">
+      <div className="pl-10 mx-36 lg:mx-72">
         <h1 className="text-center text-2xl font-extrabold tracking-light sm:text-4xl lg:text-7xl text-blue-500">The Easy Way to Verify Domain Ownership with Google</h1>
 
         <p className="text-center text-xl font-extrabold tracking-tight sm:text-2xl lg:text-4xl">
