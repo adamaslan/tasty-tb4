@@ -33,7 +33,7 @@ export default function Art2() {
         src={banner}
         alt="computer and graphs"
       />
-            <h1 className="text-center text-4xl font-extrabold tracking-tight sm:text-8xl lg:text-9xl">
+            <h1 className="text-center text-xl font-bold tracking-tight sm:text-8xl lg:text-9xl">
               <Link
                 to="/article1"
               >
@@ -48,7 +48,7 @@ export default function Art2() {
         src={analytics}
         alt="computer and graphs"
       />
-      <h1 className="text-center text-4xl font-extrabold tracking-tight sm:text-8xl lg:text-9xl">
+      <h1 className="text-center text-lg font-bold tracking-tight sm:text-8xl lg:text-9xl">
 
         The Easy Way to Verify Domain Ownership with Google
      </h1>   </Link>
