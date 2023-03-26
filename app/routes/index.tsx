@@ -7,7 +7,7 @@ export default function Art2() {
   return (
     <main className=" min-h-screen bg-white  items-left justify-left mx-36 lg:mx-72">
 
-            <h1 className="text-left text-xl font-extrabold tracking-tight sm:text-3xl lg:text-4xl ">
+            <h1 className="text-left text-xl font-extrabold tracking-tight sm:text-3xl lg:text-6xl ">
                 <span className="block uppercase text-blue-500 drop-shadow-md">
             Tasty Tech Bytes
                 </span>
