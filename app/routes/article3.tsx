@@ -9,11 +9,11 @@ export default function Article3() {
           Sweet Little JavaScript Lies
         </h1>
         <img
-          className="mx-36 h-full  w-full"
+          className=" h-full  w-full"
           src={banner}
           alt="dudes messing with an old computer"
         />
-        <p className="text-left text-xl  tracking-tight sm:text-2xl lg:text-4xl">
+        <p className="text-left text-xl  tracking-tight sm:text-2xl lg:text-2xl">
           Sometimes it's important to take a break from JavaScript and just find
           out weird things about the internet. Sooo...lettuce dive in a bit. So
           sure, JavaScript is cool but what does it do? Well, that's a
@@ -21,7 +21,7 @@ export default function Article3() {
           of HTML5.{" "}
         </p>
         <br />{" "}
-        <p className="text-left text-xl  tracking-tight sm:text-2xl lg:text-4xl">
+        <p className="text-left text-xl  tracking-tight sm:text-2xl lg:text-2xl">
           For example, many will say you need JS for validating input values of
           a form before the data is sent to a web server, but HTML5 is also
           doing great work with form validation. So it would be a big rotten lie

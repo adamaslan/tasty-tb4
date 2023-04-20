@@ -15,9 +15,10 @@ export default function Article1() {
         />
 
         <div>
-          <p className="text-left text-lg tracking-tight sm:text-2xl lg:text-3xl">
+          <p className="text-left text-lg tracking-tight sm:text-2xl lg:text-2xl">
             Weird internet things. Let's go!
           </p>
+          <br />
           <ol className="text-left text-xl tracking-tight sm:text-2xl lg:text-2xl">
             <li className="pb-2">
               1. Before internet, there was ARPANET and packet switching.
