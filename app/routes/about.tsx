@@ -1,6 +1,6 @@
 import { Link } from "@remix-run/react";
 import banner from "../../public/old-comp1.jpeg";
-import { DonutRainbow } from "../components/donut";
+import DonutRainbow from "../components/Donut";
 export default function Article1() {
   return (
     <div>
