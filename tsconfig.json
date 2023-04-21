@@ -1,14 +1,6 @@
 {
   "exclude": ["./cypress"],
-  "include": [
-    "remix.env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "app/components/Donut.js",
-    "app/components/Donut.js",
-    "app/components/CameraControls.js",
-    "app/components/CameraControls.js"
-  ],
+  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2019"],
     "isolatedModules": true,
@@ -26,7 +18,6 @@
     // Remix takes care of building everything in `remix build`.
     "noEmit": true,
     "forceConsistentCasingInFileNames": true,
-    "allowJs": true,
-    "types": ["cypress", "acorn"]
+    "allowJs": true
   }
 }
