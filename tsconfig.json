@@ -1,6 +1,14 @@
 {
   "exclude": ["./cypress"],
-  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "remix.env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "app/components/Donut.js",
+    "app/components/Donut.js",
+    "app/components/CameraControls.js",
+    "app/components/CameraControls.js"
+  ],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2019"],
     "isolatedModules": true,
@@ -19,5 +27,6 @@
     "noEmit": true,
     "forceConsistentCasingInFileNames": true,
     "allowJs": true,
+    "types": ["cypress", "acorn"]
   }
 }
