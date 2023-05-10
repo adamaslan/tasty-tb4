@@ -1,88 +1,119 @@
-
 import { Link } from "@remix-run/react";
-import analytics from "../../public/analytics1.jpeg"
-import banner from "../../public/old-comp1.jpeg"
+import analytics from "../../public/analytics1.jpeg";
+import banner from "../../public/old-comp1.jpeg";
+import studio from "../../public/studio.jpg";
+import burden from "../../public/js-burden.jpeg";
+import box from "../../public/boxchicken2.jpeg";
 
 export default function Art2() {
   return (
-    <main className=" min-h-screen bg-white  items-left justify-left mx-36 lg:mx-72">
+    <main className=" items-left justify-left  mx-36 min-h-screen bg-white lg:mx-72">
+      <h1 className="text-left text-xl font-extrabold tracking-tight sm:text-3xl lg:text-6xl ">
+        <span className="block uppercase text-blue-500 drop-shadow-md">
+          Tasty Tech Bytes
+        </span>
+      </h1>
 
-            <h1 className="text-left text-xl font-extrabold tracking-tight sm:text-3xl lg:text-6xl ">
-                <span className="block uppercase text-blue-500 drop-shadow-md">
-            Tasty Tech Bytes
-                </span>
-              </h1>
+      <p className="text-left text-xl font-extrabold tracking-tight sm:text-xl lg:text-4xl">
+        {" "}
+        Keeping it Tasty in 2023
+      </p>
 
-              <p className="text-left text-xl font-extrabold tracking-tight sm:text-xl lg:text-4xl"> Keeping it Tasty in 2023</p>
+      <Link to="/article1">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
+            Code World - Helpful
+          </div>
 
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={banner}
+            alt="computer and graphs"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            4 Weird Things about the Internet
+          </h1>
+        </div>
+      </Link>
 
+      <Link to="/article2">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
+            Code World - Helpful
+          </div>
+          <img
+            className="m-2 h-auto max-w-full flex-col rounded-full shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30"
+            src={analytics}
+            alt="computer and graphs"
+          />
+          <h1 className="pb-3 text-left text-lg font-bold tracking-tight shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30 sm:text-3xl lg:text-4xl">
+            The Easy Way to Verify Domain Ownership with Google
+          </h1>{" "}
+        </div>{" "}
+      </Link>
 
-              <div className="mx-auto mt-10 max-w-sm sm:flex sm:max-w-none sm:justify-left shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30">
-                <Link
-                  to="/article1"
-                >
-                </Link>
+      <Link to="/article4">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
+            Code World - Helpful
+          </div>
+          <img
+            className="m-2 h-auto max-w-full flex-col rounded-full shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30"
+            src={studio}
+            alt="Studio by Warren Hansen"
+          />
+          <h1 className="pb-3 text-left text-lg font-bold tracking-tight shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30 sm:text-3xl lg:text-4xl">
+            The 3 Keys To Getting Your Dream Frontend or Full Stack Engineer Job
+          </h1>{" "}
+        </div>
+      </Link>
+      <Link to="/article3">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
+            Code World - Helpful
+          </div>
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={banner}
+            alt="computer and graphs"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            Sweet Little JavaScript Lies
+          </h1>{" "}
+        </div>
+      </Link>
+      <Link to="/article5">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
+            Code World - Helpful
+          </div>
 
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={burden}
+            alt="computer and graphs"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            VueJS as the Most Indie Yet Established Javascript Framework
+          </h1>
+        </div>
+      </Link>
+      <Link to="/article6">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
+            Code World - Helpful
+          </div>
 
-                {/*<p className="text-center text-6xl font-extrabold tracking-tight sm:text-8xl lg:text-9xl"> ARTICLES Coming Soon!</p>*/}
-              </div>
-
-<div className="bg-blue-900 text-lg text-white rounded-full font-bold tracking-tight p-1">Code World - Fun</div>
-      <img
-        className="h-auto max-w-full rounded-full flex-col items-left m-2 justify-left"
-        src={banner}
-        alt="computer and graphs"
-      />
-            <h1 className="text-left text-xl pb-4 font-bold tracking-tight sm:text-3xl lg:text-4xl lg:pb-12 ">
-              <Link
-                to="/article1"
-              >
-                4 Weird Things about the Internet
-              </Link></h1>
-
-      <Link
-        to="/article2"
-      >
-        <div className="bg-red-900 text-lg text-white rounded-full font-bold tracking-tight p-1">Code World - Helpful</div>
-      <img
-        className="h-auto max-w-full flex-col m-2 rounded-full shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30"
-        src={analytics}
-        alt="computer and graphs"
-      />
-      <h1 className="text-left text-lg pb-3 font-bold tracking-tight shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30 sm:text-3xl lg:text-4xl">
-
-        The Easy Way to Verify Domain Ownership with Google
-     </h1>   </Link>
-
-
-
-
-      <div className="mx-auto mt-10 max-w-sm sm:flex sm:max-w-none sm:justify-left shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30">
-        <Link
-          to="/article1"
-        >
-        </Link>
-
-
-        {/*<p className="text-center text-6xl font-extrabold tracking-tight sm:text-8xl lg:text-9xl"> ARTICLES Coming Soon!</p>*/}
-      </div>
-
-      <div className="bg-red-900 text-lg text-white rounded-full font-bold tracking-tight p-1 ">Code World - Helpful</div>
-      <img
-        className="h-auto max-w-full rounded-full flex-col items-left m-2 justify-left"
-        src={banner}
-        alt="computer and graphs"
-      />
-      <h1 className="text-left text-xl pb-4 font-bold tracking-tight sm:text-3xl lg:text-4xl lg:pb-12 ">
-        <Link
-          to="/article3"
-        >
-         Sweet Little JavaScript Lies
-        </Link></h1>
-
-
-
-
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={box}
+            alt="computer and graphs"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            Astro.js as the Most Innovative and Modern Javascript Framework
+          </h1>
+        </div>
+      </Link>
     </main>
-);
+  );
 }
