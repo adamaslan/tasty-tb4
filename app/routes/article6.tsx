@@ -13,7 +13,7 @@ export default function Article5() {
         <img
           className="mx-auto my-auto h-1/2 w-1/2 "
           src={box}
-          alt="Astro logo by Astro team"
+          alt="Chicken Box Space Ship"
         />{" "}
         <div>
           {" "}
@@ -35,6 +35,11 @@ export default function Article5() {
             makes it easy to build modern websites without sacrificing
             performance or user experience.{" "}
           </p>{" "}
+          <br />{" "}
+
+          <p className='text-left font-serif text-lg font-bold tracking-tight sm:text-2xl lg:text-3xl'>Astro islands are interactive UI components that render in isolation on a static HTML page. They use partial hydration, a technique that Astro handles automatically, to enable multiple islands with different functionalities on the same page. Astro uses zero client-side JavaScript by default because it renders every component to HTML ahead of time and then strips out all the JavaScript Astro islands are like mini-apps that can coexist harmoniously in a sea of HTML, bringing life and interactivity to your web pages.</p>
+
+
           <br />{" "}
           <p className="text-left font-serif text-lg font-bold tracking-tight sm:text-2xl lg:text-3xl">
             {" "}
