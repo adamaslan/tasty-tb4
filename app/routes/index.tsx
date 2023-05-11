@@ -5,11 +5,12 @@ import studio from "../../public/studio.jpg";
 import burden from "../../public/js-burden.jpeg";
 import box from "../../public/boxchicken2.jpeg";
 import graph4 from "../../public/graph4.jpeg";
+import blender1 from "../../public/blender1.jpeg";
 
 export default function Art2() {
   return (
-    <main className=" items-left justify-left  mx-36 min-h-screen bg-white lg:mx-72">
-      <h1 className="text-left text-xl font-extrabold tracking-tight sm:text-3xl lg:text-6xl ">
+    <main className=" items-left justify-left mx-4 min-h-screen bg-white lg:mx-36 md:mx-16">
+    <h1 className="text-left text-xl font-extrabold tracking-tight sm:text-3xl lg:text-6xl ">
         <span className="block uppercase text-blue-500 drop-shadow-md">
           Tasty Tech Bytes
         </span>
@@ -129,8 +130,27 @@ export default function Art2() {
           <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
             The Art of the Clean Install
           </h1>
+
         </div>
       </Link>
+      <Link to="/article7">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
+            Code World - Helpful
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={blender1}
+            alt="computer and graphs"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            The Pie Menu Rocks in Blender
+          </h1>
+
+        </div>
+      </Link>
+
     </main>
   );
 }
