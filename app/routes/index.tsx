@@ -4,6 +4,7 @@ import banner from "../../public/old-comp1.jpeg";
 import studio from "../../public/studio.jpg";
 import burden from "../../public/js-burden.jpeg";
 import box from "../../public/boxchicken2.jpeg";
+import graph4 from "../../public/graph4.jpeg";
 
 export default function Art2() {
   return (
@@ -111,6 +112,22 @@ export default function Art2() {
           />
           <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
             Astro.js as the Most Innovative and Modern Javascript Framework
+          </h1>
+        </div>
+      </Link>
+      <Link to="/article7">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
+            Code World - Helpful
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={graph4}
+            alt="computer and graphs"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            The Art of the Clean Install
           </h1>
         </div>
       </Link>
