@@ -1,10 +1,6 @@
 
 =
 .dockerignore,0/5/05a721ebe3ba0754116825ed1359ff1785f4bbac
-E
-app/components/Nav.js,f/2/f2074aaabf45f520d34363612e224dede185a2ae
-9
-	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 :
 
 dockerfile,5/5/558c49b604560afd1841f2a7b49e2f60bd1f99b3
@@ -12,16 +8,12 @@ dockerfile,5/5/558c49b604560afd1841f2a7b49e2f60bd1f99b3
 remix.config.js,c/c/cc4b0cd685c935a603874c74815751c81e9321c8
 A
 package-lock.json,f/a/fa288d1472d29beccb489a676f68739ad365fc47
-<
-app/root.tsx,8/1/81387e0b63b32ec9e1e4489ed96ee6cf6ed470bf
 D
 app/routes/notes.tsx,5/7/57689afdc32380e415c1740be3b14d122859cb90
 <
 app/utils.ts,e/9/e938c4a9362a8770ffa456bbc6c641b49056ace7
 9
 	server.js,d/c/dc60ea9ee1ff6246bf342463277d5b914db2883d
-<
-package.json,7/0/7030d0b2f71b999ff89a343de08c414af32fc93a
 D
 app/entry.client.tsx,d/2/d24c0e0b0f9f87d9c9b0fed487bc1107acdaf399
 E
@@ -61,8 +53,6 @@ G
 netlify.toml,b/7/b7603b2d52a305d1420312b2b0a2086a7fee9bf7
 >
 remix.env.d.ts,d/b/db8f03d196e903a6a72626a41aa06ddce1fe4782
-=
-tsconfig.json,6/1/61ebb9fd6e8cf9082658121d5d81e297791dacd0
 B
 tailwind.config.js,0/9/0918cbb76f2c44f223706cec9d31a32cd1177ce4
 <

@@ -8,8 +8,6 @@
 netlify.toml,b/7/b7603b2d52a305d1420312b2b0a2086a7fee9bf7
 >
 remix.env.d.ts,d/b/db8f03d196e903a6a72626a41aa06ddce1fe4782
-=
-tsconfig.json,6/1/61ebb9fd6e8cf9082658121d5d81e297791dacd0
 B
 tailwind.config.js,0/9/0918cbb76f2c44f223706cec9d31a32cd1177ce4
 <
