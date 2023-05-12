@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
-import { Canvas, useFrame, useLoader } from 'react-three-fiber';
-// import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+// import { Canvas, useFrame, useLoader } from 'react-three-fiber';
+  // import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 const MovingObject: React.FC = () => {
   const objectRef = useRef<THREE.Mesh>(null);
