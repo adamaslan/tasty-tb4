@@ -18,7 +18,7 @@ import { getUser } from "./session.server";
 import box from "../public/boxchicken2.jpeg";
 export const meta: MetaFunction = () => {
   return {
-    title: "Tasty Tech Bytes",
+    title: "Putting the Sass n Fun in Tech",
     "og:image": box
   };
 };
