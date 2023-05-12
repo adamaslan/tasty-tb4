@@ -8,10 +8,14 @@ import graph4 from "../../public/graph4.jpeg";
 import blender1 from "../../public/blender1.jpeg";
 import airpods from "../../public/airpods.jpeg";
 import js1 from "../../public/js1.jpeg";
-
 import soundguy1 from "../../public/soundsguy1.jpeg";
+import type {  } from "remix";
+
+export function meta() {
+  return {  "og:image": box}}
 
 export default function Art2() {
+
   return (
     <main className=" items-left justify-left mx-4 min-h-screen bg-white lg:mx-36 md:mx-16">
     <h1 className="text-left text-xl font-extrabold tracking-tight sm:text-4xl lg:text-6xl ">

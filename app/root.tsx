@@ -15,9 +15,12 @@ import {
 
 import tailwindStylesheetUrl from "./styles/tailwind.css";
 import { getUser } from "./session.server";
-
+import box from "../../public/boxchicken2.jpeg";
 export const meta: MetaFunction = () => {
-  return { title: "Tasty Tech Bytes" };
+  return {
+    title: "Tasty Tech Bytes",
+    "og:image": box
+  };
 };
 
 export const links: LinksFunction = () => {
