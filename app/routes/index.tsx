@@ -6,11 +6,15 @@ import burden from "../../public/js-burden.jpeg";
 import box from "../../public/boxchicken2.jpeg";
 import graph4 from "../../public/graph4.jpeg";
 import blender1 from "../../public/blender1.jpeg";
+import airpods from "../../public/airpods.jpeg";
+import js1 from "../../public/js1.jpeg";
+
+import soundguy1 from "../../public/soundsguy1.jpeg";
 
 export default function Art2() {
   return (
     <main className=" items-left justify-left mx-4 min-h-screen bg-white lg:mx-36 md:mx-16">
-    <h1 className="text-left text-xl font-extrabold tracking-tight sm:text-3xl lg:text-6xl ">
+    <h1 className="text-left text-xl font-extrabold tracking-tight sm:text-4xl lg:text-6xl ">
         <span className="block uppercase text-blue-500 drop-shadow-md">
           Tasty Tech Bytes
         </span>
@@ -54,6 +58,22 @@ export default function Art2() {
         </div>{" "}
       </Link>
 
+
+      <Link to="/article3">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
+            Code World - Helpful
+          </div>
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={js1}
+            alt="computer and graphs"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            Sweet Little JavaScript Lies
+          </h1>{" "}
+        </div>
+      </Link>
       <Link to="/article4">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
           <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
@@ -66,21 +86,6 @@ export default function Art2() {
           />
           <h1 className="pb-3 text-left text-lg font-bold tracking-tight shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30 sm:text-3xl lg:text-4xl">
             The 3 Keys To Getting Your Dream Frontend or Full Stack Engineer Job
-          </h1>{" "}
-        </div>
-      </Link>
-      <Link to="/article3">
-        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
-          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
-            Code World - Helpful
-          </div>
-          <img
-            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
-            src={banner}
-            alt="computer and graphs"
-          />
-          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
-            Sweet Little JavaScript Lies
           </h1>{" "}
         </div>
       </Link>
@@ -133,7 +138,7 @@ export default function Art2() {
 
         </div>
       </Link>
-      <Link to="/article7">
+      <Link to="/article8">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
           <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
             Code World - Helpful
@@ -150,7 +155,40 @@ export default function Art2() {
 
         </div>
       </Link>
+      <Link to="/article9">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
+            Code World - Helpful
+          </div>
 
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={airpods}
+            alt="computer and graphs"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            AirPods Audacity: How to make AirPods(or any other bluetooth audio) work with Audacity 2023
+          </h1>
+
+        </div>
+      </Link>
+      <Link to="/article10">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
+            Code World - Helpful
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={soundguy1}
+            alt="computer and graphs"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            Highlights from NAB 2023
+          </h1>
+
+        </div>
+      </Link>
     </main>
   );
 }

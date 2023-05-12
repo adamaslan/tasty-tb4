@@ -26,8 +26,8 @@ export default function Article4() {
 
 
         <br />
-        <p className="text-left text-lg tracking-tight sm:text-2xl lg:text-3xl font-serif font-bold"> For the vue docs, you can visit
-          <a href='https://vuejs.org/' className='text-blue-500'>{" "}here</a>.
+        <p className="text-left text-lg tracking-tight sm:text-2xl lg:text-3xl font-serif font-bold"> For the Pie Menu in Blender docs, you can visit
+          <a href='https://docs.blender.org/manual/en/latest/addons/interface/viewport_pies.html' className='text-blue-500'>{" "}here</a>.
         </p>
         <p className="text-center text-lg font-extrabold tracking-tight text-yellow-500 sm:text-2xl lg:text-4xl">
           Go back{" "}

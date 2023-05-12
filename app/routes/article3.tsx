@@ -1,5 +1,5 @@
 import { Link } from "@remix-run/react";
-import banner from "../../public/old-comp1.jpeg"
+import js1 from "../../public/js1.jpeg"
 
 export default function Article3() {
   return (
@@ -11,7 +11,7 @@ export default function Article3() {
         <h1 className="text-center text-2xl font-extrabold tracking-light sm:text-4xl lg:text-7xl text-blue-500">Sweet Little JavaScript Lies</h1>
         <img
           className="h-full w-full  mx-36"
-          src={banner}
+          src={js1}
           alt="dudes messing with an old computer"
         />
         <p className="text-left text-xl font-extrabold tracking-tight sm:text-2xl lg:text-4xl">
