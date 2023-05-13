@@ -7,10 +7,11 @@ export default function Article3() {
 
 
 
-      <div className="pl-10 mx-36 lg:mx-72">
-        <h1 className="text-center text-2xl font-extrabold tracking-light sm:text-4xl lg:text-7xl text-blue-500">Sweet Little JavaScript Lies</h1>
+      <div className=" mx-3 lg:mx-36">
+        <h1 className="tracking-light  text-center text-2xl font-extrabold text-blue-500 sm:text-4xl lg:text-5xl">
+        Sweet Little JavaScript Lies</h1>
         <img
-          className="h-full w-full  mx-36"
+          className="h-1/2 w-1/2 mx-auto my-auto "
           src={js1}
           alt="dudes messing with an old computer"
         />
