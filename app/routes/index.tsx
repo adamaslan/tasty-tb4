@@ -9,6 +9,7 @@ import blender1 from "../../public/blender1.jpeg";
 import airpods from "../../public/airpods.jpeg";
 import js1 from "../../public/js1.jpeg";
 import soundguy1 from "../../public/soundsguy1.jpeg";
+import webstorm1 from "../../public/webstorm1.jpeg";
 import type {  } from "remix";
 
 export function meta() {
@@ -28,11 +29,25 @@ export default function Art2() {
         {" "}
         Keeping it Tasty in 2023
       </p>
-
+      <Link to="/article12">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-blue-500 p-1 text-lg font-bold tracking-tight text-white">
+            Software - Webstorm
+          </div>
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={webstorm1}
+            alt="computer and graphs"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            The Three WebStorm Shortcuts to Rule Them All
+          </h1>{" "}
+        </div>
+      </Link>
       <Link to="/article1">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
-          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
-            Code World - Helpful
+          <div className="rounded-full bg-green-400 p-1 text-lg font-bold tracking-tight text-white">
+            Code World - The Internet
           </div>
 
           <img
@@ -48,8 +63,8 @@ export default function Art2() {
 
       <Link to="/article2">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
-          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
-            Code World - Helpful
+          <div className="rounded-full bg-green-500 p-1 text-lg font-bold tracking-tight text-white">
+            Code World - Google
           </div>
           <img
             className="m-2 h-auto max-w-full flex-col rounded-full shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30"
@@ -65,8 +80,8 @@ export default function Art2() {
 
       <Link to="/article3">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
-          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
-            Code World - Helpful
+          <div className="rounded-full bg-yellow-200 p-1 text-lg font-bold tracking-tight text-white">
+            JavaScript - Fun
           </div>
           <img
             className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
