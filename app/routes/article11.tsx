@@ -2,10 +2,12 @@
 
 import { Link } from "@remix-run/react";
 import MovingObject from '../components/chicken';
-
+// import { ClientOnly } from "remix-utils";
+ import { Suspense } from "react";
 
 
 export default function Article4() {
+  // @ts-ignore
   return (
     <div>
       <div className=" mx-3 lg:mx-36">
@@ -21,7 +23,9 @@ export default function Article4() {
           Maybe its better to think of what the baseline of web3 is. Maybe its like a cusp. Sort of like being a millenial and GenZ cusp kid. </p>
           <br />
           <div>
-            <MovingObject />
+            <Suspense fallback="null">
+              <MovingObject />
+            </Suspense>
           </div>
 
           <br />
