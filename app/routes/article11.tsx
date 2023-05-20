@@ -2,7 +2,9 @@
 
 import { Link } from "@remix-run/react";
 import MovingObject from '../components/chicken';
-// import { ClientOnly } from "remix-utils";
+
+import MovingObject1 from '../components/Cloud';
+ // import { ClientOnly } from "remix-utils";
  import { Suspense } from "react";
 
 
@@ -10,7 +12,12 @@ export default function Article4() {
   // @ts-ignore
   return (
     <div>
+
+      <div className="relative">
+
+
       <div className=" mx-3 lg:mx-36">
+        <MovingObject />
         <h1 className="tracking-light  text-center text-2xl font-extrabold text-blue-500 sm:text-4xl lg:text-5xl">
 
       ThreeJS, the old Web3? </h1>
@@ -22,16 +29,18 @@ export default function Article4() {
           <p className='text-left text-lg tracking-tight sm:text-2xl lg:text-3xl font-serif font-bold'>
           Maybe its better to think of what the baseline of web3 is. Maybe its like a cusp. Sort of like being a millenial and GenZ cusp kid. </p>
           <br />
-          <div>
-            <Suspense fallback="null">
-              <MovingObject />
-            </Suspense>
-          </div>
+
+
+
+
 
           <br />
           <p className="text-left text-lg tracking-tight sm:text-2xl lg:text-3xl font-serif font-bold"> For the docs on ThreeJS, you can visit
             <a href='https://threejs.org/' className='text-blue-500'>{" "}here</a>.
           </p>
+          <Suspense fallback={null}>
+            <MovingObject1 />
+          </Suspense>
           <br />
           <p className="text-left text-lg tracking-tight sm:text-2xl lg:text-3xl font-serif font-bold"> For some solid advice on film sound and sound mixers in NYC, you can visit
             <a href='https://www.nycsoundguy.com' className='text-blue-500'>{" "}NYC Sound Guy here</a>.
@@ -46,7 +55,9 @@ export default function Article4() {
             </Link>
           </p>
         </div>
+        </div>
       </div>
+
     </div>
   );
 }
