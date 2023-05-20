@@ -30,8 +30,6 @@ G
 app/routes/article1.tsx,4/4/4432dbec586625333293c62e9d8dedd90ec46869
 G
 app/routes/article3.tsx,1/2/12d3323644f088b936f80bb11d04297a35759dc0
-D
-app/routes/index.tsx,d/6/d649aa1c35a4a277e0721965caa77d26ac4b6d99
 G
 app/routes/article8.tsx,5/0/5053925bb69acec7622a4b925ac581243850603a
 <
