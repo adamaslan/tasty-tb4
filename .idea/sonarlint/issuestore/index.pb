@@ -57,8 +57,6 @@ G
 app/routes/article6.tsx,c/f/cfbd9926934541c84f77a8629d3b3f0ddde2878d
 G
 app/routes/article7.tsx,0/2/0238a067df814f45bc59fed72f8abce8633f7d3a
-E
-app/components/Nav.js,f/2/f2074aaabf45f520d34363612e224dede185a2ae
 =
 tsconfig.json,6/1/61ebb9fd6e8cf9082658121d5d81e297791dacd0
 9
@@ -71,8 +69,6 @@ G
 app/routes/article5.tsx,0/e/0e7c18bad607e701740e688d244852c5f1e46102
 G
 app/routes/article1.tsx,4/4/4432dbec586625333293c62e9d8dedd90ec46869
-G
-app/routes/article2.tsx,c/1/c16b0225023f093ec1ab662db56e6d508878892d
 G
 app/routes/article3.tsx,1/2/12d3323644f088b936f80bb11d04297a35759dc0
 D
