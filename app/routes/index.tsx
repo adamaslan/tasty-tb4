@@ -10,6 +10,7 @@ import airpods from "../../public/airpods.jpeg";
 import js1 from "../../public/js1.jpeg";
 import soundguy1 from "../../public/soundsguy1.jpeg";
 import webstorm1 from "../../public/webstorm1.jpeg";
+import cloud from "../../public/cloud1.jpeg"
 import type {  } from "remix";
 
 export function meta() {
@@ -206,6 +207,22 @@ export default function Art2() {
             Highlights from NAB 2023
           </h1>
 
+        </div>
+      </Link>
+      <Link to="/article11">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-yellow-400 p-1 text-lg font-bold tracking-tight text-white">
+            Code Art - ThreeJS
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={cloud}
+            alt="clouds"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            ThreeJS, the old Web3?
+          </h1>
         </div>
       </Link>
     </main>
