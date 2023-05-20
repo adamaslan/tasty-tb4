@@ -11,13 +11,13 @@ const Box1: React.FC = () => {
   return (
     <mesh ref={boxRef}>
       <Cloud
-        opacity={0.6}
-        speed={0.1}
-        width={20}
+        opacity={0.9}
+        speed={0.7}
+        width={200}
         depth={5}
         segments={20}
       />
-      <Sky distance={450000} sunPosition={[0, 1, 0]} inclination={0} azimuth={0.15} />
+      <Sky distance={45000} sunPosition={[0, 1, 0]} inclination={0} azimuth={0.15} />
     </mesh>
   );
 

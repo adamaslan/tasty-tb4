@@ -56,12 +56,12 @@ const Torus1: React.FC = () => {
 const MovingObject: React.FC<{children?: React.ReactNode}> = ({ children }) => {
   return (
     <Canvas className="absolute inset-0 z-0 w-screen h-screen">
-      <ambientLight />
+      {/*<ambientLight />*/}
       <pointLight position={[10, 10, 10]} />
       <Sphere1 />
       <Torus1 />
       {children}
-      <Stars radius={10} depth={20} saturation={0}/>
+      <Stars radius={10} depth={20} saturation={100} />
       <OrbitControls />
     </Canvas>
   );
