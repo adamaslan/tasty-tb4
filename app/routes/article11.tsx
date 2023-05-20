@@ -1,9 +1,9 @@
 
 
 import { Link } from "@remix-run/react";
-import MovingObject from '../components/chicken';
+import MovingObject from '../components/chicken.client';
 
-import MovingObject1 from '../components/Cloud';
+import MovingObject1 from '../components/Cloud.client';
  // import { ClientOnly } from "remix-utils";
  import { Suspense } from "react";
 
@@ -17,7 +17,7 @@ export default function Article4() {
 
 
       <div className=" mx-3 lg:mx-36">
-        <MovingObject />
+        <Suspense fallback={null}><MovingObject /> </Suspense>
         <h1 className="tracking-light  text-center text-2xl font-extrabold text-blue-500 sm:text-4xl lg:text-5xl">
 
       ThreeJS, the old Web3? </h1>
