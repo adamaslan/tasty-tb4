@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Sky, Cloud, OrbitControls, Text } from "@react-three/drei";
+import { Sky, Box, Sphere, Cylinder, Torus, OrbitControls, Text } from "@react-three/drei";
 import * as THREE from "three";
 
 // Create a box component that uses the custom material component
@@ -10,32 +10,29 @@ const Box1: React.FC = () => {
   useFrame(() => boxRef.current?.rotateY(0.01));
   return (
     <mesh ref={boxRef}>
-      <Cloud
-        opacity={0.9}
-        speed={0.7}
-        width={200}
-        depth={5}
-        segments={20}
-      />
-      <Sky distance={45000} sunPosition={[0, 1, 0]} inclination={0} azimuth={0.15} />
+      <Box position={[0, 0, 0]} args={[1, 1, 1]} />
+      <Sphere position={[2, 0, 0]} args={[1]} />
+      <Cylinder position={[-2, 0, 0]} args={[1]} />
+      <Torus position={[0, 2, 0]} args={[1]} />
+      <Sky distance={450000} sunPosition={[0, 1, 0]} inclination={0} azimuth={0.15} />
     </mesh>
   );
-
 };
 
 // Create a moving text component
-const MovingText: React.FC = () => {
+const MovingText: React.FC<{color: string; shape: number; position: [x: number, y: number, z: number]}> = ({ color, shape, position }) => {
   // Use a ref to move the text around randomly
   const textRef = useRef<THREE.Object3D>(null);
   useFrame((state) => {
     if (textRef.current) {
-      textRef.current.position.x = Math.sin(state.clock.elapsedTime) * 5;
-      textRef.current.position.y = Math.sin(state.clock.elapsedTime * 1.5) * 2;
+      textRef.current.position.x = position[0] + Math.sin(state.clock.elapsedTime * shape) * 5;
+      textRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * shape * 1.5) * 2;
     }
   });
   return (
-    <Text ref={textRef} fontSize={1} color={"lightblue"}>
+    <Text ref={textRef} fontSize={1} color={color} depthTest={false} position={position}>
       Tasty Tech Bytes
+      <meshBasicMaterial attach="material" color={color} />
     </Text>
   );
 };
@@ -52,13 +49,16 @@ const SetCanvasSize: React.FC = () => {
 // Create a moving object component that renders a box and some stars
 const MovingObject1: React.FC<{children?: React.ReactNode}> = ({ children }) => {
   return (
-    <Canvas>
-      <SetCanvasSize />
+    <Canvas >
+    <SetCanvasSize />
+    {/*  className="absolute inset-1 z-1 w-screen h-2/5 bg-gray-900"*/}
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
       <Box1 />
       {children}
-      <MovingText />
+      <MovingText color={"lightblue"} shape={1} position={[0, 0, 0]} />
+      <MovingText color={"pink"} shape={2} position={[5, 5, 0]} />
+      <MovingText color={"yellow"} shape={3} position={[-5,-5 , 0]} />
       <OrbitControls />
     </Canvas>
   );

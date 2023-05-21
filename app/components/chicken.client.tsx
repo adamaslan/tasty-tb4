@@ -55,9 +55,12 @@ const Torus1: React.FC = () => {
 // Create a moving object component that renders a sphere, a torus and some stars
 const MovingObject: React.FC<{children?: React.ReactNode}> = ({ children }) => {
   return (
-    <Canvas className="absolute inset-0 z-0 w-screen h-screen">
+    // Add tailwind classes to make the canvas more responsive and dark
+    <Canvas className="absolute inset-0 z-0 w-screen h-2/5 bg-gray-900">
       {/*<ambientLight />*/}
       <pointLight position={[10, 10, 10]} />
+      {/* Add a light pinkish light to the scene */}
+      <hemisphereLight skyColor="#ffcccc" groundColor="#000000" intensity={0.5} />
       <Sphere1 />
       <Torus1 />
       {children}
