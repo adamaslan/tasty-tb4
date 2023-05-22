@@ -10,11 +10,19 @@ const Box1: React.FC = () => {
   useFrame(() => boxRef.current?.rotateY(0.01));
   return (
     <mesh ref={boxRef}>
-      <Box position={[0, 0, 0]} args={[1, 1, 1]} />
-      <Sphere position={[2, 0, 0]} args={[1]} />
-      <Cylinder position={[-2, 0, 0]} args={[1]} />
-      <Torus position={[0, 2, 0]} args={[1]} />
-      <Sky distance={450000} sunPosition={[0, 1, 0]} inclination={0} azimuth={0.15} />
+      <Box position={[0, 0, 0]} args={[1, 1, 1]}>
+        <meshStandardMaterial attach="material" color={"red"} />
+      </Box>
+      <Sphere position={[2, 0, 0]} args={[1]}>
+        <meshStandardMaterial attach="material" color={"green"} />
+      </Sphere>
+      <Cylinder position={[-2, 0, 0]} args={[1]}>
+        <meshStandardMaterial attach="material" color={"blue"} />
+      </Cylinder>
+      <Torus position={[0, 2, 0]} args={[1]}>
+        <meshStandardMaterial attach="material" color={"yellow"} />
+      </Torus>
+      <Sky distance={450000} sunPosition={[0, 1, 0]} inclination={0} azimuth={0.75} />
     </mesh>
   );
 };
@@ -30,8 +38,8 @@ const MovingText: React.FC<{color: string; shape: number; position: [x: number, 
     }
   });
   return (
-    <Text ref={textRef} fontSize={1} color={color} depthTest={false} position={position}>
-      Tasty Tech Bytes
+    <Text ref={textRef} fontSize={1}  color={color} depthTest={false} position={position}>
+     nycpony
       <meshBasicMaterial attach="material" color={color} />
     </Text>
   );
@@ -58,7 +66,7 @@ const MovingObject1: React.FC<{children?: React.ReactNode}> = ({ children }) => 
       {children}
       <MovingText color={"lightblue"} shape={1} position={[0, 0, 0]} />
       <MovingText color={"pink"} shape={2} position={[5, 5, 0]} />
-      <MovingText color={"yellow"} shape={3} position={[-5,-5 , 0]} />
+      <MovingText color={"yellow"} shape={3} position={[2,2 ,-1]} />
       <OrbitControls />
     </Canvas>
   );
