@@ -10,10 +10,10 @@ const Box1: React.FC = () => {
   useFrame(() => boxRef.current?.rotateY(0.01));
   return (
     <mesh ref={boxRef}>
-      <Box position={[0, 0, 0]} args={[1, 1, 1]}>
+      <Box position={[2, 1, 0]} args={[1, 1, 1]}>
         <meshStandardMaterial attach="material" color={"red"} />
       </Box>
-      <Sphere position={[2, 0, 0]} args={[1]}>
+      <Sphere position={[6, 6, 0]} args={[1]}>
         <meshStandardMaterial attach="material" color={"green"} />
       </Sphere>
       <Cylinder position={[-2, 0, 0]} args={[1]}>
@@ -34,7 +34,8 @@ const MovingText: React.FC<{color: string; shape: number; position: [x: number, 
   useFrame((state) => {
     if (textRef.current) {
       textRef.current.position.x = position[0] + Math.sin(state.clock.elapsedTime * shape) * 5;
-      textRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * shape * 1.5) * 2;
+      textRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * shape * 1.5) ;
+      //* 2 consider adding multiplication
     }
   });
   return (
@@ -64,9 +65,9 @@ const MovingObject1: React.FC<{children?: React.ReactNode}> = ({ children }) => 
       <pointLight position={[10, 10, 10]} />
       <Box1 />
       {children}
-      <MovingText color={"lightblue"} shape={1} position={[0, 0, 0]} />
-      <MovingText color={"pink"} shape={2} position={[5, 5, 0]} />
-      <MovingText color={"yellow"} shape={3} position={[2,2 ,-1]} />
+      <MovingText color={"blue"} shape={1} position={[2,2 ,-1]} />
+      <MovingText color={"magenta"} shape={2} position={[5, 5, 0]} />
+      <MovingText color={"purple"} shape={3} position={[0 ,0 ,0]} />
       <OrbitControls />
     </Canvas>
   );
