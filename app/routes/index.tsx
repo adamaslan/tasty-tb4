@@ -20,6 +20,7 @@ export default function Art2() {
 
   return (
     <main className=" items-left justify-left mx-4 min-h-screen bg-white lg:mx-36 md:mx-16">
+    
     <h1 className="text-left text-xl font-extrabold tracking-tight sm:text-4xl lg:text-6xl ">
         <span className="block uppercase text-blue-500 drop-shadow-md">
           Tasty Tech Bytes
@@ -30,151 +31,9 @@ export default function Art2() {
         {" "}
         Keeping it Tasty in 2023
       </p>
-      <Link to="/article12">
-        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
-          <div className="rounded-full bg-blue-500 p-1 text-lg font-bold tracking-tight text-white">
-            Software - Webstorm
-          </div>
-          <img
-            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
-            src={webstorm1}
-            alt="computer and graphs"
-          />
-          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
-            The Three WebStorm Shortcuts to Rule Them All
-          </h1>{" "}
-        </div>
-      </Link>
-      <Link to="/article1">
-        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
-          <div className="rounded-full bg-green-400 p-1 text-lg font-bold tracking-tight text-white">
-            Code World - The Internet
-          </div>
-
-          <img
-            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
-            src={banner}
-            alt="computer and graphs"
-          />
-          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
-            4 Weird Things about the Internet
-          </h1>
-        </div>
-      </Link>
-
-      <Link to="/article2">
-        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
-          <div className="rounded-full bg-green-500 p-1 text-lg font-bold tracking-tight text-white">
-            Code World - Google
-          </div>
-          <img
-            className="m-2 h-auto max-w-full flex-col rounded-full shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30"
-            src={analytics}
-            alt="computer and graphs"
-          />
-          <h1 className="pb-3 text-left text-lg font-bold tracking-tight shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30 sm:text-3xl lg:text-4xl">
-            The Easy Way to Verify Domain Ownership with Google
-          </h1>{" "}
-        </div>{" "}
-      </Link>
-
-
-      <Link to="/article3">
-        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
-          <div className="rounded-full bg-yellow-200 p-1 text-lg font-bold tracking-tight text-white">
-            JavaScript - Fun
-          </div>
-          <img
-            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
-            src={js1}
-            alt="computer and graphs"
-          />
-          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
-            Sweet Little JavaScript Lies
-          </h1>{" "}
-        </div>
-      </Link>
-      <Link to="/article4">
-        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
-          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
-            Code World - Helpful
-          </div>
-          <img
-            className="m-2 h-auto max-w-full flex-col rounded-full shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30"
-            src={studio}
-            alt="Studio by Warren Hansen"
-          />
-          <h1 className="pb-3 text-left text-lg font-bold tracking-tight shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30 sm:text-3xl lg:text-4xl">
-            The 3 Keys To Getting Your Dream Frontend or Full Stack Engineer Job
-          </h1>{" "}
-        </div>
-      </Link>
-      <Link to="/article5">
-        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
-          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
-            Code World - Helpful
-          </div>
-
-          <img
-            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
-            src={burden}
-            alt="computer and graphs"
-          />
-          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
-            VueJS as the Most Indie Yet Established Javascript Framework
-          </h1>
-        </div>
-      </Link>
-      <Link to="/article6">
-        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
-          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
-            Code World - Helpful
-          </div>
-
-          <img
-            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
-            src={box}
-            alt="computer and graphs"
-          />
-          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
-            Astro.js as the Most Innovative and Modern Javascript Framework
-          </h1>
-        </div>
-      </Link>
-      <Link to="/article7">
-        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
-          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
-            Code World - Helpful
-          </div>
-
-          <img
-            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
-            src={graph4}
-            alt="computer and graphs"
-          />
-          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
-            The Art of the Clean Install
-          </h1>
-
-        </div>
-      </Link>
-      <Link to="/article8">
-        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
-          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
-            Code World - Helpful
-          </div>
-
-          <img
-            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
-            src={blender1}
-            alt="computer and graphs"
-          />
-          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
-            The Pie Menu Rocks in Blender
-          </h1>
-
-        </div>
-      </Link>
+      {/* div section */}
+      <div className="grid grid-cols-4 h-1/4 gap-4"> 
+      <div className="col-span-1  h-1/4  ">
       <Link to="/article9">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
           <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
@@ -192,6 +51,62 @@ export default function Art2() {
 
         </div>
       </Link>
+      
+      <Link to="/article8">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+        <div className="rounded-full bg-purple-900 p-1 text-lg font-bold tracking-tight text-white">
+            3D World - Helpful
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={blender1}
+            alt="computer and graphs"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            The Pie Menu Rocks in Blender
+          </h1>
+
+        </div>
+      </Link>
+      </div>
+      
+       <div className="col-span-2  h-1/4  "><Link to="/article12">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-blue-500 p-1 text-lg font-bold tracking-tight text-white">
+            Software - Webstorm
+          </div>
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={webstorm1}
+            alt="computer and graphs"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            The Three WebStorm Shortcuts to Rule Them All
+          </h1>{" "}
+        </div>
+      </Link></div>
+
+        <div className="col-span-1 h-1/4 "> <Link to="/article1">
+
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-green-400 p-1 text-lg font-bold tracking-tight text-white">
+            Code World - The Internet
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={banner}
+            alt="computer and graphs"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            4 Weird Things about the Internet
+          </h1>
+        </div>
+      </Link>
+      
+      
+     
       <Link to="/article10">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
           <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
@@ -209,6 +124,85 @@ export default function Art2() {
 
         </div>
       </Link>
+      </div> 
+        </div>
+
+        <div className="grid grid-cols-4 h-1/4 gap-4">
+          
+           <div className="col-span-1 row-span-1 "> <Link to="/article4">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
+            Code World - Helpful
+          </div>
+          <img
+            className="m-2 h-auto flex-col rounded-full shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30"
+            src={studio}
+            alt="Studio by Warren Hansen"
+          />
+          <h1 className="pb-3 text-left text-lg font-bold tracking-tight shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30 sm:text-3xl lg:text-4xl">
+            The 3 Keys To Getting Your Dream Frontend or Full Stack Engineer Job
+          </h1>{" "}
+        </div>
+      </Link></div> 
+           
+           <div className="col-span-1 "> <Link to="/article5">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
+            Code World - Helpful
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={burden}
+            alt="computer and graphs"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            VueJS as the Most Indie Yet Established Javascript Framework
+          </h1>
+        </div>
+      </Link></div>
+            <div className="col-span-1  ">
+      <Link to="/article6">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
+            Code World - Helpful
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={box}
+            alt="computer and graphs"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            Astro.js as the Most Innovative and Modern Javascript Framework
+          </h1>
+        </div>
+      </Link>
+      </div>
+             <div className="col-span-1  ">
+     
+     <Link to="/article7">
+       <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+         <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
+           Code World - Helpful
+         </div>
+
+         <img
+           className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+           src={graph4}
+           alt="computer and graphs"
+         />
+         <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+           The Art of the Clean Install
+         </h1>
+
+       </div>
+     </Link></div> 
+     </div>
+
+    
+     
+      
       <Link to="/article11">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
           <div className="rounded-full bg-yellow-400 p-1 text-lg font-bold tracking-tight text-white">
