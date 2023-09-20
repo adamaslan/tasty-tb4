@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Sky, Box, Sphere, Cylinder, Torus, OrbitControls, Text } from "@react-three/drei";
-import * as THREE from "three";
+
 
 // Create a box component that uses the custom material component
 const Box1: React.FC = () => {
@@ -39,7 +39,7 @@ const MovingText: React.FC<{color: string; shape: number; position: [x: number, 
     }
   });
   return (
-    <Text ref={textRef} fontSize={1}  color={color} depthTest={false} position={position}>
+    <Text ref={textRef} fontSize={1}  color={color} position={position}>
      nycpony
       <meshBasicMaterial attach="material" color={color} />
     </Text>
@@ -48,9 +48,9 @@ const MovingText: React.FC<{color: string; shape: number; position: [x: number, 
 
 // Create a component to set the size of the canvas
 const SetCanvasSize: React.FC = () => {
-  const { size, set } = useThree();
+  const { set } = useThree();
   React.useEffect(() => {
-    set({ size: { width: window.innerWidth, height: window.innerHeight } });
+    set({ size: { width: window.innerWidth, height: window.innerHeight, top: screenLeft, left: 0 } });
   }, [set]);
   return null;
 };
