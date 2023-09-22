@@ -32,7 +32,7 @@ export default function Art2() {
         Keeping it Tasty in 2023
       </p>
       {/* div section */}
-      <div className="grid grid-cols-4 h-1/4 gap-4"> 
+      <div className="grid lg:grid-cols-4 h-1/4 gap-4"> 
       <div className="col-span-1  h-1/4  ">
       <Link to="/article9">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
@@ -71,7 +71,7 @@ export default function Art2() {
       </Link>
       </div>
       
-       <div className="col-span-2  h-1/4  "><Link to="/article12">
+       <div className="lg:col-span-2  lg:h-1/4  "><Link to="/article12">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
           <div className="rounded-full bg-blue-500 p-1 text-lg font-bold tracking-tight text-white">
             Software - Webstorm
