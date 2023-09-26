@@ -31,7 +31,9 @@ export default function Art2() {
         {" "}
         Keeping it Tasty in 2023
       </p>
-      {/* div section */}
+      
+      {/* elaborate div section */}
+
       <div className="grid lg:grid-cols-4 h-1/4 gap-4"> 
       <div className="col-span-1  h-1/4  ">
       <Link to="/article9">
@@ -45,7 +47,7 @@ export default function Art2() {
             src={airpods}
             alt="computer and graphs"
           />
-          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+          <h1 className="pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
             AirPods Audacity: How to make AirPods(or any other bluetooth audio) work with Audacity 2023
           </h1>
 
@@ -63,7 +65,7 @@ export default function Art2() {
             src={blender1}
             alt="computer and graphs"
           />
-          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+          <h1 className="pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
             The Pie Menu Rocks in Blender
           </h1>
 
@@ -99,7 +101,7 @@ export default function Art2() {
             src={banner}
             alt="computer and graphs"
           />
-          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+          <h1 className="pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
             4 Weird Things about the Internet
           </h1>
         </div>
@@ -118,14 +120,20 @@ export default function Art2() {
             src={soundguy1}
             alt="computer and graphs"
           />
-          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+          <h1 className="pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
             Highlights from NAB 2023
           </h1>
 
         </div>
       </Link>
-      </div> 
+          </div> 
+
+
         </div>
+
+
+{/* smaller div section */}
+
 
         <div className="grid grid-cols-4 h-1/4 gap-4">
           
@@ -201,7 +209,7 @@ export default function Art2() {
      </div>
 
     
-     
+     {/* Bigger articles */}
       
       <Link to="/article11">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
