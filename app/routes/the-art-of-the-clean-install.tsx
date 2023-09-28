@@ -2,7 +2,7 @@
 import { Link } from "@remix-run/react";
 import graph4 from "../../public/graph4.jpeg";
 
-export default function Article4() {
+export default function Article7() {
   return (
     <div>
       <div className=" mx-3 lg:mx-36">
