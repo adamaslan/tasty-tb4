@@ -23,7 +23,7 @@ export default function Article4() {
           </p>
 <br />
           <p className="text-left text-lg tracking-tight sm:text-2xl lg:text-3xl font-serif font-bold">
-            There is a sweet ring to Vue’s branding: “The Progressive JavaScript Framework
+            There is a sweet ring to Vue’s branding: “The ProgressiveJavaScript Framework
             An approachable, performant and versatile framework for building web user interfaces.”
 
           </p>

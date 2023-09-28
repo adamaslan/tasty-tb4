@@ -9,7 +9,7 @@ export default function Article3() {
 
       <div className=" mx-3 lg:mx-36">
         <h1 className="tracking-light  text-center text-2xl font-extrabold text-blue-500 sm:text-4xl lg:text-5xl">
-        Sweet Little JavaScript Lies</h1>
+        Sweet Little JavaScript Lies About Javascript</h1>
         <img
           className="h-1/2 w-1/2 mx-auto my-auto "
           src={js1}

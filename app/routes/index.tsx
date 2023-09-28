@@ -36,7 +36,7 @@ export default function Art2() {
 
       <div className="grid lg:grid-cols-4 h-1/4 gap-4"> 
       <div className="col-span-1  h-1/4  ">
-      <Link to="/article9">
+      <Link to="/using-airpods-and-audacity-hack">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
           <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
             Code World - Helpful
@@ -54,7 +54,7 @@ export default function Art2() {
         </div>
       </Link>
       
-      <Link to="/article8">
+      <Link to="/artihow-to-use-the-pie-menu-in-blender">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
         <div className="rounded-full bg-purple-900 p-1 text-lg font-bold tracking-tight text-white">
             3D World - Helpful
@@ -73,7 +73,7 @@ export default function Art2() {
       </Link>
       </div>
       
-       <div className="lg:col-span-2  lg:h-1/4  "><Link to="/article12">
+       <div className="lg:col-span-2  lg:h-1/4  "><Link to="/three-essential-webstorm-shortcuts">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
           <div className="rounded-full bg-blue-500 p-1 text-lg font-bold tracking-tight text-white">
             Software - Webstorm
@@ -89,7 +89,7 @@ export default function Art2() {
         </div>
       </Link></div>
 
-        <div className="col-span-1 h-1/4 "> <Link to="/article1">
+        <div className="col-span-1 h-1/4 "> <Link to="/weirdinternetfacts">
 
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
           <div className="rounded-full bg-green-400 p-1 text-lg font-bold tracking-tight text-white">
@@ -109,7 +109,7 @@ export default function Art2() {
       
       
      
-      <Link to="/article10">
+      <Link to="/nab-2023-audio-video-gear">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
           <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
             Code World - Helpful
@@ -137,7 +137,7 @@ export default function Art2() {
 
         <div className="grid grid-cols-4 h-1/4 gap-4">
           
-           <div className="col-span-1 row-span-1 "> <Link to="/article4">
+           <div className="col-span-1 row-span-1 "> <Link to="/threekeys-to-getting-a-frontend-or-fullstackjob">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
           <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
             Code World - Helpful
@@ -153,7 +153,7 @@ export default function Art2() {
         </div>
       </Link></div> 
            
-           <div className="col-span-1 "> <Link to="/article5">
+           <div className="col-span-1 "> <Link to="/vuejs-independant-javascript-framework">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
           <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
             Code World - Helpful
@@ -170,7 +170,7 @@ export default function Art2() {
         </div>
       </Link></div>
             <div className="col-span-1  ">
-      <Link to="/article6">
+      <Link to="/astro-the-most-innovative-javascript-framwork">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
           <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
             Code World - Helpful
@@ -189,7 +189,7 @@ export default function Art2() {
       </div>
              <div className="col-span-1  ">
      
-     <Link to="/article7">
+     <Link to="/the-art-of-the-clean-install">
        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
            Code World - Helpful
@@ -211,7 +211,7 @@ export default function Art2() {
     
      {/* Bigger articles */}
       
-      <Link to="/article11">
+      <Link to="/threejsandweb3">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
           <div className="rounded-full bg-yellow-400 p-1 text-lg font-bold tracking-tight text-white">
             Code Art - ThreeJS
@@ -225,6 +225,38 @@ export default function Art2() {
           <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
             ThreeJS, the old Web3?
           </h1>
+        </div>
+      </Link>
+
+      <Link to="/easydomainverificationwithgoogle">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+        <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
+           Code World - Helpful
+         </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={analytics}
+            alt="analytics chart"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+          The Easy Way to Verify Domain Ownership with Google
+          </h1>
+        </div>
+      </Link>
+      <Link to="/liesaboutjavascript">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+        <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
+           Code World - Helpful
+         </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={js1}
+            alt="javascript chart"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+          Sweet Little JavaScript Lies About Javascript          </h1>
         </div>
       </Link>
     </main>
