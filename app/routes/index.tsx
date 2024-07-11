@@ -11,6 +11,7 @@ import js1 from "../../public/js1.jpeg";
 import soundguy1 from "../../public/soundsguy1.jpeg";
 import webstorm1 from "../../public/webstorm1.jpeg";
 import cloud from "../../public/cloud1.jpeg"
+import cask from "../../public/cask1.jpeg";
 import type {  } from "remix";
 
 export function meta() {
@@ -29,31 +30,31 @@ export default function Art2() {
 
       <p className="text-left text-xl font-extrabold tracking-tight sm:text-xl lg:text-4xl">
         {" "}
-        Keeping it Tasty in 2023
+        Keeping it Tasty in 2024
       </p>
       
       {/* elaborate div section */}
 
       <div className="grid lg:grid-cols-4 h-1/4 gap-4"> 
       <div className="col-span-1  h-1/4  ">
-      <Link to="/using-airpods-and-audacity-hack">
+ 
+      <Link to="/how-to-invest-in-whisky">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
-          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
-            Code World - Helpful
+          <div className="rounded-full bg-yellow-200 p-1 text-lg font-bold tracking-tight text-white">
+            Drink World - Helpful
           </div>
 
           <img
             className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
-            src={airpods}
-            alt="computer and graphs"
+            src={cask}
+            alt="casks"
           />
           <h1 className="pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
-            AirPods Audacity: How to make AirPods(or any other bluetooth audio) work with Audacity 2023
+          3 Ways to Invest in Whiskey
           </h1>
 
         </div>
       </Link>
-      
       <Link to="/artihow-to-use-the-pie-menu-in-blender">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
         <div className="rounded-full bg-purple-900 p-1 text-lg font-bold tracking-tight text-white">
@@ -257,6 +258,23 @@ export default function Art2() {
           />
           <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
           Sweet Little JavaScript Lies About Javascript          </h1>
+        </div>
+      </Link>
+      <Link to="/using-airpods-and-audacity-hack">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
+            Code World - Helpful
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={airpods}
+            alt="computer and graphs"
+          />
+          <h1 className="pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            AirPods Audacity: How to make AirPods(or any other bluetooth audio) work with Audacity 2023
+          </h1>
+
         </div>
       </Link>
     </main>
