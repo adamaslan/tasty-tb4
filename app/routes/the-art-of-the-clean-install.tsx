@@ -1,6 +1,17 @@
 
-import { Link } from "@remix-run/react";
+import { Link} from "@remix-run/react";
+
 import graph4 from "../../public/graph4.jpeg";
+import type {
+
+  MetaFunction,
+} from "@remix-run/node";
+export const meta: MetaFunction = () => {
+  return {
+    title: "The Art of the Clean Install",
+    "og:image": graph4,
+  };
+};
 
 export default function Article7() {
   return (
