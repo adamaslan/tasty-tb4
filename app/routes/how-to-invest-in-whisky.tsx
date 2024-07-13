@@ -1,5 +1,17 @@
-import { Link } from "@remix-run/react";
+import { Link } from "@remix-run/react"; 
 import cask from "../../public/cask1.jpeg";
+import type {
+
+  MetaFunction,
+} from "@remix-run/node";
+export const meta: MetaFunction = () => {
+  return {
+    title: "3 Ways to Invest in Whiskey",
+    "og:image": cask,
+    "keywords": "Whiskey, Investment, Rare Whiskey, Whiskey Barrels, Whiskey Casks, BlockApps, Vino Vest, Whiskey Appreciation, Whiskey History, Whiskey Market, Japanese Whiskey, Ardbeg, Bowmore, Glenfarclas, Glenfiddich, Laphroaig, Lagavulin, Rosebank, Yamazaki"
+  };
+};
+
 export default function Article5() {
   return (
     <div>
