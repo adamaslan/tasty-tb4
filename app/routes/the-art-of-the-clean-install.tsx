@@ -10,6 +10,7 @@ export const meta: MetaFunction = () => {
   return {
     title: "The Art of the Clean Install",
     "og:image": graph4,
+    "keywords": "Clean Install, Coding, NVM, Tailwind UI, NUXT, Node Modules, Package Lock, Yarn Lock, npm, Web Development"
   };
 };
 
