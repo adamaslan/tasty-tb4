@@ -68,9 +68,14 @@ Vino Vest
           <br />{" "}
           <p className="text-left font-serif text-lg font-bold tracking-tight sm:text-2xl lg:text-3xl">
             {" "}
-            Whether you are purchasing a rare whiskey or an entire cask, the returns on these items have a clear track record of appreciation. 
+            Whether you are purchasing a rare whiskey or an entire cask, the returns on these items have a clear track record of appreciation. <br /><br />For more information on Connecticut Distilling visit their website <a href="https://www.ctdistillingco.com/" className="text-blue-500"> here</a>.
 
-            .{" "}
+            <br /><br />For more information on Block Apps visit their website <a href="https://blockapps.net/" className="text-blue-500"> here</a>.
+
+            
+          
+
+{" "}
           </p>{" "}
           <p className="text-center text-lg font-extrabold tracking-tight text-yellow-500 sm:text-2xl lg:text-4xl">
             {" "}
