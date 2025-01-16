@@ -222,7 +222,7 @@ export default function Art2() {
           <img
             className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
             src={letters1}
-            alt="letters”
+            alt="letters"
           />
           <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
             Retrieval Augmented Generation never got easier and less bloated
