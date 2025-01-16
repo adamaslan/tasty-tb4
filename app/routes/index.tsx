@@ -213,7 +213,7 @@ export default function Art2() {
     
      {/* Bigger articles */}
 
-     <Link to=“/5waystodoragwithdspy">
+     <Link to="/5waystodoragwithdspy">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
           <div className="rounded-full bg-yellow-400 p-1 text-lg font-bold tracking-tight text-white">
             5 ways to do RAG with DSPy

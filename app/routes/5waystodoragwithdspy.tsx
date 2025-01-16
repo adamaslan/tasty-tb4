@@ -1,5 +1,4 @@
 import { Link } from "@remix-run/react";
-import letters1 from "../../public/letters1.jpeg";
 
 export default function Article12() {
   return (
@@ -9,9 +8,9 @@ export default function Article12() {
           Five Ways to Do Rag with DSPy
         </h1>
         <img
-          className="mx-auto my-auto h-1/2 w-1/2 "
-        src={letters1}
-            alt="letters”
+          className="mx-auto my-auto h-1/2 w-1/2"
+          src="/letters1.jpeg"
+          alt="letters"
         />
         <div>
           <p className="text-left text-lg tracking-tight sm:text-2xl lg:text-3xl font-serif font-bold">
