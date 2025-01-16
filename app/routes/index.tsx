@@ -12,6 +12,7 @@ import soundguy1 from "../../public/soundsguy1.jpeg";
 import webstorm1 from "../../public/webstorm1.jpeg";
 import cloud from "../../public/cloud1.jpeg"
 import cask from "../../public/cask1.jpeg";
+import letters1 from "../../public/letters1.jpeg";
 import type {  } from "remix";
 
 export function meta() {
@@ -212,7 +213,7 @@ export default function Art2() {
     
      {/* Bigger articles */}
 
-     <Link to=“/5waystodoragwithdspy>
+     <Link to=“/5waystodoragwithdspy">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
           <div className="rounded-full bg-yellow-400 p-1 text-lg font-bold tracking-tight text-white">
             5 ways to do RAG with DSPy

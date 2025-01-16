@@ -1,4 +1,5 @@
 import { Link } from "@remix-run/react";
+import letters1 from "../../public/letters1.jpeg";
 
 export default function Article12() {
   return (
@@ -11,7 +12,7 @@ export default function Article12() {
           className="mx-auto my-auto h-1/2 w-1/2 "
         src={letters1}
             alt="letters”
-        />{" "}
+        />
         <div>
           <p className="text-left text-lg tracking-tight sm:text-2xl lg:text-3xl font-serif font-bold">
             DSPy is a versatile toolkit for information retrieval and prompt engineer. It can be thought of as a prompting language. It can leverage various techniques to retrieve relevant documents efficiently. Let’s explore five key approaches.
