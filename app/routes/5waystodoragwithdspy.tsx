@@ -1,5 +1,5 @@
 import { Link } from "@remix-run/react";
-
+import letters1 from "../../public/letters1.png";
 export default function Article12() {
   return (
     <div>
@@ -9,7 +9,7 @@ export default function Article12() {
         </h1>
         <img
           className="mx-auto my-auto h-1/2 w-1/2"
-          src="/letters1.jpeg"
+          src="/letters1.png"
           alt="letters"
         />
         <div>
