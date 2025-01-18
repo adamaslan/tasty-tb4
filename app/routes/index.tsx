@@ -215,8 +215,8 @@ export default function Art2() {
 
      <Link to="/5waystodoragwithdspy">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
-          <div className="rounded-full bg-yellow-400 p-1 text-lg font-bold tracking-tight text-white">
-            5 ways to do RAG with DSPy
+          <div className="rounded-full bg-purple-400 p-1 text-lg font-bold tracking-tight text-white">
+            AI Tips
           </div>
 
           <img
@@ -224,9 +224,7 @@ export default function Art2() {
             src={letters1}
             alt="letters"
           />
-          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
-            Retrieval Augmented Generation never got easier and less bloated
-          </h1>
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl "> 5 ways to do RAG with DSPy   </h1>
         </div>
       </Link>
       
