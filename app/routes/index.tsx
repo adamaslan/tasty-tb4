@@ -12,7 +12,7 @@ import soundguy1 from "../../public/soundsguy1.jpeg";
 import webstorm1 from "../../public/webstorm1.jpeg";
 import cloud from "../../public/cloud1.jpeg"
 import cask from "../../public/cask1.jpeg";
-import letters1 from "../../public/letters1.jpeg";
+import letters1 from "../../public/letters1.png";
 import type {  } from "remix";
 
 export function meta() {

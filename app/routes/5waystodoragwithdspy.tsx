@@ -3,18 +3,21 @@ import letters1 from "../../public/letters1.png";
 export default function Article12() {
   return (
     <div>
-      <div className="mx-3 lg:mx-36">
-        <h1 className="tracking-light text-center text-2xl font-extrabold text-blue-500 sm:text-4xl lg:text-5xl">
-          Five Ways to Do Rag with DSPy
+      {" "}
+      <div className=" mx-3 lg:mx-36">
+        {" "}
+        <h1 className="tracking-light  text-center text-2xl font-extrabold text-blue-500 sm:text-4xl lg:text-5xl">
+          {" "} Five Ways to Do Rag with DSPy
         </h1>
         <img
           className="mx-auto my-auto h-1/2 w-1/2"
-          src="/letters1.png"
+          src={letters1}
           alt="letters"
-        />
+      />{" "}
         <div>
-          <p className="text-left text-lg tracking-tight sm:text-2xl lg:text-3xl font-serif font-bold">
-            DSPy is a versatile toolkit for information retrieval and prompt engineer. It can be thought of as a prompting language. It can leverage various techniques to retrieve relevant documents efficiently. Let’s explore five key approaches.
+          {" "}
+          <p className="text-left font-serif text-lg font-bold tracking-tight sm:text-2xl lg:text-3xl">
+            {" "}  DSPy is a versatile toolkit for information retrieval and prompt engineering. It can be thought of as a prompting language. It can leverage various techniques to retrieve relevant documents efficiently. Let’s explore five key approaches.
           </p>
           <br />
           <p className="text-left text-lg tracking-tight sm:text-2xl lg:text-3xl font-serif font-bold">
@@ -58,10 +61,8 @@ export default function Article12() {
           <br />
           <p className="text-left text-lg tracking-tight sm:text-2xl lg:text-3xl font-serif font-bold">
             For more about DSPy, visit the official documentation
-            <a
-              href="https://example.com/dspy-documentation"
-              className="text-blue-500"
-            >
+            <a href="https://dspy.ai"
+              className="text-blue-500">
               {" "}here
             </a>
             .
