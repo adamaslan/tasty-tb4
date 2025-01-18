@@ -13,7 +13,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
-// import tailwindStylesheetUrl from "./styles/tailwind.css";
+import tailwindStylesheetUrl from "./styles/tailwind.css";
 import { getUser } from "./session.server";
 import box from "../public/boxchicken2.jpeg";
 export const meta: MetaFunction = () => {
@@ -23,9 +23,9 @@ export const meta: MetaFunction = () => {
   };
 };
 
-// export const links: LinksFunction = () => {
-//   return [{ rel: "stylesheet", href: tailwindStylesheetUrl }];
-// };
+export const links: LinksFunction = () => {
+  return [{ rel: "stylesheet", href: tailwindStylesheetUrl }];
+};
 
 export async function loader({ request }: LoaderArgs) {
   return json({
