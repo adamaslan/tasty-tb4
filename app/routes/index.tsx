@@ -240,7 +240,7 @@ export default function Art2() {
             src={letters1}
             alt="letters"
           />
-          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl "> 5 ways to do RAG with DSPy   </h1>
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl "> 5 ways to enhance RAG efficiency with DSPy   </h1>
         </div>
       </Link>
       

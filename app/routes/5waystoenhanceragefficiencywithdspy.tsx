@@ -7,7 +7,7 @@ export default function Article12() {
       <div className=" mx-3 lg:mx-36">
         {" "}
         <h1 className="tracking-light  text-center text-2xl font-extrabold text-blue-500 sm:text-4xl lg:text-5xl">
-          {" "} Five Ways to Perform RAG with DSPy
+          {" "} Five Ways to Enhance RAG Efficiency with DSPy
         </h1>
         <img
           className="mx-auto my-auto h-1/2 w-1/2"
@@ -25,7 +25,7 @@ export default function Article12() {
             1. Keyword-Based Retrieval
           </p>
           <p className="text-left text-lg tracking-tight sm:text-xl lg:text-2xl font-serif">
-            DSPy can use traditional information retrieval techniques like TF-IDF or BM25 to find documents based on keyword matching. This approach is efficient and doesn’t rely on embeddings or vector databases.
+            DSPy can use traditional information retrieval techniques like TF-IDF or BM25 to find documents based on keyword matching. This approach is efficient and doesn’t rely on embeddings or vector databases. With the dspy.retrieve module you can create a custom retrieval function that inputs the keyword results and formats them for further processing. This module is ideal to process user queries and output relevant passages from retrieval corpuses without having to create embeddings.
           </p>
           <br />
           <p className="text-left text-lg tracking-tight sm:text-2xl lg:text-3xl font-serif font-bold">
