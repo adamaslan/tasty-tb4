@@ -14,6 +14,7 @@ import cloud from "../../public/cloud1.jpeg"
 import cask from "../../public/cask1.jpeg";
 import letters1 from "../../public/letters1.png";
 import databricks from "../../public/databricks.png";
+import dspyprompt from "../../public/dspyprompt.png";
 import type {  } from "remix";
 
 export function meta() {
@@ -213,6 +214,23 @@ export default function Art2() {
 
     
      {/* Bigger articles */}
+
+     
+
+     <Link to="/dspy101">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-purple-400 p-1 text-lg font-bold tracking-tight text-white">
+            AI Tips
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={dspyprompt}
+            alt="dspyprompt"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">DSPy 101 Tutorial: Prompting Guide</h1>
+        </div>
+      </Link>   
 
      <Link to="/databricks-dspy-jetblue-ai-chatbot">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
