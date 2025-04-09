@@ -1,5 +1,5 @@
 import { Link } from "@remix-run/react"; 
-import cask from "../../public/cask1.jpeg";
+import huggingface1 from "../../public/huggingface1.png";
 import type {
 
   MetaFunction,
@@ -20,12 +20,12 @@ export default function Article5() {
         {" "}
         <h1 className="tracking-light  text-center text-2xl font-extrabold text-blue-500 sm:text-4xl lg:text-5xl">
           {" "}
-          The Easy Way to Publish on Hugging Face Spaces{" "}
+          The Easy Way to Host Your Python Project on Hugging Face Spaces{" "}
         </h1>{" "}
         <img
           className="mx-auto my-auto h-1/2 w-1/2 "
-          src={cask}
-          alt="whiskey 8 bit barrels"
+          src={huggingface1}
+          alt="emoji"
         />{" "}
         <div>
           {" "}
@@ -34,29 +34,21 @@ export default function Article5() {
 {" "}
           </p>
           <br />{" "}
-          <p className="text-left font-serif text-lg font-bold tracking-tight sm:text-2xl lg:text-3xl">
-            {" "}
-      <a href="https://www.rarewhiskey101.com/" className="text-blue-500">
-              {" "}
-  okay
-            </a> 
-          </p>{" "}
+      
           <br />{" "}
 
-          <p className='text-left font-serif text-lg font-bold tracking-tight sm:text-2xl lg:text-3xl'>Another way of investing in whiskey is to buy <a href="https://www.forbes.com/sites/forbesfinancecouncil/2023/10/18/5-things-to-know-when-investing-in-whiskey-bottles-or-barrels/" className="text-blue-500">
+          <p className='text-left font-serif text-lg font-bold tracking-tight sm:text-2xl lg:text-3xl'>Hugging Face Spaces offer a simple way to host not just ML demo apps directly on your profile or your organization’s profile, but really any Python code you want. This is especially helpful for apps that use  
+
+           
+<a href="https://www.gradio.app/" >Gradio</a> Streamlit, Docker, or static HTML. </p> 
+
+<p className="text-left font-serif text-lg font-bold tracking-tight sm:text-2xl lg:text-3xl">
+Checkout <a href="https://huggingface.co/spaces/" className="text-blue-500">Hugging Face Spaces</a>
+Here's there
+ <a href="https://www.huggingface.co/" className="text-blue-500">
               {" "}
-
-            </a>. 
-yas <a href="https://marketplace.mercata.blockapps.net/dp/0a3a3d282806135273d9e68d8b981d923461eadb/The%20Deuces%20Wild%20Collection%20-%20Whiskey%20Casks" className="text-blue-500">
-              {" "}
-
-
-
-bleh <a href="https://www.vinovest.co/" className="text-blue-500">
-              {" "}
-sd
-            </a>,
-          </p>
+docs for spaces
+            </a>Enjoy</p>
 
 
           <br />{" "}
