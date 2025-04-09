@@ -1,5 +1,5 @@
 import { Link } from "@remix-run/react"; 
-import cask from "../../public/cask1.jpeg";
+import huggingface1 from "../../public/huggingface1.png";
 import type {
 
   MetaFunction,
@@ -20,7 +20,7 @@ export default function Article5() {
         {" "}
         <h1 className="tracking-light  text-center text-2xl font-extrabold text-blue-500 sm:text-4xl lg:text-5xl">
           {" "}
-          The Easy Way to Publish on Hugging Face Spaces{" "}
+          The Easy Way to Host Your Python Project on Hugging Face Spaces{" "}
         </h1>{" "}
         <img
           className="mx-auto my-auto h-1/2 w-1/2 "
@@ -47,12 +47,10 @@ export default function Article5() {
               {" "}
 
             </a>. 
-yas <a href="https://marketplace.mercata.blockapps.net/dp/0a3a3d282806135273d9e68d8b981d923461eadb/The%20Deuces%20Wild%20Collection%20-%20Whiskey%20Casks" className="text-blue-500">
-              {" "}
+yas <a href="https://www.gradio.app/" 
 
 
-
-bleh <a href="https://www.vinovest.co/" className="text-blue-500">
+ <a href="https://www.huggingface.co/" className="text-blue-500">
               {" "}
 sd
             </a>,
