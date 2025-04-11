@@ -21,7 +21,7 @@ export default function Article5() {
         <h1 className="tracking-light  text-center text-2xl font-extrabold text-blue-500 sm:text-4xl lg:text-5xl">
           {" "}
           The Easy Way to Host Your Python Project on Hugging Face Spaces{" "}
-        </h1>{" "}
+        </h1>{" "}<br /> 
         <img
           className="mx-auto my-auto h-1/2 w-1/2 "
           src={huggingface1}
@@ -37,32 +37,23 @@ export default function Article5() {
       
           <br />{" "}
 
-          <p className='text-left font-serif text-lg font-bold tracking-tight sm:text-2xl lg:text-3xl'>Hugging Face Spaces offer a simple way to host not just ML demo apps directly on your profile or your organization’s profile, but really any Python code you want. This is especially helpful for apps that use  
-
-           
-<a href="https://www.gradio.app/" >Gradio</a> Streamlit, Docker, or static HTML. </p> 
+          <p className='text-left font-serif text-lg font-bold tracking-tight sm:text-2xl lg:text-3xl'>Hugging Face Spaces offer a simple way to host not just ML demo apps directly on your profile or your organization’s profile, but really any Python code you want. <br /><br />  </p><p className='text-left font-serif text-lg font-bold tracking-tight sm:text-2xl lg:text-3xl'>This is especially helpful for apps that use  
+     
+<a href="https://www.gradio.app/" className="text-blue-500"> Gradio</a>, Streamlit, Docker, or static HTML, which can allow you to create a decent looking UI fast. </p> <br /> <br /> 
 
 <p className="text-left font-serif text-lg font-bold tracking-tight sm:text-2xl lg:text-3xl">
 Checkout <a href="https://huggingface.co/spaces/" className="text-blue-500">Hugging Face Spaces</a>
+<br /><br /> 
 Here's there
  <a href="https://www.huggingface.co/" className="text-blue-500">
               {" "}
 docs for spaces
-            </a>Enjoy</p>
+            </a>
+      
 
-
+</p>
           <br />{" "}
-          <p className="text-left font-serif text-lg font-bold tracking-tight sm:text-2xl lg:text-3xl">
-            {" "}
-            Whether you are purchasing a rare whiskey or an entire cask, the returns on these items have a clear track record of appreciation. <br /><br />For more information on Connecticut Distilling visit their website <a href="https://www.ctdistillingco.com/" className="text-blue-500"> here</a>.
-
-            <br /><br />For more information on Block Apps visit their website <a href="https://blockapps.net/" className="text-blue-500"> here</a>.
-
-            
-          
-
-{" "}
-          </p>{" "}
+      
           <p className="text-center text-lg font-extrabold tracking-tight text-yellow-500 sm:text-2xl lg:text-4xl">
             {" "}
             Go back{" "}
@@ -74,6 +65,8 @@ docs for spaces
               Home{" "}
             </Link>{" "}
           </p>{" "}
+          <br /> 
+          <br /> 
         </div>{" "}
       </div>{" "}
     </div>
