@@ -37,7 +37,7 @@ export default function Article5() {
       
           <br />{" "}
 
-          <p className='text-left font-serif text-lg font-bold tracking-tight sm:text-2xl lg:text-3xl'>Hugging Face Spaces offer a simple way to host not just ML demo apps directly on your profile or your organization’s profile, but really any Python code you want. <br /> </p><p className='text-left font-serif text-lg font-bold tracking-tight sm:text-2xl lg:text-3xl'>This is especially helpful for apps that use  
+          <p className='text-left font-serif text-lg font-bold tracking-tight sm:text-2xl lg:text-3xl'>Hugging Face Spaces offer a simple way to host not just ML demo apps directly on your profile or your organization’s profile, but really any Python code you want. <br /><br />  </p><p className='text-left font-serif text-lg font-bold tracking-tight sm:text-2xl lg:text-3xl'>This is especially helpful for apps that use  
      
 <a href="https://www.gradio.app/" className="text-blue-500"> Gradio</a>, Streamlit, Docker, or static HTML. </p> <br /> <br /> 
 
@@ -51,7 +51,7 @@ docs for spaces
             </a>
       
 
-
+</p>
           <br />{" "}
       
           <p className="text-center text-lg font-extrabold tracking-tight text-yellow-500 sm:text-2xl lg:text-4xl">
