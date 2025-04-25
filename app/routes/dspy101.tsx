@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from '@remix-run/react';
-import dspyprompt from "../../public/dspyprompt.png";
+import dspyprompt from "../../public/fish1.png";
 import type {
 
   MetaFunction,
