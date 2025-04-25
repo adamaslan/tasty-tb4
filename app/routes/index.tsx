@@ -44,7 +44,7 @@ export default function Art2() {
  
       <Link to="/how-to-invest-in-whisky">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
-          <div className="rounded-full bg-yellow-200 p-1 text-lg font-bold tracking-tight text-white">
+          <div className="rounded-full bg-yellow-500 p-1 text-lg font-bold tracking-tight text-white">
             Drink World - Helpful
           </div>
 
@@ -98,7 +98,7 @@ export default function Art2() {
 
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
           <div className="rounded-full bg-green-400 p-1 text-lg font-bold tracking-tight text-white">
-            Code World - The Internet
+            Code World - Random
           </div>
 
           <img
@@ -265,7 +265,7 @@ export default function Art2() {
       
       <Link to="/threejsandweb3">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
-          <div className="rounded-full bg-yellow-400 p-1 text-lg font-bold tracking-tight text-white">
+          <div className="rounded-full bg-green-800 p-1 text-lg font-bold tracking-tight text-white">
             Code Art - ThreeJS
           </div>
 
@@ -330,8 +330,8 @@ export default function Art2() {
       </Link>
       <Link to="/using-airpods-and-audacity-hack">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
-          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
-            Code World - Helpful
+          <div className="rounded-full bg-pink-600 p-1 text-lg font-bold tracking-tight text-white">
+            Tech World - Helpful
           </div>
 
           <img
