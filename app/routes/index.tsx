@@ -35,7 +35,7 @@ export default function Art2() {
 
       <p className="text-left text-xl font-extrabold tracking-tight sm:text-xl lg:text-4xl">
         {" "}
-        Keeping it Tasty in 2024
+        Keeping it Tasty in 2025
       </p>
       
       {/* elaborate div section */}
@@ -218,7 +218,7 @@ export default function Art2() {
      {/* Bigger articles */}
 
      
-     <Link to="/dspy101">
+     <Link to="/what-is-rag">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
           <div className="rounded-full bg-purple-400 p-1 text-lg font-bold tracking-tight text-white">
             AI Tips
