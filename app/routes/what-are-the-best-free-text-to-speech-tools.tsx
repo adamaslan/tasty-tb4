@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Link } from '@remix-run/react';
-import dspyprompt from "../../public/dspyprompt.png"; // Keeping existing image, consider replacing with a relevant one
+import bit from "../../public/text2speech.png"; // Keeping existing image, consider replacing with a relevant one
 import type {
   MetaFunction,
 } from "@remix-run/node";
@@ -10,17 +10,17 @@ import type {
 export const meta: MetaFunction = () => {
   return {
     title: "Best Free Text-to-Speech (TTS) Tools & Apps",
-    "og:image": dspyprompt, // Consider updating this image
+    "og:image": bit, // Consider updating this image
     "og:title": "Best Free Text-to-Speech (TTS) Tools & Apps",
     "og:description": "Discover the best free text-to-speech (TTS) software and apps like NaturalReader, Voice Dream Reader, and built-in OS features for listening to text and audiobooks.",
     "og:type": "article",
     "twitter:card": "summary_large_image",
     "twitter:title": "Best Free Text-to-Speech (TTS) Tools & Apps",
     "twitter:description": "Discover the best free text-to-speech (TTS) software and apps like NaturalReader, Voice Dream Reader, and built-in OS features for listening to text and audiobooks.",
-    "twitter:image": dspyprompt, // Consider updating this image
+    "twitter:image": bit, // Consider updating this image
     "linkedin:title": "Best Free Text-to-Speech (TTS) Tools & Apps",
     "linkedin:description": "Discover the best free text-to-speech (TTS) software and apps like NaturalReader, Voice Dream Reader, and built-in OS features for listening to text and audiobooks.",
-    "linkedin:image": dspyprompt, // Consider updating this image
+    "linkedin:image": bit, // Consider updating this image
     "keywords": "Text-to-Speech, TTS, Free TTS, NaturalReader, Voice Dream, Speak4Me, Audiobooks, Accessibility, Text to Voice"
   };
 };
@@ -68,10 +68,10 @@ const RemixPage = () => {
               <h3 className="font-bold text-xl mb-2">NaturalReader</h3>
               <p className="text-lg">Offers free tiers for web, desktop (Mac/Windows), and mobile (iOS/Android), plus a Chrome extension. Good voice quality and supports various document types.</p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow">
+            {/* <div className="bg-white p-6 rounded-lg shadow">
               <h3 className="font-bold text-xl mb-2">Built-in OS Features</h3>
               <p className="text-lg">Most operating systems have free, robust TTS: <br/> - **iOS/iPadOS:** Speak Screen & Speak Selection (Settings > Accessibility > Spoken Content) <br/> - **Android:** Select to Speak (Accessibility settings) <br/> - **Windows:** Narrator <br/> - **macOS:** Spoken Content (System Settings > Accessibility)</p>
-            </div>
+            </div> */}
              <div className="bg-white p-6 rounded-lg shadow">
               <h3 className="font-bold text-xl mb-2">Voice Dream Reader & Speak4Me</h3>
               <p className="text-lg">Voice Dream Reader is highly regarded, especially for audiobooks and extensive features, but often involves a cost. Speak4Me is another option, though less common. Always check for current free features vs. paid upgrades.</p>
