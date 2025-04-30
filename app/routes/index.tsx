@@ -234,7 +234,7 @@ export default function Art2() {
         </div>
       </Link>   
 
-      <Link to="/what-are-the-best-free-text-to-speech-tools>
+      <Link to="/what-are-the-best-free-text-to-speech-tools">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
           <div className="rounded-full bg-purple-400 p-1 text-lg font-bold tracking-tight text-white">
             AI Tips
