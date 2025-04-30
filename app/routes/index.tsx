@@ -17,6 +17,7 @@ import databricks from "../../public/databricks.png";
 import dspyprompt from "../../public/dspyprompt.png";
 import huggingface1 from "../../public/huggingface1.png";
 import fish1 from "../../public/fish1.png";
+import text2speech from "../../public/text2speech.png";
 import type {  } from "remix";
 
 export function meta() {
@@ -230,6 +231,21 @@ export default function Art2() {
             alt="fish"
           />
           <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">RAG 101 Tutorial: All you need to know about RAG</h1>
+        </div>
+      </Link>   
+
+      <Link to="/what-are-the-best-free-text-to-speech-tools>
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-purple-400 p-1 text-lg font-bold tracking-tight text-white">
+            AI Tips
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={text2speech}
+            alt="text to speech"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">DSPy 101 Tutorial: Prompting Guide</h1>
         </div>
       </Link>   
 
