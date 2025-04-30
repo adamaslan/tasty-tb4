@@ -245,7 +245,8 @@ export default function Art2() {
             src={text2speech}
             alt="text to speech"
           />
-          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">DSPy 101 Tutorial: Prompting Guide</h1>
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            What are the Best Free Text-to-Speech Tools? </h1>
         </div>
       </Link>   
 
