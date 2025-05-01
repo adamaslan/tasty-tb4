@@ -1,23 +1,19 @@
-"use client";
-import Link from "next/link";
+
+
+import { Link } from "@remix-run/react"; // Import Link from Remix
 import React, { useState } from "react";
-import { Palette_Mosaic } from "next/font/google"; // Import optimized Google font
+// Removed: import { Palette_Mosaic } from "next/font/google";
+// Removed: Font configuration
 
-// Configure the font
-const paletteMosaic = Palette_Mosaic({
-  weight: "400",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const Nav: React.FC = () => { // Added React.FC type for functional component
-  const [isOpen, setIsOpen] = useState<boolean>(false); // Explicitly typed state
+const Nav: React.FC = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
     <div className="flex items-center justify-between p-4 flex-wrap bg-skin-base text-skin-base">
       <Link
-        href="/"
-        className="text-2xl font-extrabold font-palette-mosaic"
+        prefetch="intent" // Optional: Add Remix prefetching strategy
+        to="/" // Use 'to' prop instead of 'href' for Remix Link
+        className="text-2xl font-extrabold font-palette-mosaic" // Keep the font class
       >
         Drinks Food<span className="font-light text-3xl"> Life</span>
       </Link>
@@ -49,13 +45,15 @@ const Nav: React.FC = () => { // Added React.FC type for functional component
         } md:max-h-full md:w-auto`}
       >
         <Link
-          href="./subscribe"
+          prefetch="intent" // Optional: Add Remix prefetching strategy
+          to="./subscribe" // Use 'to' prop
           className="py-2 px-4 text-center text-current text-lg hover:text-yellow-500 transition-colors"
         >
           Subscribe
         </Link>
         <Link
-          href="./about"
+          prefetch="intent" // Optional: Add Remix prefetching strategy
+          to="./about" // Use 'to' prop
           className="py-2 px-4 text-center text-current text-lg hover:text-yellow-500 transition-colors"
         >
           About
