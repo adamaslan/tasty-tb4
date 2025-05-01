@@ -18,6 +18,7 @@ import dspyprompt from "../../public/dspyprompt.png";
 import huggingface1 from "../../public/huggingface1.png";
 import fish1 from "../../public/fish1.png";
 import text2speech from "../../public/text2speech.png";
+import restorationImage from "../../public/restoration.png"; // <-- Add import for farmland image if needed
 import type {  } from "remix";
 
 export function meta() {
@@ -358,6 +359,22 @@ export default function Art2() {
           The easy way to publish on Hugging Face Spaces
           </h1>
 
+        </div>
+      </Link>
+      <Link to="/5-ways-ai-can-help-farmland-restoration"> {/* <-- Update this path */}
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-green-700 p-1 text-lg font-bold tracking-tight text-white"> {/* <-- Updated category color/text */}
+            AI & Sustainability {/* <-- Update category if needed */}
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={restorationImage} /* <-- Replace with correct image variable */
+            alt="Farmland restoration" /* <-- Update alt text */
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+             5 Ways AI Can Help Farmland Restoration {/* <-- Update title */}
+          </h1>
         </div>
       </Link>
       <Link to="/using-airpods-and-audacity-hack">

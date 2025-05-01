@@ -16,6 +16,8 @@ import {
 import tailwindStylesheetUrl from "./styles/tailwind.css";
 import { getUser } from "./session.server";
 import box from "../public/boxchicken2.jpeg";
+import Nav from "./components/Nav.js"; // Import the Nav component
+
 export const meta: MetaFunction = () => {
   return {
     title: "Putting the Sass n Fun in Tech",
@@ -43,6 +45,7 @@ export default function App() {
         <Links />
       </head>
       <body className="h-full">
+        <Nav /> {/* Add the Nav component here */}
         <Outlet />
         <ScrollRestoration />
         <Scripts />
