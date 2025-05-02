@@ -1,7 +1,15 @@
 # Global build settings (apply to all contexts unless overridden)
 [build]
   command = "npm run build"
-  functions = "netlify/functions" # Directory for Netlify serverless functions
+  publish = "public"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[functions]
+  directory = "netlify/functions"
   publish = "public" # Directory to deploy
 
   # Environment variables available during build
