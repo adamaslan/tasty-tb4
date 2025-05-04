@@ -377,6 +377,25 @@ export default function Art2() {
           </h1>
         </div>
       </Link>
+      {/* New Link for Models Table */}
+      <Link to="/models-table">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-indigo-600 p-1 text-lg font-bold tracking-tight text-white"> {/* Changed color and text */}
+            AI Models
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={databricks} 
+            alt="AI models table"
+          />
+          <h1 className="pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            View Registered AI Models {/* Changed title */}
+          </h1>
+
+        </div>
+      </Link>
+
       <Link to="/using-airpods-and-audacity-hack">
         <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
           <div className="rounded-full bg-pink-600 p-1 text-lg font-bold tracking-tight text-white">
