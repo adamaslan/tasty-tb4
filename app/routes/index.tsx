@@ -386,7 +386,7 @@ export default function Art2() {
 
           <img
             className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
-            src={databricks} {/* Using databricks image as placeholder */}
+            src={databricks} 
             alt="AI models table"
           />
           <h1 className="pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">

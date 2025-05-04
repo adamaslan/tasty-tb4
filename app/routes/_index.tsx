@@ -1,62 +1,88 @@
 // app/routes/_index.tsx
-import { typedjson, useTypedLoaderData, useTypedActionData } from 'remix-utils';
-import { Form, useTransition } from '@remix-run/react';
+// Remove imports from remix-utils
+// import { typedjson, useTypedLoaderData, useTypedActionData } from 'remix-utils';
+import { Form, useTransition, Link, useLoaderData, useActionData } from '@remix-run/react'; // Add useLoaderData, useActionData
 import type { LoaderArgs, ActionArgs } from '@remix-run/node';
+import { json } from '@remix-run/node'; // Import json
 import { supabase } from '~/supabase.server';
 import type { Model } from '~/models';
 
+// Loader function
 export async function loader({ request }: LoaderArgs) {
   const { data, error } = await supabase
     .from('models')
     .select('*')
-    .order('created_at', { ascending: false });
+    .order('release_date', { ascending: false }); // Changed from created_at
 
   if (error) {
     console.error('Loader error:', error);
     throw new Response('Failed to load models', { status: 500 });
   }
-
-  return typedjson(data);
+  // Use json helper
+  return json(data ?? []);
 }
 
+// Action function
 export async function action({ request }: ActionArgs) {
   const formData = await request.formData();
-  const entries = Object.fromEntries(formData);
+  const name = formData.get('name') as string;
+  const type = formData.get('type') as string;
+  const parameter_count = parseInt(formData.get('parameter_count') as string, 10);
+  const experts = parseInt(formData.get('experts') as string, 10);
+  const context_window_tokens = parseInt(formData.get('context_window_tokens') as string, 10);
 
-  try {
-    const { data, error } = await supabase
-      .from('models')
-      .insert({
-        name: entries.name.toString(),
-        type: entries.type.toString(),
-        parameter_count: Number(entries.parameter_count),
-        experts: Number(entries.experts),
-        context_window_tokens: Number(entries.context_window_tokens),
-      })
-      .single();
 
-    if (error) throw error;
-    return typedjson({ success: true, model: data as Model });
-  } catch (error) {
-    console.error('Action error:', error);
-    return typedjson({
-      success: false,
-      error: error instanceof Error ? error.message : 'Unknown error',
-    });
+  // Basic validation (add more robust validation as needed)
+  if (!name || !type || isNaN(parameter_count) || isNaN(experts) || isNaN(context_window_tokens)) {
+    // Use json helper for error response
+    return json({ error: 'Invalid form data' }, { status: 400 });
   }
+
+  const { data, error } = await supabase
+    .from('models')
+    .insert([{ name, type, parameter_count, experts, context_window_tokens }])
+    .select(); // Use select() to get the inserted data back
+
+  if (error) {
+    console.error('Action error:', error);
+    // Use json helper for error response
+    return json({ error: 'Failed to register model' }, { status: 500 });
+  }
+
+  // Use json helper for success response
+  return json(data ? data[0] : null); // Return the newly created model or null
 }
 
+
 export default function Index() {
-  const models = useTypedLoaderData<Model[]>();
-  const actionData = useTypedActionData<typeof action>();
+  // Use Remix's built-in hooks
+  const models = useLoaderData<typeof loader>();
+  const actionData = useActionData<typeof action>();
   const transition = useTransition();
+  const isSubmitting = transition.state === 'submitting';
 
   return (
     <div className="max-w-7xl mx-auto p-4">
+       {/* Link to Table Page - Keep or remove as needed */}
+       {/* <div className="mb-4">
+         <Link to="/models-table" className="text-blue-600 hover:underline">
+           View Models Table Page
+         </Link>
+       </div> */}
+
       {/* Form Section */}
       <section className="mb-12 bg-white shadow-sm rounded-xl p-6">
         <h2 className="text-2xl font-bold mb-6">Register New AI Model</h2>
-        <Form method="post" className="space-y-6">
+        {/* Display action errors */}
+        {actionData?.error && (
+          <p className="text-red-500 mb-4">{actionData.error}</p>
+        )}
+        {/* Display success message (optional) */}
+        {actionData && !actionData.error && transition.state === 'idle' && (
+           <p className="text-green-500 mb-4">Model registered successfully!</p>
+        )}
+
+        <Form method="post" className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Form Fields */}
             {['name', 'type', 'parameter_count', 'experts', 'context_window_tokens'].map((field) => (
@@ -76,39 +102,28 @@ export default function Index() {
 
           <button
             type="submit"
-            disabled={transition.state === 'submitting'}
-            className="w-full md:w-auto px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400 transition-colors"
+            disabled={isSubmitting}
+            className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50"
           >
-            {transition.state === 'submitting' ? 'Submitting...' : 'Add Model'}
+            {isSubmitting ? 'Registering...' : 'Register Model'}
           </button>
-
-          {actionData?.success && (
-            <div className="mt-4 p-4 bg-green-50 text-green-700 rounded-lg">
-              Model {actionData.model?.name} registered successfully!
-            </div>
-          )}
-
-          {actionData?.error && (
-            <div className="mt-4 p-4 bg-red-50 text-red-700 rounded-lg">
-              Error: {actionData.error}
-            </div>
-          )}
         </Form>
       </section>
 
       {/* Models Table */}
       <section className="bg-white shadow-sm rounded-xl overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-200">
-          <h2 className="text-2xl font-bold">Registered Models</h2>
+          <h2 className="text-xl font-semibold">Registered Models</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
-                {['Name', 'Type', 'Parameters', 'Experts', 'Context Window'].map((header) => (
+                {/* Define table headers */}
+                {['Name', 'Type', 'Parameters', 'Experts', 'Context Window', 'Release Date'].map((header) => ( // Changed from Created At
                   <th
                     key={header}
-                    className="px-6 py-3 text-left text-sm font-semibold text-gray-700"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
                     {header}
                   </th>
@@ -116,22 +131,29 @@ export default function Index() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {models.map((model) => (
+              {/* Map over the models data */}
+              {Array.isArray(models) && models.map((model) => (
                 <tr key={model.id}>
-                  <td className="px-6 py-4 text-sm font-medium text-gray-900">{model.name}</td>
-                  <td className="px-6 py-4 text-sm text-gray-500">{model.type}</td>
-                  <td className="px-6 py-4 text-sm text-gray-500">
-                    {model.parameter_count.toLocaleString()}
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{model.name}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{model.type}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {(model.parameter_count ?? 0).toLocaleString()}
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-500">{model.experts}</td>
-                  <td className="px-6 py-4 text-sm text-gray-500">
-                    {model.context_window_tokens.toLocaleString()}
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{model.experts ?? 'N/A'}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {(model.context_window_tokens ?? 0).toLocaleString()}
+                  </td>
+                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {model.release_date ? new Date(model.release_date).toLocaleDateString() : 'N/A'} {/* Changed from created_at */}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+         {(!Array.isArray(models) || models.length === 0) && (
+            <p className="px-6 py-4 text-center text-gray-500">No models registered yet.</p>
+          )}
       </section>
     </div>
   );

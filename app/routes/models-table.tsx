@@ -10,7 +10,7 @@ export async function loader({ request }: LoaderArgs) {
   const { data, error } = await supabase
     .from('models') // Fetch from the 'models' table
     .select('*')
-    .order('created_at', { ascending: false });
+    .order('release_date', { ascending: false }); // Changed from created_at
 
   if (error) {
     console.error('Loader error:', error);
@@ -41,7 +41,7 @@ export default function ModelsTablePage() {
             <thead className="bg-gray-50">
               <tr>
                 {/* Define table headers */}
-                {['Name', 'Type', 'Parameters', 'Experts', 'Context Window', 'Created At'].map((header) => (
+                {['Name', 'Type', 'Parameters', 'Experts', 'Context Window', 'Release Date'].map((header) => ( // Changed from Created At
                   <th
                     key={header}
                     className="px-6 py-3 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider"
@@ -67,7 +67,7 @@ export default function ModelsTablePage() {
                     {(model.context_window_tokens ?? 0).toLocaleString()}
                   </td>
                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {model.created_at ? new Date(model.created_at).toLocaleDateString() : 'N/A'}
+                    {model.release_date ? new Date(model.release_date).toLocaleDateString() : 'N/A'} {/* Changed from created_at */}
                   </td>
                 </tr>
               ))}

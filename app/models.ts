@@ -5,5 +5,5 @@ export interface Model {
   parameter_count: number;
   experts: number;
   context_window_tokens: number;
-  created_at?: string;
+  release_date?: string; // Changed from created_at
 }
