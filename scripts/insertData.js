@@ -92,4 +92,7 @@ async function insertOriginalModels() {
     console.log('Original models data inserted successfully:', data);
   }
 }
-insertOriginalModels(); // Call this function instead
+// insertOriginalModels(); // Comment out the call to prevent execution
+console.log("Script setup complete. Insertion functions are removed or commented out as data is likely already present.");
+// You could potentially add other utility functions here if needed,
+// or simply delete this file if it serves no further purpose.
