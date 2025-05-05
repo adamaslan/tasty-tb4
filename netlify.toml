@@ -2,8 +2,20 @@
 [build]
   command = "npm run build"
   publish = "public"
-  # Add this line to specify the built functions directory
   functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+  external_node_modules = ["@remix-run/node"]
+
+[[headers]]
+  for = "/*"
+  values = {
+    "X-Frame-Options" = "DENY"
+    "X-Content-Type-Options" = "nosniff"
+    "Referrer-Policy" = "strict-origin-when-cross-origin"
+    "Strict-Transport-Security" = "max-age=31536000; includeSubDomains"
+  }
 
 [[redirects]]
   from = "/*"
@@ -12,8 +24,8 @@
 
 [functions]
   directory = "netlify/functions"
-  # Remove this invalid line
-  # publish = "public" # Directory to deploy
+  
+  publish = "public" # Directory to deploy
 
   # Environment variables available during build
   [build.environment]
