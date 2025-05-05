@@ -49,24 +49,14 @@
   #   NODE_ENV = "production"
 
 [dev]
-  command = "remix watch"
+  command = "npm run dev"
   port = 3000
-
-
-[build]
-  publish = "public"
-  command = "npm run build"
 
 # Environment variables for local dev go in .env
 # For production, set these in the Netlify dashboard, not here!
 #[build.environment]
 # SUPABASE_URL = ""
 # SUPABASE_ANON_KEY = ""
-
-[[redirects]]
-  from = "/*"
-  to = "/.netlify/functions/server"
-  status = 200
 
 [[headers]]
   for = "/build/*"
@@ -80,7 +70,3 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "same-origin"
     Permissions-Policy = "interest-cohort=()"
-
-[dev]
-  command = "npm run dev"
-  port = 3000
