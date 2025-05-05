@@ -4,83 +4,50 @@
   publish = "public"
   functions = "netlify/functions"
 
+[build.environment]
+  # Example: Add your Supabase keys here or in Netlify dashboard
+  # SUPABASE_URL = "https://your-project.supabase.co"
+  # SUPABASE_ANON_KEY = "your-anon-key"
+  CYPRESS_CACHE_FOLDER = "./node_modules/CypressBinary"
+  TERM = "xterm"
+
 [functions]
   node_bundler = "esbuild"
   external_node_modules = ["@remix-run/node"]
+  directory = "netlify/functions"
 
+# Security headers for all routes
 [[headers]]
   for = "/*"
-  values = {
-    "X-Frame-Options" = "DENY"
-    "X-Content-Type-Options" = "nosniff"
-    "Referrer-Policy" = "strict-origin-when-cross-origin"
-    "Strict-Transport-Security" = "max-age=31536000; includeSubDomains"
-  }
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# Cache control for Remix build assets
+[[headers]]
+  for = "/build/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, s-maxage=31536000"
 
-[functions]
-  directory = "netlify/functions"
-  
-  publish = "public" # Directory to deploy
-
-  # Environment variables available during build
-  [build.environment]
-    # Cache Cypress binary in local "node_modules" folder for Netlify caching
-    CYPRESS_CACHE_FOLDER = "./node_modules/CypressBinary"
-    # Set TERM variable for terminal output compatibility
-    TERM = "xterm"
-
-# Settings specific to Deploy Previews (Pull Requests)
-[context.deploy-preview]
-  # You could override the build command here if needed for PRs
-  # command = "npm run build:preview"
-  # Or add specific environment variables for previews
-  # [context.deploy-preview.environment]
-  #   SOME_VAR = "preview_value"
-
-  # Apply the Cypress plugin specifically to deploy previews
-  # [[context.deploy-preview.plugins]]  <-- REMOVE THIS BLOCK
-  #   package = "netlify-plugin-cypress"
-  #   [context.deploy-preview.plugins.inputs]
-  #     record = true # Consider setting this based on environment or context if needed
-  #     group = "Testing Deploy Preview" # More specific group name
-
-# Settings specific to Production builds
-[context.production]
-  # You might have production-specific build steps or environment variables
-  # command = "npm run build:production"
-  # [context.production.environment]
-  #   NODE_ENV = "production"
-
-  # Apply the Cypress plugin to production builds (optional, adjust as needed)
-  # [[context.production.plugins]]  <-- REMOVE THIS BLOCK
-  #   package = "netlify-plugin-cypress"
-  #   [context.production.plugins.inputs]
-  #     record = true
-  #     group = "Testing Production Site" # Different group name
-
-# Local development settings
-[dev]
-  command = "remix watch" # Command to start local dev server
-  port = 3000 # Port for local dev server
-
-# Redirect rule for Remix app server
+# Redirect all requests to the Remix Netlify serverless function
 [[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
 
-# Cache control headers for static build assets
-[[headers]]
-  for = "/build/*"
-  [headers.values]
-    "Cache-Control" = "public, max-age=31536000, s-maxage=31536000"
+# Context-specific settings (optional, customize as needed)
+[context.deploy-preview]
+  # command = "npm run build:preview"
+  # [context.deploy-preview.environment]
+  #   SOME_VAR = "preview_value"
 
-# Note: The global [[plugins]] block is removed as we moved plugin config
-# into specific contexts (deploy-preview and production).
-# If you want Cypress to run on ALL builds (including branch deploys),
-# you might keep the global block or add a [context.branch-deploy.plugins] section.
+[context.production]
+  # command = "npm run build:production"
+  # [context.production.environment]
+  #   NODE_ENV = "production"
+
+[dev]
+  command = "remix watch"
+  port = 3000
