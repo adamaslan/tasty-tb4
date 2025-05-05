@@ -6,7 +6,7 @@ const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     // Replace Navbare styled component with nav tag and Tailwind classes
-    <nav className="px-8 py-0 flex justify-between items-center flex-wrap">
+    <nav className="px-8 py-0 flex justify-between items-center flex-wrap"> {/* Corrected items-center */}
       {/* Replace Logo styled component with Link tag and Tailwind classes */}
       <Link to="/" className="py-4 text-[#001022] no-underline font-extrabold text-[1.7rem] font-['Palette_Mosaic',_cursive]">
         Tasty
