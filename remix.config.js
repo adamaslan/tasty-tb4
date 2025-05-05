@@ -6,8 +6,8 @@ module.exports = {
       ? "./server.js"
       : undefined,
   ignoredRouteFiles: ["**/.*"],
-  // appDirectory: "app",
-  // assetsBuildDirectory: "public/build",
-  // serverBuildPath: ".netlify/functions-internal/server.js",
-  // publicPath: "/build/",
+  appDirectory: "app", // Default: "app"
+  assetsBuildDirectory: "public/build", // Default: "public/build"
+  serverBuildPath: ".netlify/functions-internal/server.js", // Default for Netlify target
+  publicPath: "/build/", // Default: "/build/"
 };
