@@ -63,6 +63,5 @@
   },
   "engines": {
     "node": ">=14"
-  },
-  "type": "module"
+  }
 }
