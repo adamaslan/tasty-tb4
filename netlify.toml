@@ -2,6 +2,8 @@
 [build]
   command = "npm run build"
   publish = "public"
+  # Add this line to specify the built functions directory
+  functions = "netlify/functions"
 
 [[redirects]]
   from = "/*"
@@ -10,7 +12,8 @@
 
 [functions]
   directory = "netlify/functions"
-  publish = "public" # Directory to deploy
+  # Remove this invalid line
+  # publish = "public" # Directory to deploy
 
   # Environment variables available during build
   [build.environment]
