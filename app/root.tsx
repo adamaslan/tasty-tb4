@@ -16,14 +16,11 @@ import {
 import tailwindStylesheetUrl from "./styles/tailwind.css";
 import { getUser } from "./session.server";
 import box from "../public/boxchicken2.jpeg";
-import Nav from "./components/Nav.js"; // Import the Nav component
+import Nav from "./components/Navbar"; // Import the Nav component
+export const meta: MetaFunction = () => ({
+  title: "Putting the Sass n Fun in Tech" ,
+   "og:image": "box"});
 
-export const meta: MetaFunction = () => {
-  return {
-    title: "Putting the Sass n Fun in Tech",
-    "og:image": box
-  };
-};
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: tailwindStylesheetUrl }];
