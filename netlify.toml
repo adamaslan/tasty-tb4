@@ -31,11 +31,11 @@
   #   SOME_VAR = "preview_value"
 
   # Apply the Cypress plugin specifically to deploy previews
-  [[context.deploy-preview.plugins]]
-    package = "netlify-plugin-cypress"
-    [context.deploy-preview.plugins.inputs]
-      record = true # Consider setting this based on environment or context if needed
-      group = "Testing Deploy Preview" # More specific group name
+  # [[context.deploy-preview.plugins]]  <-- REMOVE THIS BLOCK
+  #   package = "netlify-plugin-cypress"
+  #   [context.deploy-preview.plugins.inputs]
+  #     record = true # Consider setting this based on environment or context if needed
+  #     group = "Testing Deploy Preview" # More specific group name
 
 # Settings specific to Production builds
 [context.production]
@@ -45,11 +45,11 @@
   #   NODE_ENV = "production"
 
   # Apply the Cypress plugin to production builds (optional, adjust as needed)
-  [[context.production.plugins]]
-    package = "netlify-plugin-cypress"
-    [context.production.plugins.inputs]
-      record = true
-      group = "Testing Production Site" # Different group name
+  # [[context.production.plugins]]  <-- REMOVE THIS BLOCK
+  #   package = "netlify-plugin-cypress"
+  #   [context.production.plugins.inputs]
+  #     record = true
+  #     group = "Testing Production Site" # Different group name
 
 # Local development settings
 [dev]
