@@ -2,6 +2,6 @@
 module.exports = {
   ignoredRouteFiles: ["**/.*"],
   serverModuleFormat: "cjs",
-  serverBuildTarget: "netlify",
-  server: "./server.js"
+  serverBuildTarget: "netlify"
+  // Removed the server: "./server.js" line
 };
