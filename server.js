@@ -1,10 +1,10 @@
-const { createRequestHandler } = require("@remix-run/netlify");
+const { createRequestHandler } = require("@netlify/remix-adapter");
 
-// This is the correct way to export the handler for Netlify Functions
-exports.handler = createRequestHandler({
+module.exports = createRequestHandler({
   build: require("./build"),
-  mode: process.env.NODE_ENV
+  // Add these lines for production error handling
+  mode: process.env.NODE_ENV,
+  getLoadContext() {
+    return { env: process.env };
+  }
 });
-
-
-

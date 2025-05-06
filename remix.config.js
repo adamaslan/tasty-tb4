@@ -1,7 +1,7 @@
 /** @type {import('@remix-run/dev').AppConfig} */
 module.exports = {
-  ignoredRouteFiles: ["**/.*"],
-  serverModuleFormat: "cjs",
-  serverBuildTarget: "netlify"
-  // Removed the server: "./server.js" line
+  serverBuildTarget: "netlify",
+  server: "./server.js",
+  cacheDirectory: "./node_modules/.cache/remix",
+  ignoredRouteFiles: ["**/.*"]
 };
