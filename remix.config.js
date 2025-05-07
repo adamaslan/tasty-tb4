@@ -1,6 +1,8 @@
 /** @type {import('@remix-run/dev').AppConfig} */
-export default {
+module.exports = {
   ignoredRouteFiles: ["**/*.css"],
   tailwind: true,
   postcss: true,
+  serverModuleFormat: "cjs",
+  serverBuildTarget: "netlify"
 };
