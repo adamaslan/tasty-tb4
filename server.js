@@ -1,10 +1,9 @@
-const { createRequestHandler } = require("@netlify/remix-adapter");
+import * as build from "@remix-run/dev/server-build";
+import { createRequestHandler } from "@netlify/remix-adapter";
 
-module.exports = createRequestHandler({
-  build: require("./build"),
-  // Add these lines for production error handling
+const handler = createRequestHandler({
+  build,
   mode: process.env.NODE_ENV,
-  getLoadContext() {
-    return { env: process.env };
-  }
 });
+
+export default handler;
