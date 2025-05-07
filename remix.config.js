@@ -3,6 +3,6 @@ module.exports = {
   ignoredRouteFiles: ["**/*.css"],
   tailwind: true,
   postcss: true,
-  serverModuleFormat: "cjs",
-  serverBuildTarget: "netlify"
+  // serverModuleFormat: "cjs",
+  // serverBuildTarget: "netlify"
 };
