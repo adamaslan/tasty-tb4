@@ -81,7 +81,7 @@ __export(root_exports, {
 var import_node2 = require("@remix-run/node"), import_react4 = require("@remix-run/react");
 
 // app/styles/tailwind.css
-var tailwind_default = "/build/_assets/tailwind-6LQNRQUP.css";
+var tailwind_default = "/build/_assets/tailwind-LA3ESH7D.css";
 
 // app/session.server.ts
 var import_node = require("@remix-run/node"), import_tiny_invariant2 = __toESM(require("tiny-invariant"));
@@ -3768,10 +3768,11 @@ function Article46() {
 // app/routes/models-table.tsx
 var models_table_exports = {};
 __export(models_table_exports, {
-  default: () => ModelsTablePage,
+  action: () => action,
+  default: () => ModelsTable,
   loader: () => loader2
 });
-var import_node3 = require("@remix-run/node"), import_react25 = require("@remix-run/react");
+var import_react25 = require("@remix-run/react"), import_node3 = require("@remix-run/node");
 
 // app/supabase.server.ts
 var import_supabase_js2 = require("@supabase/supabase-js"), import_tiny_invariant3 = __toESM(require("tiny-invariant"));
@@ -3792,109 +3793,197 @@ async function loader2({ request }) {
     throw console.error("Loader error:", error), new Response("Failed to load models", { status: 500 });
   return (0, import_node3.json)(data ?? []);
 }
-function ModelsTablePage() {
-  let models = (0, import_react25.useLoaderData)();
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { className: "max-w-7xl mx-auto p-4", children: /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("section", { className: "bg-white shadow-sm rounded-xl overflow-hidden", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { className: "px-6 py-4 border-b border-gray-200", children: /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("h1", { className: "text-2xl font-bold", children: "Registered AI Models" }, void 0, !1, {
+async function action({ request }) {
+  let formData = await request.formData(), name = formData.get("name"), type = formData.get("type"), parameter_count = parseInt(formData.get("parameter_count"), 10), experts = parseInt(formData.get("experts"), 10), context_window_tokens = parseInt(formData.get("context_window_tokens"), 10);
+  if (!name || !type || isNaN(parameter_count) || isNaN(experts) || isNaN(context_window_tokens))
+    return (0, import_node3.json)({ error: "Invalid form data" }, { status: 400 });
+  let { data, error } = await supabase2.from("models").insert([{ name, type, parameter_count, experts, context_window_tokens }]).select();
+  return error ? (console.error("Action error:", error), (0, import_node3.json)({ error: "Failed to register model" }, { status: 500 })) : (0, import_node3.json)(data ? data[0] : null);
+}
+function ModelsTable() {
+  let models = (0, import_react25.useLoaderData)(), actionData = (0, import_react25.useActionData)(), transition = (0, import_react25.useTransition)(), isSubmitting = transition.state === "submitting";
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { className: "max-w-7xl mx-auto p-4", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { className: "mb-4", children: /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(import_react25.Link, { to: "/", className: "text-blue-600 hover:underline", children: "Back to Home" }, void 0, !1, {
       fileName: "app/routes/models-table.tsx",
-      lineNumber: 37,
-      columnNumber: 11
+      lineNumber: 67,
+      columnNumber: 9
     }, this) }, void 0, !1, {
       fileName: "app/routes/models-table.tsx",
-      lineNumber: 36,
-      columnNumber: 9
+      lineNumber: 66,
+      columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { className: "overflow-x-auto", children: /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("table", { className: "w-full", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("thead", { className: "bg-gray-50", children: /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("tr", { children: ["Name", "Type", "Parameters", "Experts", "Context Window", "Release Date"].map((header) => (
-        // Changed from Created At
+    /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("section", { className: "mb-12 bg-white shadow-sm rounded-xl p-6", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("h2", { className: "text-2xl font-bold mb-6", children: "Register New AI Model" }, void 0, !1, {
+        fileName: "app/routes/models-table.tsx",
+        lineNumber: 74,
+        columnNumber: 9
+      }, this),
+      (actionData == null ? void 0 : actionData.error) && /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("p", { className: "text-red-500 mb-4", children: actionData.error }, void 0, !1, {
+        fileName: "app/routes/models-table.tsx",
+        lineNumber: 77,
+        columnNumber: 11
+      }, this),
+      actionData && !actionData.error && transition.state === "idle" && /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("p", { className: "text-green-500 mb-4", children: "Model registered successfully!" }, void 0, !1, {
+        fileName: "app/routes/models-table.tsx",
+        lineNumber: 81,
+        columnNumber: 12
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(import_react25.Form, { method: "post", className: "space-y-4", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: ["name", "type", "parameter_count", "experts", "context_window_tokens"].map((field) => /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("label", { className: "block text-sm font-medium capitalize mb-2", children: field.replace(/_/g, " ") }, void 0, !1, {
+            fileName: "app/routes/models-table.tsx",
+            lineNumber: 89,
+            columnNumber: 17
+          }, this),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(
+            "input",
+            {
+              name: field,
+              type: field === "name" || field === "type" ? "text" : "number",
+              required: !0,
+              className: "w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+            },
+            void 0,
+            !1,
+            {
+              fileName: "app/routes/models-table.tsx",
+              lineNumber: 92,
+              columnNumber: 17
+            },
+            this
+          )
+        ] }, field, !0, {
+          fileName: "app/routes/models-table.tsx",
+          lineNumber: 88,
+          columnNumber: 15
+        }, this)) }, void 0, !1, {
+          fileName: "app/routes/models-table.tsx",
+          lineNumber: 85,
+          columnNumber: 11
+        }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(
+          "button",
+          {
+            type: "submit",
+            disabled: isSubmitting,
+            className: "inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50",
+            children: isSubmitting ? "Registering..." : "Register Model"
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/routes/models-table.tsx",
+            lineNumber: 102,
+            columnNumber: 11
+          },
+          this
+        )
+      ] }, void 0, !0, {
+        fileName: "app/routes/models-table.tsx",
+        lineNumber: 84,
+        columnNumber: 9
+      }, this)
+    ] }, void 0, !0, {
+      fileName: "app/routes/models-table.tsx",
+      lineNumber: 73,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("section", { className: "bg-white shadow-sm rounded-xl overflow-hidden", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { className: "px-6 py-4 border-b border-gray-200", children: /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("h2", { className: "text-xl font-semibold", children: "Registered Models" }, void 0, !1, {
+        fileName: "app/routes/models-table.tsx",
+        lineNumber: 115,
+        columnNumber: 11
+      }, this) }, void 0, !1, {
+        fileName: "app/routes/models-table.tsx",
+        lineNumber: 114,
+        columnNumber: 9
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("div", { className: "overflow-x-auto", children: /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("table", { className: "w-full", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("thead", { className: "bg-gray-50", children: /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("tr", { children: ["Name", "Type", "Parameters", "Experts", "Context Window", "Release Date"].map((header) => /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)(
           "th",
           {
-            className: "px-6 py-3 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider",
+            className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
             children: header
           },
           header,
           !1,
           {
             fileName: "app/routes/models-table.tsx",
-            lineNumber: 45,
+            lineNumber: 123,
             columnNumber: 19
           },
           this
-        )
-      )) }, void 0, !1, {
+        )) }, void 0, !1, {
+          fileName: "app/routes/models-table.tsx",
+          lineNumber: 120,
+          columnNumber: 15
+        }, this) }, void 0, !1, {
+          fileName: "app/routes/models-table.tsx",
+          lineNumber: 119,
+          columnNumber: 13
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("tbody", { className: "divide-y divide-gray-200", children: Array.isArray(models) && models.map((model) => /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("tr", { children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("td", { className: "px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900", children: model.name }, void 0, !1, {
+            fileName: "app/routes/models-table.tsx",
+            lineNumber: 136,
+            columnNumber: 19
+          }, this),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("td", { className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500", children: model.type }, void 0, !1, {
+            fileName: "app/routes/models-table.tsx",
+            lineNumber: 137,
+            columnNumber: 19
+          }, this),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("td", { className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500", children: (model.parameter_count ?? 0).toLocaleString() }, void 0, !1, {
+            fileName: "app/routes/models-table.tsx",
+            lineNumber: 138,
+            columnNumber: 19
+          }, this),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("td", { className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500", children: model.experts ?? "N/A" }, void 0, !1, {
+            fileName: "app/routes/models-table.tsx",
+            lineNumber: 141,
+            columnNumber: 19
+          }, this),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("td", { className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500", children: (model.context_window_tokens ?? 0).toLocaleString() }, void 0, !1, {
+            fileName: "app/routes/models-table.tsx",
+            lineNumber: 142,
+            columnNumber: 19
+          }, this),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("td", { className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500", children: model.release_date ? new Date(model.release_date).toLocaleDateString() : "N/A" }, void 0, !1, {
+            fileName: "app/routes/models-table.tsx",
+            lineNumber: 145,
+            columnNumber: 20
+          }, this)
+        ] }, model.id, !0, {
+          fileName: "app/routes/models-table.tsx",
+          lineNumber: 135,
+          columnNumber: 17
+        }, this)) }, void 0, !1, {
+          fileName: "app/routes/models-table.tsx",
+          lineNumber: 132,
+          columnNumber: 13
+        }, this)
+      ] }, void 0, !0, {
         fileName: "app/routes/models-table.tsx",
-        lineNumber: 42,
-        columnNumber: 15
+        lineNumber: 118,
+        columnNumber: 11
       }, this) }, void 0, !1, {
         fileName: "app/routes/models-table.tsx",
-        lineNumber: 41,
-        columnNumber: 13
+        lineNumber: 117,
+        columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("tbody", { className: "divide-y divide-gray-200", children: Array.isArray(models) && models.map((model) => /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("tr", { children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("td", { className: "px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900", children: model.name }, void 0, !1, {
-          fileName: "app/routes/models-table.tsx",
-          lineNumber: 59,
-          columnNumber: 19
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("td", { className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500", children: model.type }, void 0, !1, {
-          fileName: "app/routes/models-table.tsx",
-          lineNumber: 60,
-          columnNumber: 19
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("td", { className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500", children: (model.parameter_count ?? 0).toLocaleString() }, void 0, !1, {
-          fileName: "app/routes/models-table.tsx",
-          lineNumber: 61,
-          columnNumber: 19
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("td", { className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500", children: model.experts ?? "N/A" }, void 0, !1, {
-          fileName: "app/routes/models-table.tsx",
-          lineNumber: 65,
-          columnNumber: 19
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("td", { className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500", children: (model.context_window_tokens ?? 0).toLocaleString() }, void 0, !1, {
-          fileName: "app/routes/models-table.tsx",
-          lineNumber: 66,
-          columnNumber: 19
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("td", { className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500", children: [
-          model.release_date ? new Date(model.release_date).toLocaleDateString() : "N/A",
-          " "
-        ] }, void 0, !0, {
-          fileName: "app/routes/models-table.tsx",
-          lineNumber: 69,
-          columnNumber: 20
-        }, this)
-      ] }, model.id, !0, {
+      (!Array.isArray(models) || models.length === 0) && /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("p", { className: "px-6 py-4 text-center text-gray-500", children: "No models registered yet." }, void 0, !1, {
         fileName: "app/routes/models-table.tsx",
-        lineNumber: 58,
-        columnNumber: 17
-      }, this)) }, void 0, !1, {
-        fileName: "app/routes/models-table.tsx",
-        lineNumber: 54,
+        lineNumber: 154,
         columnNumber: 13
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/models-table.tsx",
-      lineNumber: 40,
-      columnNumber: 11
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/models-table.tsx",
-      lineNumber: 39,
-      columnNumber: 9
-    }, this),
-    (!Array.isArray(models) || models.length === 0) && /* @__PURE__ */ (0, import_jsx_dev_runtime23.jsxDEV)("p", { className: "px-6 py-4 text-center text-gray-500", children: "No models found." }, void 0, !1, {
-      fileName: "app/routes/models-table.tsx",
-      lineNumber: 79,
-      columnNumber: 13
+      lineNumber: 113,
+      columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/models-table.tsx",
-    lineNumber: 35,
-    columnNumber: 7
-  }, this) }, void 0, !1, {
-    fileName: "app/routes/models-table.tsx",
-    lineNumber: 34,
+    lineNumber: 64,
     columnNumber: 5
   }, this);
 }
@@ -4356,7 +4445,7 @@ optimized_classify.save("optimized_event_classifier.json")
 // app/routes/$title.tsx
 var title_exports = {};
 __export(title_exports, {
-  action: () => action,
+  action: () => action2,
   default: () => NoteDetailsPage,
   loader: () => loader3
 });
@@ -4394,7 +4483,7 @@ async function loader3({ params }) {
     throw new Response("Not Found", { status: 404 });
   return (0, import_node4.json)({ note });
 }
-var action = async ({ params }) => ((0, import_tiny_invariant4.default)(params.title, "noteTitle not found"), await deleteNoteByTitle(params.title), (0, import_node4.redirect)("/notes"));
+var action2 = async ({ params }) => ((0, import_tiny_invariant4.default)(params.title, "noteTitle not found"), await deleteNoteByTitle(params.title), (0, import_node4.redirect)("/notes"));
 function NoteDetailsPage() {
   let data = (0, import_react28.useLoaderData)();
   return console.log(data), /* @__PURE__ */ (0, import_jsx_dev_runtime26.jsxDEV)("div", { children: [
@@ -4443,206 +4532,859 @@ function NoteDetailsPage() {
 // app/routes/_index.tsx
 var index_exports = {};
 __export(index_exports, {
-  action: () => action2,
-  default: () => Index,
-  loader: () => loader4
+  default: () => Art2,
+  meta: () => meta9
 });
-var import_react29 = require("@remix-run/react"), import_node5 = require("@remix-run/node");
+var import_react29 = require("@remix-run/react");
+
+// public/cloud1.jpeg
+var cloud1_default = "/build/_assets/cloud1-FTZDJF7K.jpeg";
+
+// app/routes/_index.tsx
 var import_jsx_dev_runtime27 = require("react/jsx-dev-runtime");
-async function loader4({ request }) {
-  let { data, error } = await supabase2.from("models").select("*").order("release_date", { ascending: !1 });
-  if (error)
-    throw console.error("Loader error:", error), new Response("Failed to load models", { status: 500 });
-  return (0, import_node5.json)(data ?? []);
+function meta9() {
+  return { "og:image": boxchicken2_default };
 }
-async function action2({ request }) {
-  let formData = await request.formData(), name = formData.get("name"), type = formData.get("type"), parameter_count = parseInt(formData.get("parameter_count"), 10), experts = parseInt(formData.get("experts"), 10), context_window_tokens = parseInt(formData.get("context_window_tokens"), 10);
-  if (!name || !type || isNaN(parameter_count) || isNaN(experts) || isNaN(context_window_tokens))
-    return (0, import_node5.json)({ error: "Invalid form data" }, { status: 400 });
-  let { data, error } = await supabase2.from("models").insert([{ name, type, parameter_count, experts, context_window_tokens }]).select();
-  return error ? (console.error("Action error:", error), (0, import_node5.json)({ error: "Failed to register model" }, { status: 500 })) : (0, import_node5.json)(data ? data[0] : null);
-}
-function Index() {
-  let models = (0, import_react29.useLoaderData)(), actionData = (0, import_react29.useActionData)(), transition = (0, import_react29.useTransition)(), isSubmitting = transition.state === "submitting";
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "max-w-7xl mx-auto p-4", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("section", { className: "mb-12 bg-white shadow-sm rounded-xl p-6", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h2", { className: "text-2xl font-bold mb-6", children: "Register New AI Model" }, void 0, !1, {
-        fileName: "app/routes/_index.tsx",
-        lineNumber: 75,
-        columnNumber: 9
-      }, this),
-      (actionData == null ? void 0 : actionData.error) && /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("p", { className: "text-red-500 mb-4", children: actionData.error }, void 0, !1, {
-        fileName: "app/routes/_index.tsx",
-        lineNumber: 78,
-        columnNumber: 11
-      }, this),
-      actionData && !actionData.error && transition.state === "idle" && /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("p", { className: "text-green-500 mb-4", children: "Model registered successfully!" }, void 0, !1, {
-        fileName: "app/routes/_index.tsx",
-        lineNumber: 82,
-        columnNumber: 12
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react29.Form, { method: "post", className: "space-y-4", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-6", children: ["name", "type", "parameter_count", "experts", "context_window_tokens"].map((field) => /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("label", { className: "block text-sm font-medium capitalize mb-2", children: field.replace(/_/g, " ") }, void 0, !1, {
+function Art2() {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("main", { className: " items-left justify-left mx-4 min-h-screen bg-white lg:mx-36 md:mx-16", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h1", { className: "text-left text-xl font-extrabold tracking-tight sm:text-4xl lg:text-6xl ", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("span", { className: "block uppercase text-blue-500 drop-shadow-md", children: "Tasty Tech Bytes" }, void 0, !1, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 33,
+      columnNumber: 9
+    }, this) }, void 0, !1, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 32,
+      columnNumber: 5
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("p", { className: "text-left text-xl font-extrabold tracking-tight sm:text-xl lg:text-4xl", children: [
+      " ",
+      "Keeping it Tasty in 2025"
+    ] }, void 0, !0, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 38,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "grid lg:grid-cols-4 h-1/4 gap-4", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "col-span-1  h-1/4  ", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react29.Link, { to: "/how-to-invest-in-whisky", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "rounded-full bg-yellow-500 p-1 text-lg font-bold tracking-tight text-white", children: "Drink World - Helpful" }, void 0, !1, {
             fileName: "app/routes/_index.tsx",
-            lineNumber: 90,
-            columnNumber: 17
+            lineNumber: 50,
+            columnNumber: 11
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
-            "input",
+            "img",
             {
-              name: field,
-              type: field === "name" || field === "type" ? "text" : "number",
-              required: !0,
-              className: "w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
+              src: cask1_default,
+              alt: "casks"
             },
             void 0,
             !1,
             {
               fileName: "app/routes/_index.tsx",
-              lineNumber: 93,
-              columnNumber: 17
+              lineNumber: 54,
+              columnNumber: 11
             },
             this
-          )
-        ] }, field, !0, {
+          ),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h1", { className: "pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "3 Ways to Invest in Whiskey" }, void 0, !1, {
+            fileName: "app/routes/_index.tsx",
+            lineNumber: 59,
+            columnNumber: 11
+          }, this)
+        ] }, void 0, !0, {
           fileName: "app/routes/_index.tsx",
-          lineNumber: 89,
-          columnNumber: 15
-        }, this)) }, void 0, !1, {
+          lineNumber: 49,
+          columnNumber: 9
+        }, this) }, void 0, !1, {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 48,
+          columnNumber: 7
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react29.Link, { to: "/artihow-to-use-the-pie-menu-in-blender", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "rounded-full bg-purple-900 p-1 text-lg font-bold tracking-tight text-white", children: "3D World - Helpful" }, void 0, !1, {
+            fileName: "app/routes/_index.tsx",
+            lineNumber: 67,
+            columnNumber: 9
+          }, this),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
+            "img",
+            {
+              className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
+              src: blender1_default,
+              alt: "computer and graphs"
+            },
+            void 0,
+            !1,
+            {
+              fileName: "app/routes/_index.tsx",
+              lineNumber: 71,
+              columnNumber: 11
+            },
+            this
+          ),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h1", { className: "pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "The Pie Menu Rocks in Blender" }, void 0, !1, {
+            fileName: "app/routes/_index.tsx",
+            lineNumber: 76,
+            columnNumber: 11
+          }, this)
+        ] }, void 0, !0, {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 66,
+          columnNumber: 9
+        }, this) }, void 0, !1, {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 65,
+          columnNumber: 7
+        }, this)
+      ] }, void 0, !0, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 46,
+        columnNumber: 7
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "lg:col-span-2  lg:h-1/4  ", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react29.Link, { to: "/three-essential-webstorm-shortcuts", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "rounded-full bg-blue-500 p-1 text-lg font-bold tracking-tight text-white", children: "Software - Webstorm" }, void 0, !1, {
           fileName: "app/routes/_index.tsx",
           lineNumber: 86,
           columnNumber: 11
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
-          "button",
+          "img",
           {
-            type: "submit",
-            disabled: isSubmitting,
-            className: "inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50",
-            children: isSubmitting ? "Registering..." : "Register Model"
+            className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
+            src: webstorm1_default,
+            alt: "computer and graphs"
           },
           void 0,
           !1,
           {
             fileName: "app/routes/_index.tsx",
-            lineNumber: 103,
+            lineNumber: 89,
             columnNumber: 11
           },
           this
-        )
+        ),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h1", { className: "pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "The Three WebStorm Shortcuts to Rule Them All" }, void 0, !1, {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 94,
+          columnNumber: 11
+        }, this),
+        " "
       ] }, void 0, !0, {
         fileName: "app/routes/_index.tsx",
         lineNumber: 85,
         columnNumber: 9
-      }, this)
-    ] }, void 0, !0, {
-      fileName: "app/routes/_index.tsx",
-      lineNumber: 74,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("section", { className: "bg-white shadow-sm rounded-xl overflow-hidden", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "px-6 py-4 border-b border-gray-200", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h2", { className: "text-xl font-semibold", children: "Registered Models" }, void 0, !1, {
-        fileName: "app/routes/_index.tsx",
-        lineNumber: 116,
-        columnNumber: 11
       }, this) }, void 0, !1, {
         fileName: "app/routes/_index.tsx",
-        lineNumber: 115,
-        columnNumber: 9
+        lineNumber: 84,
+        columnNumber: 51
+      }, this) }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 84,
+        columnNumber: 8
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "overflow-x-auto", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("table", { className: "w-full", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("thead", { className: "bg-gray-50", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("tr", { children: ["Name", "Type", "Parameters", "Experts", "Context Window", "Release Date"].map((header) => (
-          // Changed from Created At
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "col-span-1 h-1/4 ", children: [
+        " ",
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react29.Link, { to: "/weirdinternetfacts", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "rounded-full bg-green-400 p-1 text-lg font-bold tracking-tight text-white", children: "Code World - Random" }, void 0, !1, {
+            fileName: "app/routes/_index.tsx",
+            lineNumber: 103,
+            columnNumber: 11
+          }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
-            "th",
+            "img",
             {
-              className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
-              children: header
+              className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
+              src: old_comp1_default,
+              alt: "computer and graphs"
             },
-            header,
+            void 0,
             !1,
             {
               fileName: "app/routes/_index.tsx",
-              lineNumber: 124,
-              columnNumber: 19
+              lineNumber: 107,
+              columnNumber: 11
             },
             this
-          )
-        )) }, void 0, !1, {
+          ),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h1", { className: "pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "4 Weird Things about the Internet" }, void 0, !1, {
+            fileName: "app/routes/_index.tsx",
+            lineNumber: 112,
+            columnNumber: 11
+          }, this)
+        ] }, void 0, !0, {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 102,
+          columnNumber: 9
+        }, this) }, void 0, !1, {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 100,
+          columnNumber: 45
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react29.Link, { to: "/nab-2023-audio-video-gear", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white", children: "Code World - Helpful" }, void 0, !1, {
+            fileName: "app/routes/_index.tsx",
+            lineNumber: 122,
+            columnNumber: 11
+          }, this),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
+            "img",
+            {
+              className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
+              src: soundsguy1_default,
+              alt: "computer and graphs"
+            },
+            void 0,
+            !1,
+            {
+              fileName: "app/routes/_index.tsx",
+              lineNumber: 126,
+              columnNumber: 11
+            },
+            this
+          ),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h1", { className: "pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "Highlights from NAB 2023" }, void 0, !1, {
+            fileName: "app/routes/_index.tsx",
+            lineNumber: 131,
+            columnNumber: 11
+          }, this)
+        ] }, void 0, !0, {
           fileName: "app/routes/_index.tsx",
           lineNumber: 121,
-          columnNumber: 15
+          columnNumber: 9
         }, this) }, void 0, !1, {
           fileName: "app/routes/_index.tsx",
           lineNumber: 120,
-          columnNumber: 13
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("tbody", { className: "divide-y divide-gray-200", children: Array.isArray(models) && models.map((model) => /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("tr", { children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("td", { className: "px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900", children: model.name }, void 0, !1, {
-            fileName: "app/routes/_index.tsx",
-            lineNumber: 137,
-            columnNumber: 19
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("td", { className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500", children: model.type }, void 0, !1, {
-            fileName: "app/routes/_index.tsx",
-            lineNumber: 138,
-            columnNumber: 19
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("td", { className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500", children: (model.parameter_count ?? 0).toLocaleString() }, void 0, !1, {
-            fileName: "app/routes/_index.tsx",
-            lineNumber: 139,
-            columnNumber: 19
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("td", { className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500", children: model.experts ?? "N/A" }, void 0, !1, {
-            fileName: "app/routes/_index.tsx",
-            lineNumber: 142,
-            columnNumber: 19
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("td", { className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500", children: (model.context_window_tokens ?? 0).toLocaleString() }, void 0, !1, {
-            fileName: "app/routes/_index.tsx",
-            lineNumber: 143,
-            columnNumber: 19
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("td", { className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500", children: [
-            model.release_date ? new Date(model.release_date).toLocaleDateString() : "N/A",
-            " "
-          ] }, void 0, !0, {
-            fileName: "app/routes/_index.tsx",
-            lineNumber: 146,
-            columnNumber: 20
-          }, this)
-        ] }, model.id, !0, {
-          fileName: "app/routes/_index.tsx",
-          lineNumber: 136,
-          columnNumber: 17
-        }, this)) }, void 0, !1, {
-          fileName: "app/routes/_index.tsx",
-          lineNumber: 133,
-          columnNumber: 13
+          columnNumber: 7
         }, this)
       ] }, void 0, !0, {
         fileName: "app/routes/_index.tsx",
-        lineNumber: 119,
-        columnNumber: 11
-      }, this) }, void 0, !1, {
-        fileName: "app/routes/_index.tsx",
-        lineNumber: 118,
+        lineNumber: 100,
         columnNumber: 9
-      }, this),
-      (!Array.isArray(models) || models.length === 0) && /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("p", { className: "px-6 py-4 text-center text-gray-500", children: "No models registered yet." }, void 0, !1, {
-        fileName: "app/routes/_index.tsx",
-        lineNumber: 155,
-        columnNumber: 13
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/_index.tsx",
-      lineNumber: 114,
+      lineNumber: 45,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "grid grid-cols-4 h-1/4 gap-4", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "col-span-1 row-span-1 ", children: [
+        " ",
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react29.Link, { to: "/threekeys-to-getting-a-frontend-or-fullstackjob", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white", children: "Code World - Helpful" }, void 0, !1, {
+            fileName: "app/routes/_index.tsx",
+            lineNumber: 150,
+            columnNumber: 11
+          }, this),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
+            "img",
+            {
+              className: "m-2 h-auto flex-col rounded-full shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30",
+              src: studio_default,
+              alt: "Studio by Warren Hansen"
+            },
+            void 0,
+            !1,
+            {
+              fileName: "app/routes/_index.tsx",
+              lineNumber: 153,
+              columnNumber: 11
+            },
+            this
+          ),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h1", { className: "pb-3 text-left text-lg font-bold tracking-tight shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30 sm:text-3xl lg:text-4xl", children: "The 3 Keys To Getting Your Dream Frontend or Full Stack Engineer Job" }, void 0, !1, {
+            fileName: "app/routes/_index.tsx",
+            lineNumber: 158,
+            columnNumber: 11
+          }, this),
+          " "
+        ] }, void 0, !0, {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 149,
+          columnNumber: 9
+        }, this) }, void 0, !1, {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 148,
+          columnNumber: 53
+        }, this)
+      ] }, void 0, !0, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 148,
+        columnNumber: 12
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "col-span-1 ", children: [
+        " ",
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react29.Link, { to: "/vuejs-independant-javascript-framework", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white", children: "Code World - Helpful" }, void 0, !1, {
+            fileName: "app/routes/_index.tsx",
+            lineNumber: 166,
+            columnNumber: 11
+          }, this),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
+            "img",
+            {
+              className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
+              src: js_burden_default,
+              alt: "computer and graphs"
+            },
+            void 0,
+            !1,
+            {
+              fileName: "app/routes/_index.tsx",
+              lineNumber: 170,
+              columnNumber: 11
+            },
+            this
+          ),
+          /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h1", { className: "pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "VueJS as the Most Indie Yet Established Javascript Framework" }, void 0, !1, {
+            fileName: "app/routes/_index.tsx",
+            lineNumber: 175,
+            columnNumber: 11
+          }, this)
+        ] }, void 0, !0, {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 165,
+          columnNumber: 9
+        }, this) }, void 0, !1, {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 164,
+          columnNumber: 42
+        }, this)
+      ] }, void 0, !0, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 164,
+        columnNumber: 12
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "col-span-1  ", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react29.Link, { to: "/astro-the-most-innovative-javascript-framwork", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white", children: "Code World - Helpful" }, void 0, !1, {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 183,
+          columnNumber: 11
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
+          "img",
+          {
+            className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
+            src: boxchicken2_default,
+            alt: "computer and graphs"
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/routes/_index.tsx",
+            lineNumber: 187,
+            columnNumber: 11
+          },
+          this
+        ),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h1", { className: "pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "Astro.js as the Most Innovative and Modern Javascript Framework" }, void 0, !1, {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 192,
+          columnNumber: 11
+        }, this)
+      ] }, void 0, !0, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 182,
+        columnNumber: 9
+      }, this) }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 181,
+        columnNumber: 7
+      }, this) }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 180,
+        columnNumber: 13
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "col-span-1  ", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react29.Link, { to: "/the-art-of-the-clean-install", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white", children: "Code World - Helpful" }, void 0, !1, {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 202,
+          columnNumber: 10
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
+          "img",
+          {
+            className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
+            src: graph4_default,
+            alt: "computer and graphs"
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/routes/_index.tsx",
+            lineNumber: 206,
+            columnNumber: 10
+          },
+          this
+        ),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h1", { className: "pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "The Art of the Clean Install" }, void 0, !1, {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 211,
+          columnNumber: 10
+        }, this)
+      ] }, void 0, !0, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 201,
+        columnNumber: 8
+      }, this) }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 200,
+        columnNumber: 6
+      }, this) }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 198,
+        columnNumber: 14
+      }, this)
+    ] }, void 0, !0, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 146,
+      columnNumber: 9
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react29.Link, { to: "/what-is-rag", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "rounded-full bg-purple-400 p-1 text-lg font-bold tracking-tight text-white", children: "AI Tips" }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 225,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
+        "img",
+        {
+          className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
+          src: fish1_default,
+          alt: "fish"
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 229,
+          columnNumber: 11
+        },
+        this
+      ),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h1", { className: "pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "RAG 101 Tutorial: All you need to know about RAG" }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 234,
+        columnNumber: 11
+      }, this)
+    ] }, void 0, !0, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 224,
+      columnNumber: 9
+    }, this) }, void 0, !1, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 223,
+      columnNumber: 6
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react29.Link, { to: "/what-are-the-best-free-text-to-speech-tools", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "rounded-full bg-purple-400 p-1 text-lg font-bold tracking-tight text-white", children: "AI Tips" }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 240,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
+        "img",
+        {
+          className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
+          src: text2speech_default,
+          alt: "text to speech"
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 244,
+          columnNumber: 11
+        },
+        this
+      ),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h1", { className: "pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "What are the Best Free Text-to-Speech Tools? " }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 249,
+        columnNumber: 11
+      }, this)
+    ] }, void 0, !0, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 239,
+      columnNumber: 9
+    }, this) }, void 0, !1, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 238,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react29.Link, { to: "/dspy101", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "rounded-full bg-purple-400 p-1 text-lg font-bold tracking-tight text-white", children: "AI Tips" }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 256,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
+        "img",
+        {
+          className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
+          src: dspyprompt_default,
+          alt: "dspyprompt"
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 260,
+          columnNumber: 11
+        },
+        this
+      ),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h1", { className: "pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "DSPy 101 Tutorial: Prompting Guide" }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 265,
+        columnNumber: 11
+      }, this)
+    ] }, void 0, !0, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 255,
+      columnNumber: 9
+    }, this) }, void 0, !1, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 254,
+      columnNumber: 6
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react29.Link, { to: "/databricks-dspy-jetblue-ai-chatbot", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "rounded-full bg-purple-400 p-1 text-lg font-bold tracking-tight text-white", children: "AI Tips" }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 271,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
+        "img",
+        {
+          className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
+          src: databricks_default,
+          alt: "databricks"
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 275,
+          columnNumber: 11
+        },
+        this
+      ),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h1", { className: "pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: " JetBlue Optimizes Databricks LLM Pipelines with DSPy " }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 280,
+        columnNumber: 11
+      }, this)
+    ] }, void 0, !0, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 270,
+      columnNumber: 9
+    }, this) }, void 0, !1, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 269,
+      columnNumber: 6
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react29.Link, { to: "/5waystoenhanceragefficiencywithdspy", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "rounded-full bg-purple-400 p-1 text-lg font-bold tracking-tight text-white", children: "AI Tips" }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 286,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
+        "img",
+        {
+          className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
+          src: letters1_default,
+          alt: "letters"
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 290,
+          columnNumber: 11
+        },
+        this
+      ),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h1", { className: "pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: " 5 ways to enhance RAG efficiency with DSPy   " }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 295,
+        columnNumber: 11
+      }, this)
+    ] }, void 0, !0, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 285,
+      columnNumber: 9
+    }, this) }, void 0, !1, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 284,
+      columnNumber: 6
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react29.Link, { to: "/threejsandweb3", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "rounded-full bg-green-800 p-1 text-lg font-bold tracking-tight text-white", children: "Code Art - ThreeJS" }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 301,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
+        "img",
+        {
+          className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
+          src: cloud1_default,
+          alt: "clouds"
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 305,
+          columnNumber: 11
+        },
+        this
+      ),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h1", { className: "pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "ThreeJS, the old Web3?" }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 310,
+        columnNumber: 11
+      }, this)
+    ] }, void 0, !0, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 300,
+      columnNumber: 9
+    }, this) }, void 0, !1, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 299,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react29.Link, { to: "/easydomainverificationwithgoogle", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white", children: "Code World - Helpful" }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 318,
+        columnNumber: 9
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
+        "img",
+        {
+          className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
+          src: analytics1_default,
+          alt: "analytics chart"
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 322,
+          columnNumber: 11
+        },
+        this
+      ),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h1", { className: "pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "The Easy Way to Verify Domain Ownership with Google" }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 327,
+        columnNumber: 11
+      }, this)
+    ] }, void 0, !0, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 317,
+      columnNumber: 9
+    }, this) }, void 0, !1, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 316,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react29.Link, { to: "/liesaboutjavascript", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white", children: "Code World - Helpful" }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 334,
+        columnNumber: 9
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
+        "img",
+        {
+          className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
+          src: js1_default,
+          alt: "javascript chart"
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 338,
+          columnNumber: 11
+        },
+        this
+      ),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h1", { className: "pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "Sweet Little JavaScript Lies About Javascript          " }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 343,
+        columnNumber: 11
+      }, this)
+    ] }, void 0, !0, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 333,
+      columnNumber: 9
+    }, this) }, void 0, !1, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 332,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react29.Link, { to: "/create-your-own-huggingface-space-easy", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white", children: "Code World - Helpful" }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 349,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
+        "img",
+        {
+          className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
+          src: huggingface1_default,
+          alt: "emoji"
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 353,
+          columnNumber: 11
+        },
+        this
+      ),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h1", { className: "pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "The easy way to publish on Hugging Face Spaces" }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 358,
+        columnNumber: 11
+      }, this)
+    ] }, void 0, !0, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 348,
+      columnNumber: 9
+    }, this) }, void 0, !1, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 347,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react29.Link, { to: "/5-ways-ai-can-help-farmland-restoration", children: [
+      " ",
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "rounded-full bg-green-700 p-1 text-lg font-bold tracking-tight text-white", children: [
+          " ",
+          "AI & Sustainability "
+        ] }, void 0, !0, {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 366,
+          columnNumber: 11
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
+          "img",
+          {
+            className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
+            src: restoration_default,
+            alt: "Farmland restoration"
+          },
+          void 0,
+          !1,
+          {
+            fileName: "app/routes/_index.tsx",
+            lineNumber: 370,
+            columnNumber: 11
+          },
+          this
+        ),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h1", { className: "pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "5 Ways AI Can Help Farmland Restoration " }, void 0, !1, {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 375,
+          columnNumber: 11
+        }, this)
+      ] }, void 0, !0, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 365,
+        columnNumber: 9
+      }, this)
+    ] }, void 0, !0, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 364,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react29.Link, { to: "/models-table", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "rounded-full bg-indigo-600 p-1 text-lg font-bold tracking-tight text-white", children: [
+        " ",
+        "AI Models"
+      ] }, void 0, !0, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 383,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
+        "img",
+        {
+          className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
+          src: databricks_default,
+          alt: "AI models table"
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 387,
+          columnNumber: 11
+        },
+        this
+      ),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h1", { className: "pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "View Registered AI Models " }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 392,
+        columnNumber: 11
+      }, this)
+    ] }, void 0, !0, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 382,
+      columnNumber: 9
+    }, this) }, void 0, !1, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 381,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(import_react29.Link, { to: "/using-airpods-and-audacity-hack", children: /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("div", { className: "rounded-full bg-pink-600 p-1 text-lg font-bold tracking-tight text-white", children: "Tech World - Helpful" }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 401,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)(
+        "img",
+        {
+          className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
+          src: airpods_default,
+          alt: "computer and graphs"
+        },
+        void 0,
+        !1,
+        {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 405,
+          columnNumber: 11
+        },
+        this
+      ),
+      /* @__PURE__ */ (0, import_jsx_dev_runtime27.jsxDEV)("h1", { className: "pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "AirPods Audacity: How to make AirPods(or any other bluetooth audio) work with Audacity 2023" }, void 0, !1, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 410,
+        columnNumber: 11
+      }, this)
+    ] }, void 0, !0, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 400,
+      columnNumber: 9
+    }, this) }, void 0, !1, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 399,
       columnNumber: 7
     }, this)
   ] }, void 0, !0, {
     fileName: "app/routes/_index.tsx",
-    lineNumber: 65,
+    lineNumber: 30,
     columnNumber: 5
   }, this);
 }
@@ -4719,872 +5461,12 @@ function Article125() {
 var logout_exports = {};
 __export(logout_exports, {
   action: () => action3,
-  loader: () => loader5
+  loader: () => loader4
 });
-var import_node6 = require("@remix-run/node");
+var import_node5 = require("@remix-run/node");
 var action3 = async ({ request }) => logout(request);
-async function loader5() {
-  return (0, import_node6.redirect)("/");
-}
-
-// app/routes/index.tsx
-var routes_exports = {};
-__export(routes_exports, {
-  default: () => Art2,
-  meta: () => meta9
-});
-var import_react30 = require("@remix-run/react");
-
-// public/cloud1.jpeg
-var cloud1_default = "/build/_assets/cloud1-FTZDJF7K.jpeg";
-
-// app/routes/index.tsx
-var import_jsx_dev_runtime29 = require("react/jsx-dev-runtime");
-function meta9() {
-  return { "og:image": boxchicken2_default };
-}
-function Art2() {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("main", { className: " items-left justify-left mx-4 min-h-screen bg-white lg:mx-36 md:mx-16", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("h1", { className: "text-left text-xl font-extrabold tracking-tight sm:text-4xl lg:text-6xl ", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("span", { className: "block uppercase text-blue-500 drop-shadow-md", children: "Tasty Tech Bytes" }, void 0, !1, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 33,
-      columnNumber: 9
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 32,
-      columnNumber: 5
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("p", { className: "text-left text-xl font-extrabold tracking-tight sm:text-xl lg:text-4xl", children: [
-      " ",
-      "Keeping it Tasty in 2025"
-    ] }, void 0, !0, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 38,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "grid lg:grid-cols-4 h-1/4 gap-4", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "col-span-1  h-1/4  ", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react30.Link, { to: "/how-to-invest-in-whisky", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "rounded-full bg-yellow-500 p-1 text-lg font-bold tracking-tight text-white", children: "Drink World - Helpful" }, void 0, !1, {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 50,
-            columnNumber: 11
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
-            "img",
-            {
-              className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
-              src: cask1_default,
-              alt: "casks"
-            },
-            void 0,
-            !1,
-            {
-              fileName: "app/routes/index.tsx",
-              lineNumber: 54,
-              columnNumber: 11
-            },
-            this
-          ),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("h1", { className: "pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "3 Ways to Invest in Whiskey" }, void 0, !1, {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 59,
-            columnNumber: 11
-          }, this)
-        ] }, void 0, !0, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 49,
-          columnNumber: 9
-        }, this) }, void 0, !1, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 48,
-          columnNumber: 7
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react30.Link, { to: "/artihow-to-use-the-pie-menu-in-blender", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "rounded-full bg-purple-900 p-1 text-lg font-bold tracking-tight text-white", children: "3D World - Helpful" }, void 0, !1, {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 67,
-            columnNumber: 9
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
-            "img",
-            {
-              className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
-              src: blender1_default,
-              alt: "computer and graphs"
-            },
-            void 0,
-            !1,
-            {
-              fileName: "app/routes/index.tsx",
-              lineNumber: 71,
-              columnNumber: 11
-            },
-            this
-          ),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("h1", { className: "pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "The Pie Menu Rocks in Blender" }, void 0, !1, {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 76,
-            columnNumber: 11
-          }, this)
-        ] }, void 0, !0, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 66,
-          columnNumber: 9
-        }, this) }, void 0, !1, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 65,
-          columnNumber: 7
-        }, this)
-      ] }, void 0, !0, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 46,
-        columnNumber: 7
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "lg:col-span-2  lg:h-1/4  ", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react30.Link, { to: "/three-essential-webstorm-shortcuts", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "rounded-full bg-blue-500 p-1 text-lg font-bold tracking-tight text-white", children: "Software - Webstorm" }, void 0, !1, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 86,
-          columnNumber: 11
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
-          "img",
-          {
-            className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
-            src: webstorm1_default,
-            alt: "computer and graphs"
-          },
-          void 0,
-          !1,
-          {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 89,
-            columnNumber: 11
-          },
-          this
-        ),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("h1", { className: "pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "The Three WebStorm Shortcuts to Rule Them All" }, void 0, !1, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 94,
-          columnNumber: 11
-        }, this),
-        " "
-      ] }, void 0, !0, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 85,
-        columnNumber: 9
-      }, this) }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 84,
-        columnNumber: 51
-      }, this) }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 84,
-        columnNumber: 8
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "col-span-1 h-1/4 ", children: [
-        " ",
-        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react30.Link, { to: "/weirdinternetfacts", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "rounded-full bg-green-400 p-1 text-lg font-bold tracking-tight text-white", children: "Code World - Random" }, void 0, !1, {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 103,
-            columnNumber: 11
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
-            "img",
-            {
-              className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
-              src: old_comp1_default,
-              alt: "computer and graphs"
-            },
-            void 0,
-            !1,
-            {
-              fileName: "app/routes/index.tsx",
-              lineNumber: 107,
-              columnNumber: 11
-            },
-            this
-          ),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("h1", { className: "pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "4 Weird Things about the Internet" }, void 0, !1, {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 112,
-            columnNumber: 11
-          }, this)
-        ] }, void 0, !0, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 102,
-          columnNumber: 9
-        }, this) }, void 0, !1, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 100,
-          columnNumber: 45
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react30.Link, { to: "/nab-2023-audio-video-gear", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white", children: "Code World - Helpful" }, void 0, !1, {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 122,
-            columnNumber: 11
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
-            "img",
-            {
-              className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
-              src: soundsguy1_default,
-              alt: "computer and graphs"
-            },
-            void 0,
-            !1,
-            {
-              fileName: "app/routes/index.tsx",
-              lineNumber: 126,
-              columnNumber: 11
-            },
-            this
-          ),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("h1", { className: "pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "Highlights from NAB 2023" }, void 0, !1, {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 131,
-            columnNumber: 11
-          }, this)
-        ] }, void 0, !0, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 121,
-          columnNumber: 9
-        }, this) }, void 0, !1, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 120,
-          columnNumber: 7
-        }, this)
-      ] }, void 0, !0, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 100,
-        columnNumber: 9
-      }, this)
-    ] }, void 0, !0, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 45,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "grid grid-cols-4 h-1/4 gap-4", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "col-span-1 row-span-1 ", children: [
-        " ",
-        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react30.Link, { to: "/threekeys-to-getting-a-frontend-or-fullstackjob", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white", children: "Code World - Helpful" }, void 0, !1, {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 150,
-            columnNumber: 11
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
-            "img",
-            {
-              className: "m-2 h-auto flex-col rounded-full shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30",
-              src: studio_default,
-              alt: "Studio by Warren Hansen"
-            },
-            void 0,
-            !1,
-            {
-              fileName: "app/routes/index.tsx",
-              lineNumber: 153,
-              columnNumber: 11
-            },
-            this
-          ),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("h1", { className: "pb-3 text-left text-lg font-bold tracking-tight shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30 sm:text-3xl lg:text-4xl", children: "The 3 Keys To Getting Your Dream Frontend or Full Stack Engineer Job" }, void 0, !1, {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 158,
-            columnNumber: 11
-          }, this),
-          " "
-        ] }, void 0, !0, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 149,
-          columnNumber: 9
-        }, this) }, void 0, !1, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 148,
-          columnNumber: 53
-        }, this)
-      ] }, void 0, !0, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 148,
-        columnNumber: 12
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "col-span-1 ", children: [
-        " ",
-        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react30.Link, { to: "/vuejs-independant-javascript-framework", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white", children: "Code World - Helpful" }, void 0, !1, {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 166,
-            columnNumber: 11
-          }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
-            "img",
-            {
-              className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
-              src: js_burden_default,
-              alt: "computer and graphs"
-            },
-            void 0,
-            !1,
-            {
-              fileName: "app/routes/index.tsx",
-              lineNumber: 170,
-              columnNumber: 11
-            },
-            this
-          ),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("h1", { className: "pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "VueJS as the Most Indie Yet Established Javascript Framework" }, void 0, !1, {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 175,
-            columnNumber: 11
-          }, this)
-        ] }, void 0, !0, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 165,
-          columnNumber: 9
-        }, this) }, void 0, !1, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 164,
-          columnNumber: 42
-        }, this)
-      ] }, void 0, !0, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 164,
-        columnNumber: 12
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "col-span-1  ", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react30.Link, { to: "/astro-the-most-innovative-javascript-framwork", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white", children: "Code World - Helpful" }, void 0, !1, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 183,
-          columnNumber: 11
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
-          "img",
-          {
-            className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
-            src: boxchicken2_default,
-            alt: "computer and graphs"
-          },
-          void 0,
-          !1,
-          {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 187,
-            columnNumber: 11
-          },
-          this
-        ),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("h1", { className: "pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "Astro.js as the Most Innovative and Modern Javascript Framework" }, void 0, !1, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 192,
-          columnNumber: 11
-        }, this)
-      ] }, void 0, !0, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 182,
-        columnNumber: 9
-      }, this) }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 181,
-        columnNumber: 7
-      }, this) }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 180,
-        columnNumber: 13
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "col-span-1  ", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react30.Link, { to: "/the-art-of-the-clean-install", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white", children: "Code World - Helpful" }, void 0, !1, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 202,
-          columnNumber: 10
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
-          "img",
-          {
-            className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
-            src: graph4_default,
-            alt: "computer and graphs"
-          },
-          void 0,
-          !1,
-          {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 206,
-            columnNumber: 10
-          },
-          this
-        ),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("h1", { className: "pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "The Art of the Clean Install" }, void 0, !1, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 211,
-          columnNumber: 10
-        }, this)
-      ] }, void 0, !0, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 201,
-        columnNumber: 8
-      }, this) }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 200,
-        columnNumber: 6
-      }, this) }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 198,
-        columnNumber: 14
-      }, this)
-    ] }, void 0, !0, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 146,
-      columnNumber: 9
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react30.Link, { to: "/what-is-rag", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "rounded-full bg-purple-400 p-1 text-lg font-bold tracking-tight text-white", children: "AI Tips" }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 225,
-        columnNumber: 11
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
-        "img",
-        {
-          className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
-          src: fish1_default,
-          alt: "fish"
-        },
-        void 0,
-        !1,
-        {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 229,
-          columnNumber: 11
-        },
-        this
-      ),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("h1", { className: "pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "RAG 101 Tutorial: All you need to know about RAG" }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 234,
-        columnNumber: 11
-      }, this)
-    ] }, void 0, !0, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 224,
-      columnNumber: 9
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 223,
-      columnNumber: 6
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react30.Link, { to: "/what-are-the-best-free-text-to-speech-tools", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "rounded-full bg-purple-400 p-1 text-lg font-bold tracking-tight text-white", children: "AI Tips" }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 240,
-        columnNumber: 11
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
-        "img",
-        {
-          className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
-          src: text2speech_default,
-          alt: "text to speech"
-        },
-        void 0,
-        !1,
-        {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 244,
-          columnNumber: 11
-        },
-        this
-      ),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("h1", { className: "pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "What are the Best Free Text-to-Speech Tools? " }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 249,
-        columnNumber: 11
-      }, this)
-    ] }, void 0, !0, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 239,
-      columnNumber: 9
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 238,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react30.Link, { to: "/dspy101", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "rounded-full bg-purple-400 p-1 text-lg font-bold tracking-tight text-white", children: "AI Tips" }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 256,
-        columnNumber: 11
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
-        "img",
-        {
-          className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
-          src: dspyprompt_default,
-          alt: "dspyprompt"
-        },
-        void 0,
-        !1,
-        {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 260,
-          columnNumber: 11
-        },
-        this
-      ),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("h1", { className: "pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "DSPy 101 Tutorial: Prompting Guide" }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 265,
-        columnNumber: 11
-      }, this)
-    ] }, void 0, !0, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 255,
-      columnNumber: 9
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 254,
-      columnNumber: 6
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react30.Link, { to: "/databricks-dspy-jetblue-ai-chatbot", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "rounded-full bg-purple-400 p-1 text-lg font-bold tracking-tight text-white", children: "AI Tips" }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 271,
-        columnNumber: 11
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
-        "img",
-        {
-          className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
-          src: databricks_default,
-          alt: "databricks"
-        },
-        void 0,
-        !1,
-        {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 275,
-          columnNumber: 11
-        },
-        this
-      ),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("h1", { className: "pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: " JetBlue Optimizes Databricks LLM Pipelines with DSPy " }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 280,
-        columnNumber: 11
-      }, this)
-    ] }, void 0, !0, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 270,
-      columnNumber: 9
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 269,
-      columnNumber: 6
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react30.Link, { to: "/5waystoenhanceragefficiencywithdspy", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "rounded-full bg-purple-400 p-1 text-lg font-bold tracking-tight text-white", children: "AI Tips" }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 286,
-        columnNumber: 11
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
-        "img",
-        {
-          className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
-          src: letters1_default,
-          alt: "letters"
-        },
-        void 0,
-        !1,
-        {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 290,
-          columnNumber: 11
-        },
-        this
-      ),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("h1", { className: "pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: " 5 ways to enhance RAG efficiency with DSPy   " }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 295,
-        columnNumber: 11
-      }, this)
-    ] }, void 0, !0, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 285,
-      columnNumber: 9
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 284,
-      columnNumber: 6
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react30.Link, { to: "/threejsandweb3", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "rounded-full bg-green-800 p-1 text-lg font-bold tracking-tight text-white", children: "Code Art - ThreeJS" }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 301,
-        columnNumber: 11
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
-        "img",
-        {
-          className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
-          src: cloud1_default,
-          alt: "clouds"
-        },
-        void 0,
-        !1,
-        {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 305,
-          columnNumber: 11
-        },
-        this
-      ),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("h1", { className: "pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "ThreeJS, the old Web3?" }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 310,
-        columnNumber: 11
-      }, this)
-    ] }, void 0, !0, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 300,
-      columnNumber: 9
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 299,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react30.Link, { to: "/easydomainverificationwithgoogle", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white", children: "Code World - Helpful" }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 318,
-        columnNumber: 9
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
-        "img",
-        {
-          className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
-          src: analytics1_default,
-          alt: "analytics chart"
-        },
-        void 0,
-        !1,
-        {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 322,
-          columnNumber: 11
-        },
-        this
-      ),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("h1", { className: "pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "The Easy Way to Verify Domain Ownership with Google" }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 327,
-        columnNumber: 11
-      }, this)
-    ] }, void 0, !0, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 317,
-      columnNumber: 9
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 316,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react30.Link, { to: "/liesaboutjavascript", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white", children: "Code World - Helpful" }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 334,
-        columnNumber: 9
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
-        "img",
-        {
-          className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
-          src: js1_default,
-          alt: "javascript chart"
-        },
-        void 0,
-        !1,
-        {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 338,
-          columnNumber: 11
-        },
-        this
-      ),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("h1", { className: "pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "Sweet Little JavaScript Lies About Javascript          " }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 343,
-        columnNumber: 11
-      }, this)
-    ] }, void 0, !0, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 333,
-      columnNumber: 9
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 332,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react30.Link, { to: "/create-your-own-huggingface-space-easy", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white", children: "Code World - Helpful" }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 349,
-        columnNumber: 11
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
-        "img",
-        {
-          className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
-          src: huggingface1_default,
-          alt: "emoji"
-        },
-        void 0,
-        !1,
-        {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 353,
-          columnNumber: 11
-        },
-        this
-      ),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("h1", { className: "pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "The easy way to publish on Hugging Face Spaces" }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 358,
-        columnNumber: 11
-      }, this)
-    ] }, void 0, !0, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 348,
-      columnNumber: 9
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 347,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react30.Link, { to: "/5-ways-ai-can-help-farmland-restoration", children: [
-      " ",
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "rounded-full bg-green-700 p-1 text-lg font-bold tracking-tight text-white", children: [
-          " ",
-          "AI & Sustainability "
-        ] }, void 0, !0, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 366,
-          columnNumber: 11
-        }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
-          "img",
-          {
-            className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
-            src: restoration_default,
-            alt: "Farmland restoration"
-          },
-          void 0,
-          !1,
-          {
-            fileName: "app/routes/index.tsx",
-            lineNumber: 370,
-            columnNumber: 11
-          },
-          this
-        ),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("h1", { className: "pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "5 Ways AI Can Help Farmland Restoration " }, void 0, !1, {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 375,
-          columnNumber: 11
-        }, this)
-      ] }, void 0, !0, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 365,
-        columnNumber: 9
-      }, this)
-    ] }, void 0, !0, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 364,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react30.Link, { to: "/models-table", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "rounded-full bg-indigo-600 p-1 text-lg font-bold tracking-tight text-white", children: [
-        " ",
-        "AI Models"
-      ] }, void 0, !0, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 383,
-        columnNumber: 11
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
-        "img",
-        {
-          className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
-          src: databricks_default,
-          alt: "AI models table"
-        },
-        void 0,
-        !1,
-        {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 387,
-          columnNumber: 11
-        },
-        this
-      ),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("h1", { className: "pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "View Registered AI Models " }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 392,
-        columnNumber: 11
-      }, this)
-    ] }, void 0, !0, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 382,
-      columnNumber: 9
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 381,
-      columnNumber: 7
-    }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react30.Link, { to: "/using-airpods-and-audacity-hack", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "transition-shadow duration-300 ease-in-out hover:bg-gray-100", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "rounded-full bg-pink-600 p-1 text-lg font-bold tracking-tight text-white", children: "Tech World - Helpful" }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 401,
-        columnNumber: 11
-      }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
-        "img",
-        {
-          className: "items-left justify-left m-2 h-auto max-w-full flex-col rounded-full",
-          src: airpods_default,
-          alt: "computer and graphs"
-        },
-        void 0,
-        !1,
-        {
-          fileName: "app/routes/index.tsx",
-          lineNumber: 405,
-          columnNumber: 11
-        },
-        this
-      ),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("h1", { className: "pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ", children: "AirPods Audacity: How to make AirPods(or any other bluetooth audio) work with Audacity 2023" }, void 0, !1, {
-        fileName: "app/routes/index.tsx",
-        lineNumber: 410,
-        columnNumber: 11
-      }, this)
-    ] }, void 0, !0, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 400,
-      columnNumber: 9
-    }, this) }, void 0, !1, {
-      fileName: "app/routes/index.tsx",
-      lineNumber: 399,
-      columnNumber: 7
-    }, this)
-  ] }, void 0, !0, {
-    fileName: "app/routes/index.tsx",
-    lineNumber: 30,
-    columnNumber: 5
-  }, this);
+async function loader4() {
+  return (0, import_node5.redirect)("/");
 }
 
 // app/routes/login.tsx
@@ -5592,15 +5474,15 @@ var login_exports = {};
 __export(login_exports, {
   action: () => action4,
   default: () => Login,
-  loader: () => loader6,
+  loader: () => loader5,
   meta: () => meta10
 });
-var import_react33 = __toESM(require("react")), import_node7 = require("@remix-run/node"), import_react34 = require("@remix-run/react");
+var import_react32 = __toESM(require("react")), import_node6 = require("@remix-run/node"), import_react33 = require("@remix-run/react");
 
 // app/utils.ts
-var import_react31 = require("react"), import_react32 = require("@remix-run/react");
+var import_react30 = require("react"), import_react31 = require("@remix-run/react");
 function useMatchesData(id) {
-  let matchingRoutes = (0, import_react32.useMatches)(), route = (0, import_react31.useMemo)(
+  let matchingRoutes = (0, import_react31.useMatches)(), route = (0, import_react30.useMemo)(
     () => matchingRoutes.find((route2) => route2.id === id),
     [matchingRoutes, id]
   );
@@ -5627,23 +5509,23 @@ function validateEmail(email) {
 }
 
 // app/routes/login.tsx
-var import_jsx_dev_runtime30 = require("react/jsx-dev-runtime"), meta10 = () => ({
+var import_jsx_dev_runtime29 = require("react/jsx-dev-runtime"), meta10 = () => ({
   title: "Login"
 });
-async function loader6({ request }) {
-  return await getUserId(request) ? (0, import_node7.redirect)("/") : (0, import_node7.json)({});
+async function loader5({ request }) {
+  return await getUserId(request) ? (0, import_node6.redirect)("/") : (0, import_node6.json)({});
 }
 var action4 = async ({ request }) => {
   let formData = await request.formData(), email = formData.get("email"), password = formData.get("password"), redirectTo = formData.get("redirectTo"), remember = formData.get("remember");
   if (!validateEmail(email))
-    return (0, import_node7.json)({ errors: { email: "Email is invalid." } }, { status: 400 });
+    return (0, import_node6.json)({ errors: { email: "Email is invalid." } }, { status: 400 });
   if (typeof password != "string")
-    return (0, import_node7.json)(
+    return (0, import_node6.json)(
       { errors: { password: "Valid password is required." } },
       { status: 400 }
     );
   if (password.length < 6)
-    return (0, import_node7.json)(
+    return (0, import_node6.json)(
       { errors: { password: "Password is too short" } },
       { status: 400 }
     );
@@ -5653,26 +5535,26 @@ var action4 = async ({ request }) => {
     userId: user.id,
     remember: remember === "on",
     redirectTo: typeof redirectTo == "string" ? redirectTo : "/notes"
-  }) : (0, import_node7.json)(
+  }) : (0, import_node6.json)(
     { errors: { email: "Invalid email or password" } },
     { status: 400 }
   );
 };
 function Login() {
   var _a, _b, _c, _d, _e, _f;
-  let [searchParams] = (0, import_react34.useSearchParams)(), redirectTo = searchParams.get("redirectTo") ?? "/notes", actionData = (0, import_react34.useActionData)(), emailRef = import_react33.default.useRef(null), passwordRef = import_react33.default.useRef(null);
-  return import_react33.default.useEffect(() => {
+  let [searchParams] = (0, import_react33.useSearchParams)(), redirectTo = searchParams.get("redirectTo") ?? "/notes", actionData = (0, import_react33.useActionData)(), emailRef = import_react32.default.useRef(null), passwordRef = import_react32.default.useRef(null);
+  return import_react32.default.useEffect(() => {
     var _a2, _b2, _c2, _d2;
     (_a2 = actionData == null ? void 0 : actionData.errors) != null && _a2.email && ((_b2 = emailRef == null ? void 0 : emailRef.current) == null || _b2.focus()), (_c2 = actionData == null ? void 0 : actionData.errors) != null && _c2.password && ((_d2 = passwordRef == null ? void 0 : passwordRef.current) == null || _d2.focus());
-  }, [actionData]), /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("div", { className: "flex min-h-full flex-col justify-center", children: /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("div", { className: "mx-auto w-full max-w-md px-8", children: /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(import_react34.Form, { method: "post", className: "space-y-6", noValidate: !0, children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("div", { children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("label", { className: "text-sm font-medium", htmlFor: "email", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("span", { className: "block text-gray-700", children: "Email Address" }, void 0, !1, {
+  }, [actionData]), /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "flex min-h-full flex-col justify-center", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "mx-auto w-full max-w-md px-8", children: /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(import_react33.Form, { method: "post", className: "space-y-6", noValidate: !0, children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("label", { className: "text-sm font-medium", htmlFor: "email", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("span", { className: "block text-gray-700", children: "Email Address" }, void 0, !1, {
           fileName: "app/routes/login.tsx",
           lineNumber: 98,
           columnNumber: 15
         }, this),
-        ((_a = actionData == null ? void 0 : actionData.errors) == null ? void 0 : _a.email) && /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("span", { className: "block pt-1 text-red-700", id: "email-error", children: (_b = actionData == null ? void 0 : actionData.errors) == null ? void 0 : _b.email }, void 0, !1, {
+        ((_a = actionData == null ? void 0 : actionData.errors) == null ? void 0 : _a.email) && /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("span", { className: "block pt-1 text-red-700", id: "email-error", children: (_b = actionData == null ? void 0 : actionData.errors) == null ? void 0 : _b.email }, void 0, !1, {
           fileName: "app/routes/login.tsx",
           lineNumber: 100,
           columnNumber: 17
@@ -5682,7 +5564,7 @@ function Login() {
         lineNumber: 97,
         columnNumber: 13
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(
+      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
         "input",
         {
           className: "w-full rounded border border-gray-500 px-2 py-1 text-lg",
@@ -5708,19 +5590,19 @@ function Login() {
       lineNumber: 96,
       columnNumber: 11
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("div", { children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("label", { className: "text-sm font-medium", htmlFor: "password", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("span", { className: "block text-gray-700", children: "Password" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("label", { className: "text-sm font-medium", htmlFor: "password", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("span", { className: "block text-gray-700", children: "Password" }, void 0, !1, {
           fileName: "app/routes/login.tsx",
           lineNumber: 118,
           columnNumber: 15
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("span", { className: "block font-light text-gray-700", children: "Must have at least 6 characters." }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("span", { className: "block font-light text-gray-700", children: "Must have at least 6 characters." }, void 0, !1, {
           fileName: "app/routes/login.tsx",
           lineNumber: 119,
           columnNumber: 15
         }, this),
-        ((_d = actionData == null ? void 0 : actionData.errors) == null ? void 0 : _d.password) && /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("span", { className: "pt-1 text-red-700", id: "password-error", children: (_e = actionData == null ? void 0 : actionData.errors) == null ? void 0 : _e.password }, void 0, !1, {
+        ((_d = actionData == null ? void 0 : actionData.errors) == null ? void 0 : _d.password) && /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("span", { className: "pt-1 text-red-700", id: "password-error", children: (_e = actionData == null ? void 0 : actionData.errors) == null ? void 0 : _e.password }, void 0, !1, {
           fileName: "app/routes/login.tsx",
           lineNumber: 123,
           columnNumber: 17
@@ -5730,7 +5612,7 @@ function Login() {
         lineNumber: 117,
         columnNumber: 13
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(
+      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
         "input",
         {
           id: "password",
@@ -5756,7 +5638,7 @@ function Login() {
       lineNumber: 116,
       columnNumber: 11
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(
+    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
       "button",
       {
         className: "w-full rounded bg-blue-500  py-2 px-4 text-white hover:bg-blue-600 focus:bg-blue-400",
@@ -5772,14 +5654,14 @@ function Login() {
       },
       this
     ),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("input", { type: "hidden", name: "redirectTo", value: redirectTo }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("input", { type: "hidden", name: "redirectTo", value: redirectTo }, void 0, !1, {
       fileName: "app/routes/login.tsx",
       lineNumber: 145,
       columnNumber: 11
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("div", { className: "flex items-center justify-between", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("div", { className: "flex items-center", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(
+    /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "flex items-center justify-between", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "flex items-center", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
           "input",
           {
             className: "h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500",
@@ -5796,7 +5678,7 @@ function Login() {
           },
           this
         ),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(
+        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
           "label",
           {
             className: "ml-2 block text-sm text-gray-900",
@@ -5817,11 +5699,11 @@ function Login() {
         lineNumber: 147,
         columnNumber: 13
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("div", { className: "text-center text-sm text-gray-500", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)("div", { className: "text-center text-sm text-gray-500", children: [
         "Don't have an account?",
         " ",
-        /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(
-          import_react34.Link,
+        /* @__PURE__ */ (0, import_jsx_dev_runtime29.jsxDEV)(
+          import_react33.Link,
           {
             className: "text-blue-500 underline",
             to: { pathname: "/join" },
@@ -5865,9 +5747,9 @@ function Login() {
 var notes_exports = {};
 __export(notes_exports, {
   default: () => NotesPage,
-  loader: () => loader7
+  loader: () => loader6
 });
-var import_node8 = require("@remix-run/node"), import_react35 = require("@remix-run/react");
+var import_node7 = require("@remix-run/node"), import_react34 = require("@remix-run/react");
 
 // app/models/note.server.ts
 async function getNoteListItems2({ userId }) {
@@ -5903,37 +5785,37 @@ async function getNote({
 }
 
 // app/routes/notes.tsx
-var import_jsx_dev_runtime31 = require("react/jsx-dev-runtime");
-async function loader7({ request }) {
+var import_jsx_dev_runtime30 = require("react/jsx-dev-runtime");
+async function loader6({ request }) {
   let userId = await requireUserId(request), noteListItems = await getNoteListItems2({ userId });
-  return (0, import_node8.json)({ noteListItems });
+  return (0, import_node7.json)({ noteListItems });
 }
 function NotesPage() {
-  let data = (0, import_react35.useLoaderData)();
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)("div", { className: "flex h-full min-h-screen flex-col", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)(Header, {}, void 0, !1, {
+  let data = (0, import_react34.useLoaderData)();
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("div", { className: "flex h-full min-h-screen flex-col", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(Header, {}, void 0, !1, {
       fileName: "app/routes/notes.tsx",
       lineNumber: 24,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)("main", { className: "flex h-full bg-white", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)("div", { className: "h-full w-80 border-r bg-gray-50", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)(import_react35.Link, { to: "new", className: "block p-4 text-xl text-blue-500", children: "+ New Note" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("main", { className: "flex h-full bg-white", children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("div", { className: "h-full w-80 border-r bg-gray-50", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(import_react34.Link, { to: "new", className: "block p-4 text-xl text-blue-500", children: "+ New Note" }, void 0, !1, {
           fileName: "app/routes/notes.tsx",
           lineNumber: 27,
           columnNumber: 11
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)("hr", {}, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("hr", {}, void 0, !1, {
           fileName: "app/routes/notes.tsx",
           lineNumber: 31,
           columnNumber: 11
         }, this),
-        data.noteListItems.length === 0 ? /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)("p", { className: "p-4", children: "No notes yet" }, void 0, !1, {
+        data.noteListItems.length === 0 ? /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("p", { className: "p-4", children: "No notes yet" }, void 0, !1, {
           fileName: "app/routes/notes.tsx",
           lineNumber: 34,
           columnNumber: 13
-        }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)("ol", { children: data.noteListItems.map((note) => /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)("li", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)(
-          import_react35.NavLink,
+        }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("ol", { children: data.noteListItems.map((note) => /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("li", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(
+          import_react34.NavLink,
           {
             className: ({ isActive }) => `block border-b p-4 text-xl ${isActive ? "bg-white" : ""}`,
             to: note.id,
@@ -5964,7 +5846,7 @@ function NotesPage() {
         lineNumber: 26,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)("div", { className: "flex-1 p-6", children: /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)(import_react35.Outlet, {}, void 0, !1, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("div", { className: "flex-1 p-6", children: /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(import_react34.Outlet, {}, void 0, !1, {
         fileName: "app/routes/notes.tsx",
         lineNumber: 54,
         columnNumber: 11
@@ -5986,8 +5868,8 @@ function NotesPage() {
 }
 function Header() {
   let user = useUser();
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)("header", { className: "flex items-center justify-between bg-slate-800 p-4 text-white", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)("h1", { className: "text-3xl font-bold", children: /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)(import_react35.Link, { to: ".", children: "Notes" }, void 0, !1, {
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("header", { className: "flex items-center justify-between bg-slate-800 p-4 text-white", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("h1", { className: "text-3xl font-bold", children: /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(import_react34.Link, { to: ".", children: "Notes" }, void 0, !1, {
       fileName: "app/routes/notes.tsx",
       lineNumber: 66,
       columnNumber: 9
@@ -5996,12 +5878,12 @@ function Header() {
       lineNumber: 65,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)("p", { children: user.email }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)("p", { children: user.email }, void 0, !1, {
       fileName: "app/routes/notes.tsx",
       lineNumber: 68,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)(import_react35.Form, { action: "/logout", method: "post", children: /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)(
+    /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(import_react34.Form, { action: "/logout", method: "post", children: /* @__PURE__ */ (0, import_jsx_dev_runtime30.jsxDEV)(
       "button",
       {
         type: "submit",
@@ -6033,41 +5915,41 @@ var noteId_exports = {};
 __export(noteId_exports, {
   action: () => action5,
   default: () => NoteDetailsPage2,
-  loader: () => loader8
+  loader: () => loader7
 });
-var import_node9 = require("@remix-run/node"), import_react36 = require("@remix-run/react");
-var import_tiny_invariant5 = __toESM(require("tiny-invariant")), import_jsx_dev_runtime32 = require("react/jsx-dev-runtime");
-async function loader8({ request, params }) {
+var import_node8 = require("@remix-run/node"), import_react35 = require("@remix-run/react");
+var import_tiny_invariant5 = __toESM(require("tiny-invariant")), import_jsx_dev_runtime31 = require("react/jsx-dev-runtime");
+async function loader7({ request, params }) {
   let userId = await requireUserId(request);
   (0, import_tiny_invariant5.default)(params.noteId, "noteId not found");
   let note = await getNote({ userId, id: params.noteId });
   if (!note)
     throw new Response("Not Found", { status: 404 });
-  return (0, import_node9.json)({ note });
+  return (0, import_node8.json)({ note });
 }
 var action5 = async ({ request, params }) => {
   let userId = await requireUserId(request);
-  return (0, import_tiny_invariant5.default)(params.noteId, "noteId not found"), await deleteNote({ userId, id: params.noteId }), (0, import_node9.redirect)("/notes");
+  return (0, import_tiny_invariant5.default)(params.noteId, "noteId not found"), await deleteNote({ userId, id: params.noteId }), (0, import_node8.redirect)("/notes");
 };
 function NoteDetailsPage2() {
-  let data = (0, import_react36.useLoaderData)();
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime32.jsxDEV)("div", { children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime32.jsxDEV)("h3", { className: "text-2xl font-bold", children: data.note.title }, void 0, !1, {
+  let data = (0, import_react35.useLoaderData)();
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)("div", { children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)("h3", { className: "text-2xl font-bold", children: data.note.title }, void 0, !1, {
       fileName: "app/routes/notes/$noteId.tsx",
       lineNumber: 39,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime32.jsxDEV)("p", { className: "py-6", children: data.note.body }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)("p", { className: "py-6", children: data.note.body }, void 0, !1, {
       fileName: "app/routes/notes/$noteId.tsx",
       lineNumber: 40,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime32.jsxDEV)("hr", { className: "my-4" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)("hr", { className: "my-4" }, void 0, !1, {
       fileName: "app/routes/notes/$noteId.tsx",
       lineNumber: 41,
       columnNumber: 7
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime32.jsxDEV)(import_react36.Form, { method: "post", children: /* @__PURE__ */ (0, import_jsx_dev_runtime32.jsxDEV)(
+    /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)(import_react35.Form, { method: "post", children: /* @__PURE__ */ (0, import_jsx_dev_runtime31.jsxDEV)(
       "button",
       {
         type: "submit",
@@ -6099,12 +5981,12 @@ var notes_exports2 = {};
 __export(notes_exports2, {
   default: () => NoteIndexPage
 });
-var import_react37 = require("@remix-run/react"), import_jsx_dev_runtime33 = require("react/jsx-dev-runtime");
+var import_react36 = require("@remix-run/react"), import_jsx_dev_runtime32 = require("react/jsx-dev-runtime");
 function NoteIndexPage() {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)("p", { children: [
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime32.jsxDEV)("p", { children: [
     "No note selected. Select a note on the left, or",
     " ",
-    /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)(import_react37.Link, { to: "new", className: "text-blue-500 underline", children: "create a new note." }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime32.jsxDEV)(import_react36.Link, { to: "new", className: "text-blue-500 underline", children: "create a new note." }, void 0, !1, {
       fileName: "app/routes/notes/index.tsx",
       lineNumber: 7,
       columnNumber: 7
@@ -6122,19 +6004,19 @@ __export(new_exports, {
   action: () => action6,
   default: () => NewNotePage
 });
-var import_node10 = require("@remix-run/node"), import_react38 = require("@remix-run/react");
-var import_jsx_dev_runtime34 = require("react/jsx-dev-runtime"), action6 = async ({ request }) => {
+var import_node9 = require("@remix-run/node"), import_react37 = require("@remix-run/react");
+var import_jsx_dev_runtime33 = require("react/jsx-dev-runtime"), action6 = async ({ request }) => {
   let userId = await requireUserId(request), formData = await request.formData(), title = formData.get("title"), body = formData.get("body");
   if (typeof title != "string" || title.length === 0)
-    return (0, import_node10.json)({ errors: { title: "Title is required" } }, { status: 400 });
+    return (0, import_node9.json)({ errors: { title: "Title is required" } }, { status: 400 });
   if (typeof body != "string" || body.length === 0)
-    return (0, import_node10.json)({ errors: { body: "Body is required" } }, { status: 400 });
+    return (0, import_node9.json)({ errors: { body: "Body is required" } }, { status: 400 });
   let note = await createNote({ title, body, userId });
-  return (0, import_node10.redirect)(`/notes/${note.id}`);
+  return (0, import_node9.redirect)(`/notes/${note.id}`);
 };
 function NewNotePage() {
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)(
-    import_react38.Form,
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)(
+    import_react37.Form,
     {
       method: "post",
       style: {
@@ -6144,13 +6026,13 @@ function NewNotePage() {
         width: "100%"
       },
       children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("div", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("label", { className: "flex w-full flex-col gap-1", children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("span", { children: "Title: " }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)("div", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)("label", { className: "flex w-full flex-col gap-1", children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)("span", { children: "Title: " }, void 0, !1, {
             fileName: "app/routes/notes/new.tsx",
             lineNumber: 39,
             columnNumber: 11
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)(
+          /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)(
             "input",
             {
               name: "title",
@@ -6174,13 +6056,13 @@ function NewNotePage() {
           lineNumber: 37,
           columnNumber: 7
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("div", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("label", { className: "flex w-full flex-col gap-1", children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("span", { children: "Body: " }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)("div", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)("label", { className: "flex w-full flex-col gap-1", children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)("span", { children: "Body: " }, void 0, !1, {
             fileName: "app/routes/notes/new.tsx",
             lineNumber: 48,
             columnNumber: 11
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)(
+          /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)(
             "textarea",
             {
               name: "body",
@@ -6205,7 +6087,7 @@ function NewNotePage() {
           lineNumber: 46,
           columnNumber: 7
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("div", { className: "text-right", children: /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)(
+        /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)("div", { className: "text-right", children: /* @__PURE__ */ (0, import_jsx_dev_runtime33.jsxDEV)(
           "button",
           {
             type: "submit",
@@ -6243,35 +6125,35 @@ var join_exports = {};
 __export(join_exports, {
   action: () => action7,
   default: () => Join,
-  loader: () => loader9,
+  loader: () => loader8,
   meta: () => meta11
 });
-var import_node11 = require("@remix-run/node"), import_react39 = require("@remix-run/react");
-var React3 = __toESM(require("react")), import_jsx_dev_runtime35 = require("react/jsx-dev-runtime"), meta11 = () => ({
+var import_node10 = require("@remix-run/node"), import_react38 = require("@remix-run/react");
+var React3 = __toESM(require("react")), import_jsx_dev_runtime34 = require("react/jsx-dev-runtime"), meta11 = () => ({
   title: "Sign Up"
 });
-async function loader9({ request }) {
-  return await getUserId(request) ? (0, import_node11.redirect)("/") : (0, import_node11.json)({});
+async function loader8({ request }) {
+  return await getUserId(request) ? (0, import_node10.redirect)("/") : (0, import_node10.json)({});
 }
 var action7 = async ({ request }) => {
   let formData = await request.formData(), email = formData.get("email"), password = formData.get("password"), redirectTo = formData.get("redirectTo");
   if (!validateEmail(email))
-    return (0, import_node11.json)(
+    return (0, import_node10.json)(
       { errors: { email: "Email is invalid." } },
       { status: 400 }
     );
   if (typeof password != "string")
-    return (0, import_node11.json)(
+    return (0, import_node10.json)(
       { errors: { password: "Valid password is required." } },
       { status: 400 }
     );
   if (password.length < 6)
-    return (0, import_node11.json)(
+    return (0, import_node10.json)(
       { errors: { password: "Password is too short." } },
       { status: 400 }
     );
   if (await getProfileByEmail(email))
-    return (0, import_node11.json)(
+    return (0, import_node10.json)(
       { errors: { email: "A user already exists with this email." } },
       { status: 400 }
     );
@@ -6285,19 +6167,19 @@ var action7 = async ({ request }) => {
 };
 function Join() {
   var _a, _b, _c, _d, _e, _f;
-  let [searchParams] = (0, import_react39.useSearchParams)(), redirectTo = searchParams.get("redirectTo") ?? void 0, actionData = (0, import_react39.useActionData)(), emailRef = React3.useRef(null), passwordRef = React3.useRef(null);
+  let [searchParams] = (0, import_react38.useSearchParams)(), redirectTo = searchParams.get("redirectTo") ?? void 0, actionData = (0, import_react38.useActionData)(), emailRef = React3.useRef(null), passwordRef = React3.useRef(null);
   return React3.useEffect(() => {
     var _a2, _b2, _c2, _d2;
     (_a2 = actionData == null ? void 0 : actionData.errors) != null && _a2.email && ((_b2 = emailRef == null ? void 0 : emailRef.current) == null || _b2.focus()), (_c2 = actionData == null ? void 0 : actionData.errors) != null && _c2.password && ((_d2 = passwordRef == null ? void 0 : passwordRef.current) == null || _d2.focus());
-  }, [actionData]), /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)("div", { className: "flex min-h-full flex-col justify-center", children: /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)("div", { className: "mx-auto w-full max-w-md px-8", children: /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)(import_react39.Form, { className: "space-y-6", method: "post", noValidate: !0, children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)("div", { children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)("label", { className: "text-sm font-medium", htmlFor: "email", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)("span", { className: "block text-gray-700", children: "Email Address" }, void 0, !1, {
+  }, [actionData]), /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("div", { className: "flex min-h-full flex-col justify-center", children: /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("div", { className: "mx-auto w-full max-w-md px-8", children: /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)(import_react38.Form, { className: "space-y-6", method: "post", noValidate: !0, children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("div", { children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("label", { className: "text-sm font-medium", htmlFor: "email", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("span", { className: "block text-gray-700", children: "Email Address" }, void 0, !1, {
           fileName: "app/routes/join.tsx",
           lineNumber: 106,
           columnNumber: 15
         }, this),
-        ((_a = actionData == null ? void 0 : actionData.errors) == null ? void 0 : _a.email) && /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)("span", { className: "block pt-1 text-red-700", id: "email-error", children: (_b = actionData == null ? void 0 : actionData.errors) == null ? void 0 : _b.email }, void 0, !1, {
+        ((_a = actionData == null ? void 0 : actionData.errors) == null ? void 0 : _a.email) && /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("span", { className: "block pt-1 text-red-700", id: "email-error", children: (_b = actionData == null ? void 0 : actionData.errors) == null ? void 0 : _b.email }, void 0, !1, {
           fileName: "app/routes/join.tsx",
           lineNumber: 108,
           columnNumber: 17
@@ -6307,7 +6189,7 @@ function Join() {
         lineNumber: 105,
         columnNumber: 13
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)(
+      /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)(
         "input",
         {
           className: "w-full rounded border border-gray-500 px-2 py-1 text-lg",
@@ -6333,19 +6215,19 @@ function Join() {
       lineNumber: 104,
       columnNumber: 11
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)("div", { children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)("label", { className: "text-sm font-medium", htmlFor: "password", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)("span", { className: "block text-gray-700", children: "Password" }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("div", { children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("label", { className: "text-sm font-medium", htmlFor: "password", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("span", { className: "block text-gray-700", children: "Password" }, void 0, !1, {
           fileName: "app/routes/join.tsx",
           lineNumber: 126,
           columnNumber: 15
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)("span", { className: "block font-light text-gray-700", children: "Must have at least 6 characters." }, void 0, !1, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("span", { className: "block font-light text-gray-700", children: "Must have at least 6 characters." }, void 0, !1, {
           fileName: "app/routes/join.tsx",
           lineNumber: 127,
           columnNumber: 15
         }, this),
-        ((_d = actionData == null ? void 0 : actionData.errors) == null ? void 0 : _d.password) && /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)("span", { className: "pt-1 text-red-700", id: "password-error", children: (_e = actionData == null ? void 0 : actionData.errors) == null ? void 0 : _e.password }, void 0, !1, {
+        ((_d = actionData == null ? void 0 : actionData.errors) == null ? void 0 : _d.password) && /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("span", { className: "pt-1 text-red-700", id: "password-error", children: (_e = actionData == null ? void 0 : actionData.errors) == null ? void 0 : _e.password }, void 0, !1, {
           fileName: "app/routes/join.tsx",
           lineNumber: 131,
           columnNumber: 17
@@ -6355,7 +6237,7 @@ function Join() {
         lineNumber: 125,
         columnNumber: 13
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)(
+      /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)(
         "input",
         {
           id: "password",
@@ -6381,7 +6263,7 @@ function Join() {
       lineNumber: 124,
       columnNumber: 11
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)(
+    /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)(
       "button",
       {
         className: "w-full rounded bg-blue-500  py-2 px-4 text-white hover:bg-blue-600 focus:bg-blue-400",
@@ -6397,16 +6279,16 @@ function Join() {
       },
       this
     ),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)("input", { type: "hidden", name: "redirectTo", value: redirectTo }, void 0, !1, {
+    /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("input", { type: "hidden", name: "redirectTo", value: redirectTo }, void 0, !1, {
       fileName: "app/routes/join.tsx",
       lineNumber: 153,
       columnNumber: 11
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)("div", { className: "flex items-center justify-center", children: /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)("div", { className: "text-center text-sm text-gray-500", children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("div", { className: "flex items-center justify-center", children: /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)("div", { className: "text-center text-sm text-gray-500", children: [
       "Already have an account?",
       " ",
-      /* @__PURE__ */ (0, import_jsx_dev_runtime35.jsxDEV)(
-        import_react39.Link,
+      /* @__PURE__ */ (0, import_jsx_dev_runtime34.jsxDEV)(
+        import_react38.Link,
         {
           className: "text-blue-500 underline",
           to: {
@@ -6449,7 +6331,7 @@ function Join() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-67QCQQBZ.js", imports: ["/build/_shared/chunk-GZ67VEEQ.js", "/build/_shared/chunk-AQBU3SCW.js", "/build/_shared/chunk-4D7IJTTE.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-YFH2E5YV.js", imports: ["/build/_shared/chunk-WA2U3LPD.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$title": { id: "routes/$title", parentId: "root", path: ":title", index: void 0, caseSensitive: void 0, module: "/build/routes/$title-DVPV57VI.js", imports: ["/build/_shared/chunk-AUYLHJJM.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/5-ways-ai-can-help-farmland-restoration": { id: "routes/5-ways-ai-can-help-farmland-restoration", parentId: "root", path: "5-ways-ai-can-help-farmland-restoration", index: void 0, caseSensitive: void 0, module: "/build/routes/5-ways-ai-can-help-farmland-restoration-KOBQAZV3.js", imports: ["/build/_shared/chunk-VSD2YW34.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/5waystoenhanceragefficiencywithdspy": { id: "routes/5waystoenhanceragefficiencywithdspy", parentId: "root", path: "5waystoenhanceragefficiencywithdspy", index: void 0, caseSensitive: void 0, module: "/build/routes/5waystoenhanceragefficiencywithdspy-ZQLMI6H5.js", imports: ["/build/_shared/chunk-ZC7SERMF.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: "_index", index: void 0, caseSensitive: void 0, module: "/build/routes/_index-EIP2HD3P.js", imports: ["/build/_shared/chunk-T3NQUK2P.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/admin1": { id: "routes/admin1", parentId: "root", path: "admin1", index: void 0, caseSensitive: void 0, module: "/build/routes/admin1-QEU7YBKS.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/astro-the-most-innovative-javascript-framwork": { id: "routes/astro-the-most-innovative-javascript-framwork", parentId: "root", path: "astro-the-most-innovative-javascript-framwork", index: void 0, caseSensitive: void 0, module: "/build/routes/astro-the-most-innovative-javascript-framwork-OZRJKJD7.js", imports: ["/build/_shared/chunk-H3JK4IV4.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/create-your-own-huggingface-space-easy": { id: "routes/create-your-own-huggingface-space-easy", parentId: "root", path: "create-your-own-huggingface-space-easy", index: void 0, caseSensitive: void 0, module: "/build/routes/create-your-own-huggingface-space-easy-KLOUDON7.js", imports: ["/build/_shared/chunk-G7MQFV5O.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/databricks-dspy-jetblue-ai-chatbot": { id: "routes/databricks-dspy-jetblue-ai-chatbot", parentId: "root", path: "databricks-dspy-jetblue-ai-chatbot", index: void 0, caseSensitive: void 0, module: "/build/routes/databricks-dspy-jetblue-ai-chatbot-JQTRTGY4.js", imports: ["/build/_shared/chunk-MAHSDJRL.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dspy101": { id: "routes/dspy101", parentId: "root", path: "dspy101", index: void 0, caseSensitive: void 0, module: "/build/routes/dspy101-6LQYSBM6.js", imports: ["/build/_shared/chunk-VPGRWE6F.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/easydomainverificationwithgoogle": { id: "routes/easydomainverificationwithgoogle", parentId: "root", path: "easydomainverificationwithgoogle", index: void 0, caseSensitive: void 0, module: "/build/routes/easydomainverificationwithgoogle-RY6WGSD7.js", imports: ["/build/_shared/chunk-4EBUDA3J.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/how-to-invest-in-whisky": { id: "routes/how-to-invest-in-whisky", parentId: "root", path: "how-to-invest-in-whisky", index: void 0, caseSensitive: void 0, module: "/build/routes/how-to-invest-in-whisky-5ITB43BO.js", imports: ["/build/_shared/chunk-W4FSEKMQ.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/how-to-use-the-pie-menu-in-blender": { id: "routes/how-to-use-the-pie-menu-in-blender", parentId: "root", path: "how-to-use-the-pie-menu-in-blender", index: void 0, caseSensitive: void 0, module: "/build/routes/how-to-use-the-pie-menu-in-blender-2JV4CUJT.js", imports: ["/build/_shared/chunk-JKZC5ARB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/index": { id: "routes/index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/index-4M52S5YS.js", imports: ["/build/_shared/chunk-W4FSEKMQ.js", "/build/_shared/chunk-IATVABFS.js", "/build/_shared/chunk-TRJMSJ7K.js", "/build/_shared/chunk-BR6YX64X.js", "/build/_shared/chunk-VPGRWE6F.js", "/build/_shared/chunk-ZC7SERMF.js", "/build/_shared/chunk-MAHSDJRL.js", "/build/_shared/chunk-JKZC5ARB.js", "/build/_shared/chunk-DERAZLSX.js", "/build/_shared/chunk-4EBUDA3J.js", "/build/_shared/chunk-5U6STZGN.js", "/build/_shared/chunk-BBMWQLC7.js", "/build/_shared/chunk-MPEMIJ4O.js", "/build/_shared/chunk-GAYJPPHW.js", "/build/_shared/chunk-H3JK4IV4.js", "/build/_shared/chunk-GMA2IUC5.js", "/build/_shared/chunk-VSD2YW34.js", "/build/_shared/chunk-G7MQFV5O.js", "/build/_shared/chunk-DLWPYVMV.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/join": { id: "routes/join", parentId: "root", path: "join", index: void 0, caseSensitive: void 0, module: "/build/routes/join-ZKLNOWGW.js", imports: ["/build/_shared/chunk-G7Y7NEXP.js", "/build/_shared/chunk-4KHYPOKT.js", "/build/_shared/chunk-HC7ZJWEE.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/liesaboutjavascript": { id: "routes/liesaboutjavascript", parentId: "root", path: "liesaboutjavascript", index: void 0, caseSensitive: void 0, module: "/build/routes/liesaboutjavascript-YFGHVXDB.js", imports: ["/build/_shared/chunk-IATVABFS.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/login": { id: "routes/login", parentId: "root", path: "login", index: void 0, caseSensitive: void 0, module: "/build/routes/login-IMCVD3E6.js", imports: ["/build/_shared/chunk-G7Y7NEXP.js", "/build/_shared/chunk-4KHYPOKT.js", "/build/_shared/chunk-HC7ZJWEE.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/logout": { id: "routes/logout", parentId: "root", path: "logout", index: void 0, caseSensitive: void 0, module: "/build/routes/logout-OOFYIAXX.js", imports: void 0, hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/models-table": { id: "routes/models-table", parentId: "root", path: "models-table", index: void 0, caseSensitive: void 0, module: "/build/routes/models-table-GPNWRQ7Z.js", imports: ["/build/_shared/chunk-T3NQUK2P.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/nab-2023-audio-video-gear": { id: "routes/nab-2023-audio-video-gear", parentId: "root", path: "nab-2023-audio-video-gear", index: void 0, caseSensitive: void 0, module: "/build/routes/nab-2023-audio-video-gear-CK33YG4I.js", imports: ["/build/_shared/chunk-MPEMIJ4O.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/notes": { id: "routes/notes", parentId: "root", path: "notes", index: void 0, caseSensitive: void 0, module: "/build/routes/notes-IK34EXNI.js", imports: ["/build/_shared/chunk-4KHYPOKT.js", "/build/_shared/chunk-TLQ22VBH.js", "/build/_shared/chunk-HC7ZJWEE.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/notes/$noteId": { id: "routes/notes/$noteId", parentId: "routes/notes", path: ":noteId", index: void 0, caseSensitive: void 0, module: "/build/routes/notes/$noteId-52EZE7CK.js", imports: ["/build/_shared/chunk-AUYLHJJM.js", "/build/_shared/chunk-WA2U3LPD.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/notes/index": { id: "routes/notes/index", parentId: "routes/notes", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/notes/index-RETSRLXI.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/notes/new": { id: "routes/notes/new", parentId: "routes/notes", path: "new", index: void 0, caseSensitive: void 0, module: "/build/routes/notes/new-ZPT6MWED.js", imports: ["/build/_shared/chunk-WA2U3LPD.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/smartbidder-diageo": { id: "routes/smartbidder-diageo", parentId: "root", path: "smartbidder-diageo", index: void 0, caseSensitive: void 0, module: "/build/routes/smartbidder-diageo-UIUOAQML.js", imports: ["/build/_shared/chunk-ZC7SERMF.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/the-art-of-the-clean-install": { id: "routes/the-art-of-the-clean-install", parentId: "root", path: "the-art-of-the-clean-install", index: void 0, caseSensitive: void 0, module: "/build/routes/the-art-of-the-clean-install-E3XOEOY5.js", imports: ["/build/_shared/chunk-BBMWQLC7.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/three-essential-webstorm-shortcuts": { id: "routes/three-essential-webstorm-shortcuts", parentId: "root", path: "three-essential-webstorm-shortcuts", index: void 0, caseSensitive: void 0, module: "/build/routes/three-essential-webstorm-shortcuts-5XQBD2RM.js", imports: ["/build/_shared/chunk-DERAZLSX.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/threejsandweb3": { id: "routes/threejsandweb3", parentId: "root", path: "threejsandweb3", index: void 0, caseSensitive: void 0, module: "/build/routes/threejsandweb3-LAAHEZW3.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/threekeys-to-getting-a-frontend-or-fullstackjob": { id: "routes/threekeys-to-getting-a-frontend-or-fullstackjob", parentId: "root", path: "threekeys-to-getting-a-frontend-or-fullstackjob", index: void 0, caseSensitive: void 0, module: "/build/routes/threekeys-to-getting-a-frontend-or-fullstackjob-WYVRH65D.js", imports: ["/build/_shared/chunk-GAYJPPHW.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/using-airpods-and-audacity-hack": { id: "routes/using-airpods-and-audacity-hack", parentId: "root", path: "using-airpods-and-audacity-hack", index: void 0, caseSensitive: void 0, module: "/build/routes/using-airpods-and-audacity-hack-GH4BBNSJ.js", imports: ["/build/_shared/chunk-5U6STZGN.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vuejs-independant-javascript-framework": { id: "routes/vuejs-independant-javascript-framework", parentId: "root", path: "vuejs-independant-javascript-framework", index: void 0, caseSensitive: void 0, module: "/build/routes/vuejs-independant-javascript-framework-DUGBGQMA.js", imports: ["/build/_shared/chunk-DLWPYVMV.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/weirdinternetfacts": { id: "routes/weirdinternetfacts", parentId: "root", path: "weirdinternetfacts", index: void 0, caseSensitive: void 0, module: "/build/routes/weirdinternetfacts-EEOZNRDN.js", imports: ["/build/_shared/chunk-TRJMSJ7K.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/what-are-the-best-free-text-to-speech-tools": { id: "routes/what-are-the-best-free-text-to-speech-tools", parentId: "root", path: "what-are-the-best-free-text-to-speech-tools", index: void 0, caseSensitive: void 0, module: "/build/routes/what-are-the-best-free-text-to-speech-tools-OTPZU7L6.js", imports: ["/build/_shared/chunk-GMA2IUC5.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/what-is-rag": { id: "routes/what-is-rag", parentId: "root", path: "what-is-rag", index: void 0, caseSensitive: void 0, module: "/build/routes/what-is-rag-3LKIORHO.js", imports: ["/build/_shared/chunk-BR6YX64X.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "cb673a99", hmr: void 0, url: "/build/manifest-CB673A99.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-67QCQQBZ.js", imports: ["/build/_shared/chunk-GZ67VEEQ.js", "/build/_shared/chunk-AQBU3SCW.js", "/build/_shared/chunk-4D7IJTTE.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-P2CHFCHL.js", imports: ["/build/_shared/chunk-WA2U3LPD.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/$title": { id: "routes/$title", parentId: "root", path: ":title", index: void 0, caseSensitive: void 0, module: "/build/routes/$title-DVPV57VI.js", imports: ["/build/_shared/chunk-AUYLHJJM.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/5-ways-ai-can-help-farmland-restoration": { id: "routes/5-ways-ai-can-help-farmland-restoration", parentId: "root", path: "5-ways-ai-can-help-farmland-restoration", index: void 0, caseSensitive: void 0, module: "/build/routes/5-ways-ai-can-help-farmland-restoration-KOBQAZV3.js", imports: ["/build/_shared/chunk-VSD2YW34.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/5waystoenhanceragefficiencywithdspy": { id: "routes/5waystoenhanceragefficiencywithdspy", parentId: "root", path: "5waystoenhanceragefficiencywithdspy", index: void 0, caseSensitive: void 0, module: "/build/routes/5waystoenhanceragefficiencywithdspy-ZQLMI6H5.js", imports: ["/build/_shared/chunk-ZC7SERMF.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: "_index", index: void 0, caseSensitive: void 0, module: "/build/routes/_index-YJA7JGCW.js", imports: ["/build/_shared/chunk-W4FSEKMQ.js", "/build/_shared/chunk-IATVABFS.js", "/build/_shared/chunk-TRJMSJ7K.js", "/build/_shared/chunk-BR6YX64X.js", "/build/_shared/chunk-VPGRWE6F.js", "/build/_shared/chunk-ZC7SERMF.js", "/build/_shared/chunk-MAHSDJRL.js", "/build/_shared/chunk-JKZC5ARB.js", "/build/_shared/chunk-DERAZLSX.js", "/build/_shared/chunk-4EBUDA3J.js", "/build/_shared/chunk-5U6STZGN.js", "/build/_shared/chunk-BBMWQLC7.js", "/build/_shared/chunk-MPEMIJ4O.js", "/build/_shared/chunk-GAYJPPHW.js", "/build/_shared/chunk-H3JK4IV4.js", "/build/_shared/chunk-GMA2IUC5.js", "/build/_shared/chunk-VSD2YW34.js", "/build/_shared/chunk-G7MQFV5O.js", "/build/_shared/chunk-DLWPYVMV.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/admin1": { id: "routes/admin1", parentId: "root", path: "admin1", index: void 0, caseSensitive: void 0, module: "/build/routes/admin1-QEU7YBKS.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/astro-the-most-innovative-javascript-framwork": { id: "routes/astro-the-most-innovative-javascript-framwork", parentId: "root", path: "astro-the-most-innovative-javascript-framwork", index: void 0, caseSensitive: void 0, module: "/build/routes/astro-the-most-innovative-javascript-framwork-OZRJKJD7.js", imports: ["/build/_shared/chunk-H3JK4IV4.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/create-your-own-huggingface-space-easy": { id: "routes/create-your-own-huggingface-space-easy", parentId: "root", path: "create-your-own-huggingface-space-easy", index: void 0, caseSensitive: void 0, module: "/build/routes/create-your-own-huggingface-space-easy-KLOUDON7.js", imports: ["/build/_shared/chunk-G7MQFV5O.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/databricks-dspy-jetblue-ai-chatbot": { id: "routes/databricks-dspy-jetblue-ai-chatbot", parentId: "root", path: "databricks-dspy-jetblue-ai-chatbot", index: void 0, caseSensitive: void 0, module: "/build/routes/databricks-dspy-jetblue-ai-chatbot-JQTRTGY4.js", imports: ["/build/_shared/chunk-MAHSDJRL.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/dspy101": { id: "routes/dspy101", parentId: "root", path: "dspy101", index: void 0, caseSensitive: void 0, module: "/build/routes/dspy101-6LQYSBM6.js", imports: ["/build/_shared/chunk-VPGRWE6F.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/easydomainverificationwithgoogle": { id: "routes/easydomainverificationwithgoogle", parentId: "root", path: "easydomainverificationwithgoogle", index: void 0, caseSensitive: void 0, module: "/build/routes/easydomainverificationwithgoogle-RY6WGSD7.js", imports: ["/build/_shared/chunk-4EBUDA3J.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/how-to-invest-in-whisky": { id: "routes/how-to-invest-in-whisky", parentId: "root", path: "how-to-invest-in-whisky", index: void 0, caseSensitive: void 0, module: "/build/routes/how-to-invest-in-whisky-5ITB43BO.js", imports: ["/build/_shared/chunk-W4FSEKMQ.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/how-to-use-the-pie-menu-in-blender": { id: "routes/how-to-use-the-pie-menu-in-blender", parentId: "root", path: "how-to-use-the-pie-menu-in-blender", index: void 0, caseSensitive: void 0, module: "/build/routes/how-to-use-the-pie-menu-in-blender-2JV4CUJT.js", imports: ["/build/_shared/chunk-JKZC5ARB.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/join": { id: "routes/join", parentId: "root", path: "join", index: void 0, caseSensitive: void 0, module: "/build/routes/join-ZKLNOWGW.js", imports: ["/build/_shared/chunk-G7Y7NEXP.js", "/build/_shared/chunk-4KHYPOKT.js", "/build/_shared/chunk-HC7ZJWEE.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/liesaboutjavascript": { id: "routes/liesaboutjavascript", parentId: "root", path: "liesaboutjavascript", index: void 0, caseSensitive: void 0, module: "/build/routes/liesaboutjavascript-YFGHVXDB.js", imports: ["/build/_shared/chunk-IATVABFS.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/login": { id: "routes/login", parentId: "root", path: "login", index: void 0, caseSensitive: void 0, module: "/build/routes/login-IMCVD3E6.js", imports: ["/build/_shared/chunk-G7Y7NEXP.js", "/build/_shared/chunk-4KHYPOKT.js", "/build/_shared/chunk-HC7ZJWEE.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/logout": { id: "routes/logout", parentId: "root", path: "logout", index: void 0, caseSensitive: void 0, module: "/build/routes/logout-OOFYIAXX.js", imports: void 0, hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/models-table": { id: "routes/models-table", parentId: "root", path: "models-table", index: void 0, caseSensitive: void 0, module: "/build/routes/models-table-HRES7VKO.js", imports: void 0, hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/nab-2023-audio-video-gear": { id: "routes/nab-2023-audio-video-gear", parentId: "root", path: "nab-2023-audio-video-gear", index: void 0, caseSensitive: void 0, module: "/build/routes/nab-2023-audio-video-gear-CK33YG4I.js", imports: ["/build/_shared/chunk-MPEMIJ4O.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/notes": { id: "routes/notes", parentId: "root", path: "notes", index: void 0, caseSensitive: void 0, module: "/build/routes/notes-IK34EXNI.js", imports: ["/build/_shared/chunk-4KHYPOKT.js", "/build/_shared/chunk-TLQ22VBH.js", "/build/_shared/chunk-HC7ZJWEE.js"], hasAction: !1, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/notes/$noteId": { id: "routes/notes/$noteId", parentId: "routes/notes", path: ":noteId", index: void 0, caseSensitive: void 0, module: "/build/routes/notes/$noteId-52EZE7CK.js", imports: ["/build/_shared/chunk-AUYLHJJM.js", "/build/_shared/chunk-WA2U3LPD.js"], hasAction: !0, hasLoader: !0, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/notes/index": { id: "routes/notes/index", parentId: "routes/notes", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/notes/index-RETSRLXI.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/notes/new": { id: "routes/notes/new", parentId: "routes/notes", path: "new", index: void 0, caseSensitive: void 0, module: "/build/routes/notes/new-ZPT6MWED.js", imports: ["/build/_shared/chunk-WA2U3LPD.js"], hasAction: !0, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/smartbidder-diageo": { id: "routes/smartbidder-diageo", parentId: "root", path: "smartbidder-diageo", index: void 0, caseSensitive: void 0, module: "/build/routes/smartbidder-diageo-UIUOAQML.js", imports: ["/build/_shared/chunk-ZC7SERMF.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/the-art-of-the-clean-install": { id: "routes/the-art-of-the-clean-install", parentId: "root", path: "the-art-of-the-clean-install", index: void 0, caseSensitive: void 0, module: "/build/routes/the-art-of-the-clean-install-E3XOEOY5.js", imports: ["/build/_shared/chunk-BBMWQLC7.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/three-essential-webstorm-shortcuts": { id: "routes/three-essential-webstorm-shortcuts", parentId: "root", path: "three-essential-webstorm-shortcuts", index: void 0, caseSensitive: void 0, module: "/build/routes/three-essential-webstorm-shortcuts-5XQBD2RM.js", imports: ["/build/_shared/chunk-DERAZLSX.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/threejsandweb3": { id: "routes/threejsandweb3", parentId: "root", path: "threejsandweb3", index: void 0, caseSensitive: void 0, module: "/build/routes/threejsandweb3-LAAHEZW3.js", imports: void 0, hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/threekeys-to-getting-a-frontend-or-fullstackjob": { id: "routes/threekeys-to-getting-a-frontend-or-fullstackjob", parentId: "root", path: "threekeys-to-getting-a-frontend-or-fullstackjob", index: void 0, caseSensitive: void 0, module: "/build/routes/threekeys-to-getting-a-frontend-or-fullstackjob-WYVRH65D.js", imports: ["/build/_shared/chunk-GAYJPPHW.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/using-airpods-and-audacity-hack": { id: "routes/using-airpods-and-audacity-hack", parentId: "root", path: "using-airpods-and-audacity-hack", index: void 0, caseSensitive: void 0, module: "/build/routes/using-airpods-and-audacity-hack-GH4BBNSJ.js", imports: ["/build/_shared/chunk-5U6STZGN.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/vuejs-independant-javascript-framework": { id: "routes/vuejs-independant-javascript-framework", parentId: "root", path: "vuejs-independant-javascript-framework", index: void 0, caseSensitive: void 0, module: "/build/routes/vuejs-independant-javascript-framework-DUGBGQMA.js", imports: ["/build/_shared/chunk-DLWPYVMV.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/weirdinternetfacts": { id: "routes/weirdinternetfacts", parentId: "root", path: "weirdinternetfacts", index: void 0, caseSensitive: void 0, module: "/build/routes/weirdinternetfacts-EEOZNRDN.js", imports: ["/build/_shared/chunk-TRJMSJ7K.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/what-are-the-best-free-text-to-speech-tools": { id: "routes/what-are-the-best-free-text-to-speech-tools", parentId: "root", path: "what-are-the-best-free-text-to-speech-tools", index: void 0, caseSensitive: void 0, module: "/build/routes/what-are-the-best-free-text-to-speech-tools-OTPZU7L6.js", imports: ["/build/_shared/chunk-GMA2IUC5.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 }, "routes/what-is-rag": { id: "routes/what-is-rag", parentId: "root", path: "what-is-rag", index: void 0, caseSensitive: void 0, module: "/build/routes/what-is-rag-3LKIORHO.js", imports: ["/build/_shared/chunk-BR6YX64X.js"], hasAction: !1, hasLoader: !1, hasCatchBoundary: !1, hasErrorBoundary: !1 } }, version: "a7caa0da", hmr: void 0, url: "/build/manifest-A7CAA0DA.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postcss: !1, unstable_tailwind: !1, v2_errorBoundary: !1, v2_headers: !1, v2_meta: !1, v2_normalizeFormMethod: !1, v2_routeConvention: !1 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
@@ -6668,14 +6550,6 @@ var assetsBuildDirectory = "public/build", future = { v2_dev: !1, unstable_postc
     index: void 0,
     caseSensitive: void 0,
     module: logout_exports
-  },
-  "routes/index": {
-    id: "routes/index",
-    parentId: "root",
-    path: void 0,
-    index: !0,
-    caseSensitive: void 0,
-    module: routes_exports
   },
   "routes/login": {
     id: "routes/login",
