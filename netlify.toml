@@ -9,7 +9,7 @@
 
 [[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "/.netlify/functions/server"
   status = 200
 
 [functions]
@@ -29,3 +29,4 @@
   for = "/*.js"
   [headers.values]
     "Cache-Control" = "public, max-age=31536000, s-maxage=31536000"
+    
