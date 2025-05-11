@@ -4,7 +4,7 @@ import { Form, useTransition, Link, useLoaderData, useActionData } from '@remix-
 import type { LoaderArgs, ActionArgs } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { supabase } from '~/supabase.server';
-import type { Model } from '~/models';
+// import type { Model } from '~/models';
 
 // Loader function
 export async function loader({ request }: LoaderArgs) {
