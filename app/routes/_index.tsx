@@ -1,160 +1,418 @@
-// app/routes/_index.tsx
-// Remove imports from remix-utils
-// import { typedjson, useTypedLoaderData, useTypedActionData } from 'remix-utils';
-import { Form, useTransition, Link, useLoaderData, useActionData } from '@remix-run/react'; // Add useLoaderData, useActionData
-import type { LoaderArgs, ActionArgs } from '@remix-run/node';
-import { json } from '@remix-run/node'; // Import json
-import { supabase } from '~/supabase.server';
-import type { Model } from '~/models';
+import { Link } from "@remix-run/react";
+import analytics from "../../public/analytics1.jpeg";
+import banner from "../../public/old-comp1.jpeg";
+import studio from "../../public/studio.jpg";
+import burden from "../../public/js-burden.jpeg";
+import box from "../../public/boxchicken2.jpeg";
+import graph4 from "../../public/graph4.jpeg";
+import blender1 from "../../public/blender1.jpeg";
+import airpods from "../../public/airpods.jpeg";
+import js1 from "../../public/js1.jpeg";
+import soundguy1 from "../../public/soundsguy1.jpeg";
+import webstorm1 from "../../public/webstorm1.jpeg";
+import cloud from "../../public/cloud1.jpeg"
+import cask from "../../public/cask1.jpeg";
+import letters1 from "../../public/letters1.png";
+import databricks from "../../public/databricks.png";
+import dspyprompt from "../../public/dspyprompt.png";
+import huggingface1 from "../../public/huggingface1.png";
+import fish1 from "../../public/fish1.png";
+import text2speech from "../../public/text2speech.png";
+import restorationImage from "../../public/restoration.png"; // <-- Add import for farmland image if needed
+import type {  } from "remix";
 
-// Loader function
-export async function loader({ request }: LoaderArgs) {
-  const { data, error } = await supabase
-    .from('models')
-    .select('*')
-    .order('release_date', { ascending: false }); // Changed from created_at
+export function meta() {
+  return {  "og:image": box}}
 
-  if (error) {
-    console.error('Loader error:', error);
-    throw new Response('Failed to load models', { status: 500 });
-  }
-  // Use json helper
-  return json(data ?? []);
-}
-
-// Action function
-export async function action({ request }: ActionArgs) {
-  const formData = await request.formData();
-  const name = formData.get('name') as string;
-  const type = formData.get('type') as string;
-  const parameter_count = parseInt(formData.get('parameter_count') as string, 10);
-  const experts = parseInt(formData.get('experts') as string, 10);
-  const context_window_tokens = parseInt(formData.get('context_window_tokens') as string, 10);
-
-
-  // Basic validation (add more robust validation as needed)
-  if (!name || !type || isNaN(parameter_count) || isNaN(experts) || isNaN(context_window_tokens)) {
-    // Use json helper for error response
-    return json({ error: 'Invalid form data' }, { status: 400 });
-  }
-
-  const { data, error } = await supabase
-    .from('models')
-    .insert([{ name, type, parameter_count, experts, context_window_tokens }])
-    .select(); // Use select() to get the inserted data back
-
-  if (error) {
-    console.error('Action error:', error);
-    // Use json helper for error response
-    return json({ error: 'Failed to register model' }, { status: 500 });
-  }
-
-  // Use json helper for success response
-  return json(data ? data[0] : null); // Return the newly created model or null
-}
-
-
-export default function Index() {
-  // Use Remix's built-in hooks
-  const models = useLoaderData<typeof loader>();
-  const actionData = useActionData<typeof action>();
-  const transition = useTransition();
-  const isSubmitting = transition.state === 'submitting';
+export default function Art2() {
 
   return (
-    <div className="max-w-7xl mx-auto p-4">
-       {/* Link to Table Page - Keep or remove as needed */}
-       {/* <div className="mb-4">
-         <Link to="/models-table" className="text-blue-600 hover:underline">
-           View Models Table Page
-         </Link>
-       </div> */}
+    <main className=" items-left justify-left mx-4 min-h-screen bg-white lg:mx-36 md:mx-16">
+    
+    <h1 className="text-left text-xl font-extrabold tracking-tight sm:text-4xl lg:text-6xl ">
+        <span className="block uppercase text-blue-500 drop-shadow-md">
+          Tasty Tech Bytes
+        </span>
+      </h1>
 
-      {/* Form Section */}
-      <section className="mb-12 bg-white shadow-sm rounded-xl p-6">
-        <h2 className="text-2xl font-bold mb-6">Register New AI Model</h2>
-        {/* Display action errors */}
-        {actionData?.error && (
-          <p className="text-red-500 mb-4">{actionData.error}</p>
-        )}
-        {/* Display success message (optional) */}
-        {actionData && !actionData.error && transition.state === 'idle' && (
-           <p className="text-green-500 mb-4">Model registered successfully!</p>
-        )}
+      <p className="text-left text-xl font-extrabold tracking-tight sm:text-xl lg:text-4xl">
+        {" "}
+        Keeping it Tasty in 2025
+      </p>
+      
+      {/* elaborate div section */}
 
-        <Form method="post" className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Form Fields */}
-            {['name', 'type', 'parameter_count', 'experts', 'context_window_tokens'].map((field) => (
-              <div key={field}>
-                <label className="block text-sm font-medium capitalize mb-2">
-                  {field.replace(/_/g, ' ')}
-                </label>
-                <input
-                  name={field}
-                  type={field === 'name' || field === 'type' ? 'text' : 'number'}
-                  required
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-            ))}
+      <div className="grid lg:grid-cols-4 h-1/4 gap-4"> 
+      <div className="col-span-1  h-1/4  ">
+ 
+      <Link to="/how-to-invest-in-whisky">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-yellow-500 p-1 text-lg font-bold tracking-tight text-white">
+            Drink World - Helpful
           </div>
 
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50"
-          >
-            {isSubmitting ? 'Registering...' : 'Register Model'}
-          </button>
-        </Form>
-      </section>
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={cask}
+            alt="casks"
+          />
+          <h1 className="pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+          3 Ways to Invest in Whiskey
+          </h1>
 
-      {/* Models Table */}
-      <section className="bg-white shadow-sm rounded-xl overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <h2 className="text-xl font-semibold">Registered Models</h2>
         </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50">
-              <tr>
-                {/* Define table headers */}
-                {['Name', 'Type', 'Parameters', 'Experts', 'Context Window', 'Release Date'].map((header) => ( // Changed from Created At
-                  <th
-                    key={header}
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    {header}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {/* Map over the models data */}
-              {Array.isArray(models) && models.map((model) => (
-                <tr key={model.id}>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{model.name}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{model.type}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {(model.parameter_count ?? 0).toLocaleString()}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{model.experts ?? 'N/A'}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {(model.context_window_tokens ?? 0).toLocaleString()}
-                  </td>
-                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {model.release_date ? new Date(model.release_date).toLocaleDateString() : 'N/A'} {/* Changed from created_at */}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      </Link>
+      <Link to="/artihow-to-use-the-pie-menu-in-blender">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+        <div className="rounded-full bg-purple-900 p-1 text-lg font-bold tracking-tight text-white">
+            3D World - Helpful
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={blender1}
+            alt="computer and graphs"
+          />
+          <h1 className="pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            The Pie Menu Rocks in Blender
+          </h1>
+
         </div>
-         {(!Array.isArray(models) || models.length === 0) && (
-            <p className="px-6 py-4 text-center text-gray-500">No models registered yet.</p>
-          )}
-      </section>
-    </div>
+      </Link>
+      </div>
+      
+       <div className="lg:col-span-2  lg:h-1/4  "><Link to="/three-essential-webstorm-shortcuts">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-blue-500 p-1 text-lg font-bold tracking-tight text-white">
+            Software - Webstorm
+          </div>
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={webstorm1}
+            alt="computer and graphs"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            The Three WebStorm Shortcuts to Rule Them All
+          </h1>{" "}
+        </div>
+      </Link></div>
+
+        <div className="col-span-1 h-1/4 "> <Link to="/weirdinternetfacts">
+
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-green-400 p-1 text-lg font-bold tracking-tight text-white">
+            Code World - Random
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={banner}
+            alt="computer and graphs"
+          />
+          <h1 className="pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            4 Weird Things about the Internet
+          </h1>
+        </div>
+      </Link>
+      
+      
+     
+      <Link to="/nab-2023-audio-video-gear">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
+            Code World - Helpful
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={soundguy1}
+            alt="computer and graphs"
+          />
+          <h1 className="pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            Highlights from NAB 2023
+          </h1>
+
+        </div>
+      </Link>
+          </div> 
+
+
+        </div>
+
+
+{/* smaller div section */}
+
+
+        <div className="grid grid-cols-4 h-1/4 gap-4">
+          
+           <div className="col-span-1 row-span-1 "> <Link to="/threekeys-to-getting-a-frontend-or-fullstackjob">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
+            Code World - Helpful
+          </div>
+          <img
+            className="m-2 h-auto flex-col rounded-full shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30"
+            src={studio}
+            alt="Studio by Warren Hansen"
+          />
+          <h1 className="pb-3 text-left text-lg font-bold tracking-tight shadow-none transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30 sm:text-3xl lg:text-4xl">
+            The 3 Keys To Getting Your Dream Frontend or Full Stack Engineer Job
+          </h1>{" "}
+        </div>
+      </Link></div> 
+           
+           <div className="col-span-1 "> <Link to="/vuejs-independant-javascript-framework">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
+            Code World - Helpful
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={burden}
+            alt="computer and graphs"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            VueJS as the Most Indie Yet Established Javascript Framework
+          </h1>
+        </div>
+      </Link></div>
+            <div className="col-span-1  ">
+      <Link to="/astro-the-most-innovative-javascript-framwork">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
+            Code World - Helpful
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={box}
+            alt="computer and graphs"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            Astro.js as the Most Innovative and Modern Javascript Framework
+          </h1>
+        </div>
+      </Link>
+      </div>
+             <div className="col-span-1  ">
+     
+     <Link to="/the-art-of-the-clean-install">
+       <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+         <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
+           Code World - Helpful
+         </div>
+
+         <img
+           className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+           src={graph4}
+           alt="computer and graphs"
+         />
+         <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+           The Art of the Clean Install
+         </h1>
+
+       </div>
+     </Link></div> 
+     </div>
+
+    
+     {/* Bigger articles */}
+
+     
+     <Link to="/what-is-rag">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-purple-400 p-1 text-lg font-bold tracking-tight text-white">
+            AI Tips
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={fish1}
+            alt="fish"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">RAG 101 Tutorial: All you need to know about RAG</h1>
+        </div>
+      </Link>   
+
+      <Link to="/what-are-the-best-free-text-to-speech-tools">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-purple-400 p-1 text-lg font-bold tracking-tight text-white">
+            AI Tips
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={text2speech}
+            alt="text to speech"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            What are the Best Free Text-to-Speech Tools? </h1>
+        </div>
+      </Link>   
+
+     <Link to="/dspy101">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-purple-400 p-1 text-lg font-bold tracking-tight text-white">
+            AI Tips
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={dspyprompt}
+            alt="dspyprompt"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">DSPy 101 Tutorial: Prompting Guide</h1>
+        </div>
+      </Link>   
+
+     <Link to="/databricks-dspy-jetblue-ai-chatbot">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-purple-400 p-1 text-lg font-bold tracking-tight text-white">
+            AI Tips
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={databricks}
+            alt="databricks"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl "> JetBlue Optimizes Databricks LLM Pipelines with DSPy </h1>
+        </div>
+      </Link>   
+
+     <Link to="/5waystoenhanceragefficiencywithdspy">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-purple-400 p-1 text-lg font-bold tracking-tight text-white">
+            AI Tips
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={letters1}
+            alt="letters"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl "> 5 ways to enhance RAG efficiency with DSPy   </h1>
+        </div>
+      </Link>
+      
+      <Link to="/threejsandweb3">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-green-800 p-1 text-lg font-bold tracking-tight text-white">
+            Code Art - ThreeJS
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={cloud}
+            alt="clouds"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            ThreeJS, the old Web3?
+          </h1>
+        </div>
+      </Link>
+
+      <Link to="/easydomainverificationwithgoogle">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+        <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
+           Code World - Helpful
+         </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={analytics}
+            alt="analytics chart"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+          The Easy Way to Verify Domain Ownership with Google
+          </h1>
+        </div>
+      </Link>
+      <Link to="/liesaboutjavascript">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+        <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
+           Code World - Helpful
+         </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={js1}
+            alt="javascript chart"
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+          Sweet Little JavaScript Lies About Javascript          </h1>
+        </div>
+      </Link>
+      <Link to="/create-your-own-huggingface-space-easy">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-red-900 p-1 text-lg font-bold tracking-tight text-white">
+            Code World - Helpful
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={huggingface1}
+            alt="emoji"
+          />
+          <h1 className="pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+          The easy way to publish on Hugging Face Spaces
+          </h1>
+
+        </div>
+      </Link>
+      <Link to="/5-ways-ai-can-help-farmland-restoration"> {/* <-- Update this path */}
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-green-700 p-1 text-lg font-bold tracking-tight text-white"> {/* <-- Updated category color/text */}
+            AI & Sustainability {/* <-- Update category if needed */}
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={restorationImage} /* <-- Replace with correct image variable */
+            alt="Farmland restoration" /* <-- Update alt text */
+          />
+          <h1 className="pb-4 text-left text-xl font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+             5 Ways AI Can Help Farmland Restoration {/* <-- Update title */}
+          </h1>
+        </div>
+      </Link>
+      {/* New Link for Models Table */}
+      <Link to="/models-table">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-indigo-600 p-1 text-lg font-bold tracking-tight text-white"> {/* Changed color and text */}
+            AI Models
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={databricks} 
+            alt="AI models table"
+          />
+          <h1 className="pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            View Registered AI Models {/* Changed title */}
+          </h1>
+
+        </div>
+      </Link>
+
+      <Link to="/using-airpods-and-audacity-hack">
+        <div className="transition-shadow duration-300 ease-in-out hover:bg-gray-100">
+          <div className="rounded-full bg-pink-600 p-1 text-lg font-bold tracking-tight text-white">
+            Tech World - Helpful
+          </div>
+
+          <img
+            className="items-left justify-left m-2 h-auto max-w-full flex-col rounded-full"
+            src={airpods}
+            alt="computer and graphs"
+          />
+          <h1 className="pb-4 text-left text-lg font-bold tracking-tight sm:text-3xl lg:pb-12 lg:text-4xl ">
+            AirPods Audacity: How to make AirPods(or any other bluetooth audio) work with Audacity 2023
+          </h1>
+
+        </div>
+      </Link>
+    </main>
   );
 }

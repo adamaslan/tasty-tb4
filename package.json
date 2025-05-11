@@ -27,7 +27,7 @@
     "/server/build"
   ],
   "dependencies": {
-    "@netlify/functions": "^1.4.0",
+    "@netlify/functions": "^1.6.0",
     "@netlify/remix-adapter": "^2.6.1",
     "@react-three/drei": "^9.68.3",
     "@remix-run/netlify": "^1.10.0",

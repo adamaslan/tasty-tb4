@@ -1,84 +1,128 @@
+import { json } from "@remix-run/node";
+import { Form, useLoaderData, useActionData } from "@remix-run/react";
+import type { ActionArgs, LoaderArgs } from "@remix-run/node";
+import { supabase } from "~/supabase.server";
 
-import type { LoaderArgs } from '@remix-run/node';
-import { json } from '@remix-run/node'; // Import json from @remix-run/node
-import { useLoaderData } from '@remix-run/react';
-import { supabase } from '~/supabase.server';
-import type { Model } from '~/models';
-
-// Loader function to fetch data from Supabase on the server
-export async function loader({ request }: LoaderArgs) {
-  const { data, error } = await supabase
-    .from('models') // Fetch from the 'models' table
-    .select('*')
-    .order('release_date', { ascending: false }); // Changed from created_at
-
-  if (error) {
-    console.error('Loader error:', error);
-    // It's good practice to handle errors gracefully
-    // Throwing a Response is better than returning null/empty data on error
-    throw new Response('Failed to load models', { status: 500 });
-  }
-
-  // Return the data using the json helper from Remix
-  // Ensure data is not null before returning
-  return json(data ?? []); // Use json() and provide an empty array fallback if data is null
+interface Model {
+  id: string;
+  name: string;
+  type: string;
+  parameter_count: number;
+  experts: number;
+  context_window_tokens: number;
+  release_date: string;
 }
 
-// React component to display the data
-export default function ModelsTablePage() {
-  // Use the hook to get data fetched by the loader
-  // Type assertion might be needed if TS can't infer from json() return
-  const models = useLoaderData<typeof loader>();
+export const loader = async ({ request }: LoaderArgs) => {
+  try {
+    const { data, error } = await supabase
+      .from('models')
+      .select('*')
+      .order('release_date', { ascending: false });
+
+    if (error) throw error;
+    return json({ models: data as Model[] });
+
+  } catch (error) {
+    return json({ error: "Failed to fetch models" }, { status: 500 });
+  }
+};
+
+export const action = async ({ request }: ActionArgs) => {
+  const formData = await request.formData();
+  const model = {
+    name: formData.get('name'),
+    type: formData.get('type'),
+    parameter_count: Number(formData.get('parameter_count')),
+    experts: Number(formData.get('experts')),
+    context_window_tokens: Number(formData.get('context_window_tokens'))
+  };
+
+  // Validation
+  const errors: Record<string, string> = {};
+  if (!model.name) errors.name = "Name is required";
+  if (!model.type) errors.type = "Type is required";
+  if (isNaN(model.parameter_count)) errors.parameter_count = "Invalid parameter count";
+  if (isNaN(model.experts)) errors.experts = "Invalid experts count";
+  if (isNaN(model.context_window_tokens)) errors.context_window_tokens = "Invalid context window";
+
+  if (Object.keys(errors).length > 0) {
+    return json({ errors });
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('models')
+      .insert([model])
+      .select();
+
+    if (error) throw error;
+    return json({ success: true, model: data[0] });
+
+  } catch (error) {
+    return json({ error: "Failed to create model" }, { status: 500 });
+  }
+};
+
+export default function ModelsTable() {
+  const { models } = useLoaderData<typeof loader>();
+  const actionData = useActionData<typeof action>();
 
   return (
-    <div className="max-w-7xl mx-auto p-4">
-      <section className="bg-white shadow-sm rounded-xl overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <h1 className="text-2xl font-bold">Registered AI Models</h1>
+    <div className="p-8">
+      <h1 className="text-2xl font-bold mb-4">AI Models</h1>
+      
+      {/* Add Model Form */}
+      <Form method="post" className="mb-8 p-4 bg-gray-100 rounded">
+        <div className="grid grid-cols-2 gap-4 mb-4">
+          <div>
+            <label>Name</label>
+            <input name="name" className="w-full p-2" />
+            {actionData?.errors?.name && (
+              <p className="text-red-500">{actionData.errors.name}</p>
+            )}
+          </div>
+
+          <div>
+            <label>Type</label>
+            <input name="type" className="w-full p-2" />
+            {actionData?.errors?.type && (
+              <p className="text-red-500">{actionData.errors.type}</p>
+            )}
+          </div>
+
+          {/* Other form fields */}
         </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50">
-              <tr>
-                {/* Define table headers */}
-                {['Name', 'Type', 'Parameters', 'Experts', 'Context Window', 'Release Date'].map((header) => ( // Changed from Created At
-                  <th
-                    key={header}
-                    className="px-6 py-3 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider"
-                  >
-                    {header}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {/* Map over the models data to create table rows */}
-              {/* Add optional chaining or check if models is an array */}
-              {Array.isArray(models) && models.map((model) => (
-                <tr key={model.id}>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{model.name}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{model.type}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {/* Add nullish coalescing for potentially null numeric values */}
-                    {(model.parameter_count ?? 0).toLocaleString()}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{model.experts ?? 'N/A'}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {(model.context_window_tokens ?? 0).toLocaleString()}
-                  </td>
-                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {model.release_date ? new Date(model.release_date).toLocaleDateString() : 'N/A'} {/* Changed from created_at */}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-         {/* Add optional chaining or check if models is an array */}
-         {(!Array.isArray(models) || models.length === 0) && (
-            <p className="px-6 py-4 text-center text-gray-500">No models found.</p>
-          )}
-      </section>
+        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+          Add Model
+        </button>
+      </Form>
+
+      {/* Models Table */}
+      <table className="w-full">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Parameters</th>
+            <th>Experts</th>
+            <th>Context Window</th>
+            <th>Release Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {models?.map((model) => (
+            <tr key={model.id}>
+              <td>{model.name}</td>
+              <td>{model.type}</td>
+              <td>{model.parameter_count.toLocaleString()}</td>
+              <td>{model.experts}</td>
+              <td>{model.context_window_tokens.toLocaleString()}</td>
+              <td>{new Date(model.release_date).toLocaleDateString()}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
