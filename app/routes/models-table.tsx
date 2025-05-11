@@ -14,18 +14,12 @@ interface Model {
 }
 
 export const loader = async ({ request }: LoaderArgs) => {
-  try {
-    const { data, error } = await supabase
-      .from('models')
-      .select('*')
-      .order('release_date', { ascending: false });
+  const { data } = await supabase
+    .from('models')
+    .select('*')
+    .order('release_date', { ascending: false });
 
-    if (error) throw error;
-    return json({ models: data as Model[] });
-
-  } catch (error) {
-    return json({ error: "Failed to fetch models" }, { status: 500 });
-  }
+  return json({ models: data as Model[] });
 };
 
 export const action = async ({ request }: ActionArgs) => {
@@ -38,34 +32,17 @@ export const action = async ({ request }: ActionArgs) => {
     context_window_tokens: Number(formData.get('context_window_tokens'))
   };
 
-  // Validation
-  const errors: Record<string, string> = {};
-  if (!model.name) errors.name = "Name is required";
-  if (!model.type) errors.type = "Type is required";
-  if (isNaN(model.parameter_count)) errors.parameter_count = "Invalid parameter count";
-  if (isNaN(model.experts)) errors.experts = "Invalid experts count";
-  if (isNaN(model.context_window_tokens)) errors.context_window_tokens = "Invalid context window";
+  const { data } = await supabase
+    .from('models')
+    .insert([model])
+    .select();
 
-  if (Object.keys(errors).length > 0) {
-    return json({ errors });
-  }
-
-  try {
-    const { data, error } = await supabase
-      .from('models')
-      .insert([model])
-      .select();
-
-    if (error) throw error;
-    return json({ success: true, model: data[0] });
-
-  } catch (error) {
-    return json({ error: "Failed to create model" }, { status: 500 });
-  }
+  return json({ success: true, model: data ? data[0] : null });
 };
 
 export default function ModelsTable() {
-  const { models } = useLoaderData<typeof loader>();
+  const data = useLoaderData<typeof loader>();
+  const models = 'models' in data ? data.models : [];
   const actionData = useActionData<typeof action>();
 
   return (
@@ -78,17 +55,11 @@ export default function ModelsTable() {
           <div>
             <label>Name</label>
             <input name="name" className="w-full p-2" />
-            {actionData?.errors?.name && (
-              <p className="text-red-500">{actionData.errors.name}</p>
-            )}
           </div>
 
           <div>
             <label>Type</label>
             <input name="type" className="w-full p-2" />
-            {actionData?.errors?.type && (
-              <p className="text-red-500">{actionData.errors.type}</p>
-            )}
           </div>
 
           {/* Other form fields */}
@@ -110,15 +81,27 @@ export default function ModelsTable() {
             <th>Release Date</th>
           </tr>
         </thead>
-        <tbody>
-          {models?.map((model) => (
+        <tbody className="divide-y divide-gray-200">
+          {Array.isArray(models) && models.map((model) => (
             <tr key={model.id}>
-              <td>{model.name}</td>
-              <td>{model.type}</td>
-              <td>{model.parameter_count.toLocaleString()}</td>
-              <td>{model.experts}</td>
-              <td>{model.context_window_tokens.toLocaleString()}</td>
-              <td>{new Date(model.release_date).toLocaleDateString()}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                {model.name || 'N/A'}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {model.type || 'N/A'}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {model.parameter_count != null ? model.parameter_count.toLocaleString() : 'N/A'}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {model.experts != null ? model.experts : 'N/A'}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {model.context_window_tokens != null ? model.context_window_tokens.toLocaleString() : 'N/A'}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {model.release_date ? new Date(model.release_date).toLocaleDateString() : 'N/A'}
+              </td>
             </tr>
           ))}
         </tbody>
