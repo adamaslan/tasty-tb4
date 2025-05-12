@@ -4,7 +4,7 @@ import { Form, useTransition, Link, useLoaderData, useActionData } from '@remix-
 import type { LoaderArgs, ActionArgs } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { supabase } from '~/supabase.server';
-import type { Model } from '~/models';
+// import type { Model } from '~/models';
 
 // Loader function
 export async function loader({ request }: LoaderArgs) {
@@ -54,11 +54,13 @@ export async function action({ request }: ActionArgs) {
 
 
 export default function ModelsTable() {
-  // Use Remix's built-in hooks
   const models = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   const transition = useTransition();
   const isSubmitting = transition.state === 'submitting';
+
+  // Add loading state
+  const isLoading = transition.state === 'loading';
 
   return (
     <div className="max-w-7xl mx-auto p-4">
@@ -111,49 +113,71 @@ export default function ModelsTable() {
 
       {/* Models Table */}
       <section className="bg-white shadow-sm rounded-xl overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <h2 className="text-xl font-semibold">Registered Models</h2>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50">
-              <tr>
-                {/* Define table headers */}
-                {['Name', 'Type', 'Parameters', 'Experts', 'Context Window', 'Release Date'].map((header) => (
-                  <th
-                    key={header}
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    {header}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {/* Map over the models data */}
-              {Array.isArray(models) && models.map((model) => (
-                <tr key={model.id}>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{model.name}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{model.type}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {(model.parameter_count ?? 0).toLocaleString()}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{model.experts ?? 'N/A'}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {(model.context_window_tokens ?? 0).toLocaleString()}
-                  </td>
-                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {model.release_date ? new Date(model.release_date).toLocaleDateString() : 'N/A'}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        {isLoading ? (
+          <div className="p-6 text-center text-gray-500">
+            Loading models...
+          </div>
+        ) : (
+          <>
+            <div className="px-6 py-4 border-b border-gray-200">
+              <h2 className="text-xl font-semibold">Registered Models</h2>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gray-50">
+                  <tr>
+                    {/* Define table headers */}
+                    {['Name', 'Type', 'Parameters', 'Experts', 'Context Window', 'Release Date'].map((header) => (
+                      <th
+                        key={header}
+                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        {header}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {Array.isArray(models) && models.map((model) => (
+                    <tr key={model.id}>
+                      {/* Add null checks for all model properties */}
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        {model.name || 'N/A'}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {model.type || 'N/A'}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {(model.parameter_count ?? 0).toLocaleString()}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{model.experts ?? 'N/A'}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {(model.context_window_tokens ?? 0).toLocaleString()}
+                      </td>
+                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        {model.release_date ? new Date(model.release_date).toLocaleDateString() : 'N/A'}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
          {(!Array.isArray(models) || models.length === 0) && (
             <p className="px-6 py-4 text-center text-gray-500">No models registered yet.</p>
           )}
       </section>
+    </div>
+  );
+}
+
+// Add Error Boundary
+export function ErrorBoundary({ error }: { error: Error }) {
+  return (
+    <div className="p-4 bg-red-100 text-red-700 rounded-lg">
+      <h2 className="font-bold mb-2">Table Error:</h2>
+      <p>{error.message}</p>
     </div>
   );
 }
