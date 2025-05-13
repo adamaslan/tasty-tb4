@@ -1,15 +1,23 @@
-{
-  "name": "kpop-stack-template",
-  "private": true,
-  "description": "",
-  "license": "",
-  "sideEffects": false,
-  "scripts": {
-    "build": "remix build",
-    "dev": "remix dev",
-    "start": "netlify serve",
-    "typecheck": "tsc"
-  },
+{"name": "kpop-stack-template",
+"private": true,
+"description": "",
+"license": "",
+"sideEffects": false,
+"scripts": {
+  "build": "run-s build:*",
+  "build:css": "npm run generate:css -- --minify",
+  "build:remix": "remix build",
+  "dev": "run-p dev:*",
+  "dev:css": "npm run generate:css -- --watch",
+  "dev:remix": "remix dev",
+  "e2e-test": "cypress run",
+  "format": "prettier --write .",
+  "generate:css": "npx tailwindcss -o ./app/styles/tailwind.css",
+  "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
+  "ntl:ci": "netlify dev",
+  "start": "cross-env NODE_ENV=production netlify dev",
+  "typecheck": "tsc -b"
+},
   "prettier": {},
   "eslintIgnore": [
     "/netlify/functions/server",
@@ -54,7 +62,7 @@
     "typescript": "^4.6.3"
   },
   "engines": {
-    "node": ">=18",
-    "type": "module"
+    "node": ">=18"
+ 
   }
 }
