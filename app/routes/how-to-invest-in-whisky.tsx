@@ -22,6 +22,7 @@ export default function Article5() {
           {" "}
           3 Ways to Invest in Whiskey{" "}
         </h1>{" "}
+        <h2>By Adam Aslan</h2>
         <img
           className="mx-auto my-auto h-1/2 w-1/2 "
           src={cask}
